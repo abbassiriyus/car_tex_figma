@@ -1,0 +1,1437 @@
+.car_slider{
+    width: 95%;
+    margin: auto;
+
+}
+
+.car_slider_top{
+display: grid;
+grid-template-columns: auto auto;margin: auto;
+margin-top: 40px;
+ font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 400;
+font-style: Regular;
+  font-size: 18px;
+leading-trim: NONE;
+line-height: 130%;
+letter-spacing: 0%;
+color: #383838;
+max-width: 1280px;
+
+gap: 10px;
+}
+.car_slider_top_1{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+}
+.car_slider_top_1 p{
+        display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+}
+.car_slider_top_2{
+    width: 
+    100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+.car_slider_top_2 button{
+     font-family: "TT Hoves", Arial, sans-serif;
+     color: #FFFFFF;
+     background-color: #0A4BA9;
+border: none;
+opacity: 1;
+border-radius: 5px;
+gap: 6px;
+padding-top: 16px;
+padding-right: 24px;
+padding-bottom: 16px;
+padding-left: 24px;
+display: flex;
+align-items: center;
+}
+@media(max-width:991px){
+    .car_slider_top{
+    
+    display: none;}
+
+}
+
+
+
+.car_slider_mid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;max-width: 1280px;
+    margin: auto;
+    margin-top: 20px;
+}
+.car_slider_mid_image_big_circle{
+    width: 10px ;
+    height: 10px;
+    background-color: #E73C3B;
+    border-radius: 50%;
+}
+.car_slider_mid_image_big{
+    gap: 5px;
+    background-color: #FFFFFFCC;
+    height: 400px;
+    border-radius: 16px;
+    background: url("../img/243dfd3d6587d14768a27f2bd398ba8a5fb55e13.png");
+    background-size: cover; padding: 20px;
+}
+.car_slider_mid_image_big p{
+   
+    height: auto;
+    width: auto;
+display: flex;
+}
+.car_slider_mid_image{
+    display: grid;
+    grid-template-columns: 1fr;
+}
+.car_slider_mid_image_big_p{ 
+    background-color: #FFFFFFCC;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border: none;
+    border-radius: 100px;
+    padding: 8px;
+   
+}
+.car_slider_mid_image_smalls{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+}
+.car_slider_mid_image_small{
+    height: 126px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+}
+.car_slider_mid_image_small button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    border-radius: 100px;
+    padding: 10px 12px;
+    font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 400;
+font-style: Regular;
+font-size: 18px;
+leading-trim: NONE;
+line-height: 120%;
+letter-spacing: 0%;
+color: #383838;
+
+}
+.car_slider_mid_text_page{
+    text-wrap: wrap;
+}
+.car_slider_mid_text h1{
+   font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 600;
+font-style: DemiBold;
+font-size: 38px;
+leading-trim: NONE;
+line-height: 120%;
+letter-spacing: 0%;
+margin-bottom: 20px;
+
+}
+.car_slider_mid_text_p{
+margin-top: 20px;
+display: flex;
+gap: 5px;
+}
+.car_slider_mid_rec{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 140px;
+    align-items: center;
+    margin-bottom: 25px;
+}
+.car_slider_mid_rec button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 241px;
+height: 42px;
+
+opacity: 1;
+border-radius: 100px;
+gap: 4px;
+padding-top: 10px;
+padding-right: 12px;
+padding-bottom: 10px;
+padding-left: 12px;
+border: none;
+background-color: #F28D00;
+color: white;
+}
+.car_slider_mid_rec h4{
+    font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 600;
+font-style: DemiBold;
+font-size: 24px;
+leading-trim: NONE;
+line-height: 130%;
+letter-spacing: 0%;
+
+}
+.car_slider_svet{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.car_slider_pod{
+    background-color: #383838;
+    width: 187px;
+height: 48px;
+opacity: 1;
+   font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 400;
+font-style: Regular;
+font-size: 18px;
+leading-trim: NONE;
+line-height: 120%;
+letter-spacing: 0%;
+color: #F9F9F9;
+border-radius: 5px;
+gap: 10px;
+padding-top: 12px;
+padding-right: 30px;
+padding-bottom: 12px;
+padding-left: 30px;
+border: none;
+display: flex; gap: 16px;
+margin-top: 20px;
+align-items: center;justify-content: center;
+}
+@media (max-width:812px) {
+    .car_slider_mid{display: block;}
+    .car_slider_mid_image_smalls{
+        display: none;
+    }
+    .car_slider_mid_text h1{
+        margin-top: 30px;
+    }
+    .car_slider_mid_rec {margin-top: 20px;}
+    .car_slider_mid_rec{
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    .car_slider_mid_text_p{
+        font-size: 16px;
+        flex-wrap: wrap;
+    }
+    .car_slider_pod {
+        width: 100%;
+    }
+    .car_slider_mid_image_big{
+        height: 248px;
+    }
+}
+
+.red_circle{width: 12px;
+height: 12px;
+border-radius: 50%;background-color: #E73C3B;}
+.yelow_circle{
+    width: 12px;
+height: 12px;
+border-radius: 50%;background-color: #FFB614;
+}
+.green_circle{
+    width: 12px;
+height: 12px;
+border-radius: 50%;background-color: #11B566;
+}
+.grey_circle{
+    width: 12px;
+height: 12px;
+border-radius: 50%;background-color: #1B1B1B99;
+}
+
+
+.car_ochots{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 95%;
+    max-width: 1280px;
+    margin: auto;
+    gap: 20px;
+  
+    margin-top: 20px;
+  
+
+}
+.car_ochot{
+    background-color: white;padding: 20px;
+    border-radius: 16px;
+}
+.car_ochot h1{
+   font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 600;
+font-style: DemiBold;
+font-size: 24px;
+leading-trim: NONE;
+line-height: 130%;
+letter-spacing: 0%;
+}
+.car_ochot_teg{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 10px 0px;
+}
+.car_ochot_teg h2{
+      font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 600;
+font-style: DemiBold;
+font-size: 18px;
+leading-trim: NONE;
+line-height: 120%;
+letter-spacing: 0%;
+  color: #383838;
+  display: flex;
+  align-items: center;gap: 5px;
+}
+.car_ochot_teg_p{
+   display: flex;
+   grid-column: 1fr 1fr;
+   align-items: center;
+   justify-content: flex-end;
+   gap: 10px;
+ 
+}
+.car_ochot_teg_p_2{
+    display: flex;
+    gap: 7px;
+}
+.car_ochot_teg_p_2_mini{
+    display: flex;
+}
+
+@media(max-width:750px){
+    .car_ochots{
+    display: grid;
+    grid-template-columns: 1fr }
+    .car_ochot h1 {
+        font-size: 20px;
+    }
+    .car_ochot_teg h2 {
+        font-size: 16px;
+    }
+    .car_ochot_teg_p{
+        font-size: 16px;
+        
+    }
+.car_ochot_teg_p_2{
+    text-align: right;
+    display: flex;
+    justify-content: end;
+ flex-wrap: wrap;
+ align-items: start;
+}
+.car_ochot
+ {
+    background-color: white;
+    padding: 6px;}
+}
+@media(max-width:750px){
+    .car_ochots{
+    display: grid;
+    grid-template-columns: 1fr }
+    .car_ochot h1 {
+        font-size: 20px;
+    }
+    .car_ochot_teg h2 {
+        font-size: 14px;
+    }
+    .car_ochot_teg_p{
+        font-size: 14px;
+        
+    }
+    .car_ochot_teg {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;}
+.car_ochot_teg_p_2{
+    text-align: right;
+    display: flex;
+    justify-content: end;
+ flex-wrap: wrap;
+ align-items: start;
+}
+.car_ochot
+ {
+    background-color: white;
+    padding: 6px;}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.vash_secrety{
+    max-width: 1280px;
+    margin: auto;
+    width: 95%;
+}
+
+.vash_secrety p{
+text-wrap: wrap;
+}
+.vash_secrety h1{
+    font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 600;
+font-style: DemiBold;
+font-size: 38px;
+leading-trim: NONE;
+line-height: 120%;
+text-wrap: wrap;
+letter-spacing: 0%;
+text-align: center;
+
+}
+.vash_secrety_p{
+    color: #383838;
+    font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 400;
+font-style: Regular;
+font-size: 24px;
+leading-trim: NONE;
+line-height: 130%;
+letter-spacing: 0%;
+text-align: center;
+text-wrap: wrap;
+margin: 20px;
+margin-bottom: 20px;
+
+}
+.vash_secrety_cards{display: flex;max-width: 846px;
+margin: auto;
+gap: 20px;
+}
+.vash_secrety_card_title{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.vash_secrety_card_title h2{
+   font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 600;
+font-style: DemiBold;
+font-size: 24px;
+leading-trim: NONE;
+line-height: 130%;
+letter-spacing: 0%;
+
+}
+.vash_secrety_card{
+    padding: 20px;
+    background-color: white;
+    border-radius: 16px;
+}
+.vash_secrety_card p{
+   font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 400;
+font-style: Regular;
+font-size: 18px;
+leading-trim: NONE;
+line-height: 120%;
+letter-spacing: 0%;
+margin-top: 20px;
+margin-bottom: 20px;
+}
+.vash_secrety_card button{
+    display: flex;
+gap: 6px;
+border-radius: 5px;
+padding-top: 16px;
+padding-right: 24px;
+padding-bottom: 16px;
+padding-left: 24px;
+border: none;
+background-color: #0A4BA9;
+font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 400;
+font-style: Regular;
+font-size: 18px;
+leading-trim: NONE;
+line-height: 120%;
+letter-spacing: 0%;
+color: white;
+}
+@media(max-width:742px){
+    .vash_secrety_cards{display: flex;max-width: 846px;
+        flex-direction: column;
+margin: auto;
+gap: 20px;
+
+}.vash_secrety h1{font-size: 26px;}
+.vash_secrety_p {
+    color: #383838;
+    font-family: "TT Hoves", Arial, sans-serif;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 20px;
+    leading-trim: NONE;
+    line-height: 130%;
+    letter-spacing: 0%;
+    text-align: center;
+    text-wrap: wrap;
+    margin: 6px;
+    margin-bottom: 20px;
+}
+.vash_secrety_card_title h2{
+   font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 600;
+font-style: DemiBold;
+font-size: 20px;}
+.vash_secrety_card p{
+    font-size: 16px;
+}
+.vash_secrety_card {
+    padding: 10px}
+    .vash_secrety_card button {
+        font-size: 16px;
+    }
+}
+
+
+
+
+.yurist{
+    max-width: 1276px;
+    width: 95%;
+    margin: auto;
+}
+.yurist_title{
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.yurist_title h1{
+ font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 600;
+font-style: DemiBold;
+font-size: 38px;
+leading-trim: NONE;
+line-height: 120%;
+letter-spacing: 0%;
+
+}
+.yurist_title button{
+ font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 400;
+font-style: Regular;
+font-size: 18px;
+leading-trim: NONE;
+line-height: 120%;
+letter-spacing: 0%;
+gap: 6px;
+border: none;
+border-radius: 5px;
+padding-top: 16px;
+padding-right: 24px;
+padding-bottom: 16px;
+padding-left: 24px;
+background-color: #383838;
+color: white;
+}
+.yurist_red{
+     font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 400;
+font-style: Regular;
+font-size: 18px;
+leading-trim: NONE;
+line-height: 120%;
+letter-spacing: 0%;
+background-color: #FFEAEA;
+gap: 10px;
+border-radius: 10px;
+padding-top: 20px;
+padding-right: 16px;
+padding-bottom: 20px;
+padding-left: 16px;
+text-wrap: wrap;
+margin-top: 20px;
+margin-bottom: 20px;
+}
+
+.yurist_cards{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr ;
+    gap: 20px;
+}
+.yurist_card {
+padding: 23px;
+background-color: #FFFFFF;
+border-radius: 16px;
+}
+.yurist_card p{
+    text-wrap: wrap;
+      font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 400;
+font-style: Regular;
+font-size: 18px;
+leading-trim: NONE;
+line-height: 120%;
+letter-spacing: 0%;
+color: #383838;
+
+}
+.yurist_card h1{
+       text-wrap: wrap;
+         font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 600;
+font-style: DemiBold;
+font-size: 24px;
+leading-trim: NONE;
+line-height: 130%;
+color: #383838;
+letter-spacing: 0%;
+
+}
+.yurist_button{
+    display: none;
+}
+.yurist_card_title{
+    display: grid;
+   grid-template-columns: 1fr 14px;
+}
+@media(max-width:900px){
+    .yurist_cards{
+    display: grid;
+    grid-template-columns: 1fr 1fr ;
+    gap: 20px;
+}
+}
+@media(max-width:630px){
+    .yurist_cards{
+    display: grid;
+    grid-template-columns: 1fr ;
+    gap: 10px;
+}
+.yurist_title button{
+    display: none;
+}
+.yurist_card p{
+    display: none;
+}
+.yurist_card{
+padding: 16px;
+border-radius: 8px;
+}
+.yurist_title h1 {
+    font-size: 26px;
+}
+.yurist_red {
+    font-size: 16px;
+}
+.yurist_card_title h1{
+    font-size: 16px;
+
+}
+.yurist_card_title{
+    display: grid;
+    align-items: center;
+    grid-template-columns: auto 14px;
+}
+.yurist_button{
+    display: block;
+    background-color: #383838;
+    border-radius: 6px;
+    width: 100%;
+opacity: 1;
+border: none;
+gap: 6px;
+border-radius: 6px;
+padding-top: 14px;
+padding-right: 20px;
+padding-bottom: 14px;
+padding-left: 20px;
+font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 400;
+font-style: Regular;
+font-size: 16px;
+leading-trim: NONE;
+line-height: 120%;
+letter-spacing: 0%;
+color: white;
+margin-top: 20px;
+}
+}
+
+
+
+.sena{
+    max-width: 1276px;
+    width: 95%;
+    margin: auto;
+}
+.sena h1{
+font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 600;
+font-style: DemiBold;
+font-size: 38px;
+leading-trim: NONE;
+line-height: 120%;
+letter-spacing: 0%;
+margin-top: 30px;
+color: #383838;
+}
+.sena_oneCard{
+padding: 20px;
+background-color: white;
+margin-top: 15px;
+border-radius: 16px;
+margin-bottom: 30px;
+}
+.sena_oneCard h2{
+text-wrap: wrap;
+color: #383838;
+font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 600;
+font-style: DemiBold;
+font-size: 24px;
+leading-trim: NONE;
+line-height: 130%;
+letter-spacing: 0%;
+
+}
+.sena_oneCard .sena_p{
+text-wrap: wrap;
+color: #383838;
+font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 400;
+font-style: Regular;
+font-size: 18px;
+leading-trim: NONE;
+line-height: 120%;
+letter-spacing: 0%;
+/* padding: 15px; */
+padding-bottom: 15px;
+padding-top: 15px;
+}
+.sena_urns{
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 1.3fr 1.7fr;
+}
+.sena_urn_line{
+    height: 11px;
+    border-radius: 100px;
+    background-color: #DCDCDC4D;
+    margin-bottom: 10px;
+}
+.sena_urn_p{
+    font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 400;
+font-style: Regular;
+font-size: 18px;
+leading-trim: NONE;
+line-height: 120%;
+letter-spacing: 0%;
+color: #1b1b1b93;
+margin-top: 20px;
+margin-bottom: 10px;
+}
+.sena_urns .sena_urn:nth-child(1) .sena_urn_line {
+ background-color: #383838;
+}
+@media(max-width:830px){
+    .sena_urns{
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr;
+}
+.sena h1 {
+    font-size: 26px;
+}
+.sena_urns .sena_urn:nth-child(1) .sena_urn_line {
+  width: 60%;
+}
+
+.sena_urns .sena_urn:nth-child(2) .sena_urn_line {
+  width: 80%;
+}
+
+.sena_urns .sena_urn:nth-child(3) .sena_urn_line {
+ width: 100%;
+}
+.sena_oneCard h2 {
+    font-size: 20px;
+}
+.sena_oneCard .sena_p {
+    font-size: 16px;
+}
+.sena_urn_p,.sena_urn_p2 {
+    font-size: 16px;
+}
+}
+
+
+
+
+
+
+/* SECTION */
+.istoriya-section {
+  padding: 24px;
+  max-width: 1246px;
+  margin: auto;
+  width: 95%;
+}
+
+/* HEADER */
+.istoriya-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.istoriya-header-title {
+ color: #383838;
+  font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 600;
+font-style: DemiBold;
+font-size: 38px;
+leading-trim: NONE;
+line-height: 120%;
+letter-spacing: 0%;
+
+}
+
+.istoriya-header-btn {
+  background: #383838;
+  color: #fff;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+gap: 6px;
+border-radius: 5px;
+padding-top: 16px;
+padding-right: 24px;
+padding-bottom: 16px;
+padding-left: 24px;
+
+}
+
+/* GRID */
+.istoriya-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+/* CARD */
+.istoriya-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+/* CARD HEADER */
+.istoriya-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.istoriya-date {
+  color: #383838;
+ font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 400;
+font-style: Regular;
+font-size: 18px;
+leading-trim: NONE;
+line-height: 120%;
+letter-spacing: 0%;
+
+}
+
+.istoriya-card-title {
+ font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 600;
+font-style: DemiBold;
+font-size: 24px;
+leading-trim: NONE;
+line-height: 130%;
+letter-spacing: 0%;
+  color: #383838;
+  text-wrap: wrap;
+}
+
+.istoriya-car-icon {
+  width: 132px;
+  height: 117px;
+  background: #f2f2f2;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+}
+
+/* ROWS */
+.istoriya-rows {
+  margin-top: 20px;
+}
+
+.istoriya-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-top: 1px solid #f0f0f0;
+  font-size: 15px;
+}
+
+.istoriya-row:first-child {
+  border-top: none;
+}
+
+.istoriya-label {
+ font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 600;
+font-style: DemiBold;
+font-size: 18px;
+leading-trim: NONE;
+line-height: 120%;
+letter-spacing: 0%;
+color: #383838;
+  font-weight: 500;
+}
+
+.istoriya-value {
+  color: #383838;
+  font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 400;
+font-style: Regular;
+font-size: 18px;
+leading-trim: NONE;
+line-height: 120%;
+letter-spacing: 0%;
+
+}
+
+.istoriya-price-down {
+  color: #11B566;
+  font-weight: 400;
+  margin-left: 6px;
+}
+
+.istoriya-bad {
+    font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 400;
+font-style: Regular;
+font-size: 18px;
+leading-trim: NONE;
+line-height: 120%;
+letter-spacing: 0%;
+
+  color: #E73C3B;
+
+}
+
+/* BUTTON */
+.istoriya-detail-btn {
+  margin-top: 18px;
+  background: #E6EDF6;
+  color: #2f6fed;
+  border: none;
+
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+ 
+
+gap: 6px;
+border-radius: 5px;
+padding-top: 16px;
+padding-right: 24px;
+padding-bottom: 16px;
+padding-left: 24px;
+
+}
+.istoriya-header-btn_2{
+    display: none;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .istoriya-grid {
+    grid-template-columns: 1fr;
+  }
+  .istoriya-header-btn{
+    display: none;
+  }
+  .istoriya-header-btn_2{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
+  .istoriya-card-top{
+    display: block;
+  }
+  .istoriya-value{
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+  }
+}
+@media (max-width:700px){
+    .istoriya-header-title {
+        font-size: 26px;
+    }
+    .istoriya-section {
+        padding: 13px;
+    }
+    .istoriya-date {
+        font-size: 16px;
+    }
+    .istoriya-card-title {
+        font-size: 20px;
+    }
+    
+.istoriya-label,.istoriya-value  {
+    font-size: 16px;
+
+}
+.istoriya-detail-btn {
+    padding: 10px;
+    width: 100%;
+}
+.istoriya-card {
+    padding: 10px;
+}
+.istoriya-section {
+    width: 100%;
+}
+}
+
+
+
+
+
+
+.step_pt{
+    width: 95%;
+    max-width: 1246px;
+    margin: auto;
+}
+.step_pt h1{
+    font-family: "TT Hoves", Arial, sans-serif;
+    text-wrap: wrap;
+font-weight: 600;
+font-style: DemiBold;
+font-size: 38px;
+leading-trim: NONE;
+line-height: 120%;
+letter-spacing: 0%;
+
+}
+.step_pt_card_title {
+    display: grid;
+    grid-template-columns: 1fr 15px;
+    align-items: safe;
+}
+.step_pt_card_title h2{
+    display: flex;text-wrap: wrap;
+    font-family: "TT Hoves", Arial, sans-serif;
+}
+.step_pt_card{
+    background-color: white;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 16px;
+}
+.step_pt_card p{
+text-wrap: wrap;
+font-family: "TT Hoves", Arial, sans-serif;
+margin-bottom: 15px;
+margin-top: 10px;
+}
+@media (max-width:700px) {
+
+    .step_pt_card {
+        padding: 10px;
+    }
+    .step_pt h1 {
+        font-size: 26px;
+    }
+    .step_pt_card_title h2 {
+        font-size: 20px;
+    }
+    .step_pt_card p {
+        font-size: 16px;
+    }
+}
+
+
+
+
+
+
+.probeg{
+  background:#fff;
+  border-radius:16px;
+  padding:28px;
+  max-width:1100px;
+  margin:auto;
+}
+
+.top{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+.left h3{
+  font-size:14px;
+  color:#666;
+  margin-bottom:6px;
+}
+
+.left h2{
+  font-size:28px;
+  font-weight:700;
+  margin-bottom:10px;
+}
+
+.left p{
+  font-size:14px;
+  color:#777;
+  max-width:520px;
+  text-wrap: wrap;
+}
+
+.status{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:14px;
+  color:#333;
+}
+
+.status span{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:red;
+}
+
+/* ===== GRAPH ===== */
+
+.chart{
+  margin-top:30px;
+}
+
+.years{
+  display:flex;
+  justify-content:space-between;
+  font-size:13px;
+  color:#777;
+  margin-top:10px;
+}
+
+/* ===== FOOTER ===== */
+
+.footer{
+  margin-top:14px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:13px;
+  color:#aaa;
+}
+
+.switch{
+  width:36px;
+  height:20px;
+  background:#eee;
+  border-radius:20px;
+  position:relative;
+}
+
+.switch::after{
+  content:"";
+  width:16px;
+  height:16px;
+  background:#fff;
+  border-radius:50%;
+  position:absolute;
+  top:2px;
+  left:2px;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width:768px){
+  .left h2{ font-size:22px; }
+}
+
+@media (max-width:480px){
+  .probeg{ padding:20px; }
+  .left h2{ font-size:18px; }
+}
+
+
+
+
+
+
+
+
+
+
+.istoriya_card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px;max-width: 1260px;
+    margin: auto;
+    border-radius: 16px;
+    padding: 20px;
+}
+
+.istoriya_card_top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.istoriya_card_top p {
+ font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 400;
+font-style: Regular;
+font-size: 18px;
+leading-trim: NONE;
+line-height: 120%;
+letter-spacing: 0%;
+color: #383838;
+}
+
+.istoriya_card_top h6 {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 600;
+font-style: DemiBold;
+font-size: 18px;
+leading-trim: NONE;
+line-height: 120%;
+letter-spacing: 0%;
+color: #383838;
+
+}
+
+.istoriya_red_circle {
+    width: 8px;
+    height: 8px;
+    background: red;
+    border-radius: 50%;
+}
+
+.istoriya_item {
+    display: flex;
+    gap: 16px;
+    /* margin-bottom: 28px; */
+}
+.istoriya_date{
+    min-width: 254px;
+}
+.istoriya_date span{
+   
+  font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 400;
+font-style: Regular;
+font-size: 18px;
+leading-trim: NONE;
+line-height: 120%;
+letter-spacing: 0%;
+
+    color: #383838;
+    padding-bottom: 15px;
+}
+
+.istoriya_km {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 4px 10px;
+    background: #1B1B1B99;
+    border-radius: 20px;
+   font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 400;
+font-style: Regular;
+font-size: 18px;
+leading-trim: NONE;
+line-height: 120%;
+letter-spacing: 0%;
+color: #F9F9F9;
+}
+
+.istoriya_line {
+    position: relative;
+    width: 20px;
+}
+
+.istoriya_line::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    background: #ddd;
+    transform: translateX(-50%);
+}
+
+.istoriya_circle {
+    position: absolute;
+    top: 4px;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    background: #fff;
+    border: 2px solid #bbb;
+    border-radius: 50%;
+    transform: translateX(-50%);
+}
+
+.istoriya_content h3 {
+  font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 600;
+font-style: DemiBold;
+font-size: 24px;
+leading-trim: NONE;
+line-height: 130%;
+letter-spacing: 0%;
+text-wrap: wrap;
+color: #383838;
+    margin-bottom: 4px;
+}
+
+.istoriya_subtitle {
+   font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 600;
+font-style: DemiBold;
+font-size: 18px;
+leading-trim: NONE;
+line-height: 120%;
+letter-spacing: 0%;
+text-wrap: wrap;
+    color: #383838;
+    margin-bottom: 3px;
+}
+
+.istoriya_location {
+  font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 400;
+font-style: Regular;
+font-size: 18px;
+leading-trim: NONE;
+text-wrap: wrap;
+line-height: 120%;
+letter-spacing: 0%;
+
+    padding-bottom: 15px;
+}
+.istoriya_date_2{
+    display: none;
+}
+.istoriya_title{
+    display: flex;
+    justify-content: space-between;
+}
+.istoriya_title h1{
+font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 600;
+font-style: DemiBold;
+font-size: 38px;
+leading-trim: NONE;
+line-height: 120%;
+letter-spacing: 0%;
+color: #383838;
+}
+.istoriya_title button{
+    background-color: #383838;
+    border: none;
+gap: 6px;
+border-radius: 5px;
+padding-top: 16px;
+padding-right: 24px;
+padding-bottom: 16px;
+padding-left: 24px;
+font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 400;
+font-style: Regular;
+font-size: 18px;
+line-height: 120%;
+letter-spacing: 0%;
+color: white;
+
+}
+.istoriya{
+    width: 95%;
+    margin: auto;
+    max-width: 1246px;
+}
+.istoriya_title_2 button{
+    display: none;
+}
+@media (max-width:700px){
+.istoriya_content{
+width: 85%;
+}
+.istoriya_date{
+    display: none;
+}
+.istoriya_date_2{
+    display: block;
+}
+.istoriya_title button{
+    display: none;
+}
+.istoriya_title_2 button{
+    display: block;
+    width: 100%;
+    max-width: 500px;
+    margin: auto;margin-bottom: 30px;
+}
+.istoriya_title h1{
+    font-size: 26px;
+}
+.istoriya_card_top h6,.istoriya_card_top p {
+    font-size: 16px;
+}
+.istoriya_content h3 {
+    font-size: 20px;
+}
+}
