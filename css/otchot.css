@@ -1435,3 +1435,135 @@ width: 85%;
     font-size: 20px;
 }
 }
+
+.nash_modal{
+    background-color: rgba(128, 128, 128, 0.514);
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: end;
+    align-items: start;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    display:none;
+   
+}
+#hard_modal_1{
+    display:none;
+}
+.nash_modal_mid{
+    height: 100%;
+    background-color: #F9F9F9;
+    width: 100%;
+    max-width: 800px; padding: 30px;
+}
+.nash_modal_close{
+    position: absolute;
+    right: 40px;
+    top: 20px;
+    
+}
+.nash_modal h3{
+font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 600;
+font-style: DemiBold;
+font-size: 24px;
+leading-trim: NONE;
+line-height: 130%;
+letter-spacing: 0%;
+color: #383838;
+text-wrap: wrap;
+
+}
+.nash_modal p{
+    font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 400;
+font-style: Regular;
+font-size: 18px;
+leading-trim: NONE;
+line-height: 120%;
+letter-spacing: 0%;
+color: #383838;
+margin-top: 20px;
+margin-bottom: 20px;
+background-color: #FFEAEA;
+padding: 20px;
+text-wrap: wrap;
+}
+.nash_modal h5{
+ font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 600;
+font-style: DemiBold;
+font-size: 18px;
+leading-trim: NONE;
+display: flex;
+align-items: center;
+line-height: 120%;
+gap: 10px;
+margin-top: 20px;
+margin-bottom: 20px;
+letter-spacing: 0%;
+   color: #383838;
+text-wrap: wrap;
+
+}
+.nash_modal span{
+   font-family: "TT Hoves", Arial, sans-serif;
+font-weight: 400;
+font-style: Regular;
+font-size: 18px;
+leading-trim: NONE;
+line-height: 120%;
+letter-spacing: 0%;
+text-wrap: wrap;
+
+   color: #383838;
+ 
+}
+
+
+.nash_modal_mid_tabs{
+    display: flex;
+    overflow: auto;
+    gap: 20px;
+    padding-bottom: 20px;
+    padding-top: 2px;
+}
+.nash_modal_mid_tab{
+    display: grid;
+    grid-template-columns: auto 10px;
+
+}
+.mini_red_circle{
+    width: 7px ;
+    height: 7px;
+    margin: auto;
+    margin-right: 0px;
+    margin-top: -1px;
+    background-color: #E73C3B;
+    border-radius: 50px;
+}
+.mini_orange_circle{
+    width: 7px ;
+    height: 7px;
+    margin: auto;
+    margin-right: 0px;
+    margin-top: -1px;
+    background-color: #F28D00;
+    border-radius: 50px;
+}
+@media(max-width:700px){
+    .nash_modal span,.nash_modal h5,.nash_modal p{
+        font-size: 16px;
+    }
+    .nash_modal h3{
+        font-size: 20px;
+    }
+    .nash_modal p{
+        padding: 14px;
+    }
+}
+
+
+

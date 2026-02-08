@@ -38,7 +38,7 @@
 <body>
 
     <nav class="navbar_all">
-        <img src="/img/logo.png" alt="" class="logo">
+        <img onclick="window.location='/index.html'" src="/img/logo.png" alt="" class="logo">
         <ul class="nav_items">
             <li class="nav_item">Проверка авто</li>
             <li class="nav_item">Как это работает</li>
@@ -251,7 +251,7 @@ top: 5px;" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://
                 <div class="car_slider_svet">
                     <div class="car_slider_mid_image_big_circle"></div>Есть ограничения на регистрацию
                 </div>
-                <button class="car_slider_pod">Подробнее<svg width="7" height="12" viewBox="0 0 7 12" fill="none"
+                <button type="button" onclick="openNashModal() " class="car_slider_pod">Подробнее<svg width="7" height="12" viewBox="0 0 7 12" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M0.2925 9.4625L4.1725 5.5825L0.2925 1.7025C-0.0975 1.3125 -0.0975 0.6825 0.2925 0.2925C0.6825 -0.0975 1.3125 -0.0975 1.7025 0.2925L6.2925 4.8825C6.6825 5.2725 6.6825 5.9025 6.2925 6.2925L1.7025 10.8825C1.3125 11.2725 0.6825 11.2725 0.2925 10.8825C-0.0875 10.4925 -0.0975 9.8525 0.2925 9.4625Z"
@@ -973,6 +973,65 @@ top: 5px;" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://
  <div class="istoriya_title istoriya_title_2" ><button>Показать еще</button></div>
 
 </section>
+
+<div class="nash_modal" id="hard_modal_1">
+ <div class="nash_modal_mid">
+    <div onclick="closeNashModal()" class="nash_modal_close">✕</div>
+       <h3>Наши рекомендации</h3>
+    <p>Есть критические недостатки, лучше не рисковать</p>
+    <h3>Что повлияло на рекомендацию</h3>
+    <h5><div class="red_circle"></div> Есть ограничения на регистрацию</h5>
+    <span>Вы не сможете поставить автомобиль на учёт в ГИБДД и ездить на нём.</span>
+ </div>
+</div>
+
+
+
+<div class="nash_modal" id="hard_modal_2">
+ <div class="nash_modal_mid">
+    <div onclick="closeNashModal()" class="nash_modal_close">✕</div>
+       <h3>Юридические риски</h3>
+    <p>Судя по нашим данным, этот автомобиль не получится поставить на учёт в ГИБДД, а значит вы не сможете ездить на нём.</p>
+
+<div class="nash_modal_mid_tabs">
+    <div class="nash_modal_mid_tab">Ограничения <div class="mini_red_circle"></div></div>
+    <div class="nash_modal_mid_tab">Штрафы <div class="mini_red_circle"></div></div>
+    <div class="nash_modal_mid_tab">Залог<div class="mini_orange_circle"></div></div>
+    <div class="nash_modal_mid_tab">Розыски<div class="mini_orange_circle"></div></div>
+    <div class="nash_modal_mid_tab">Судебные споры<div class="mini_orange_circle"></div></div>
+    <div class="nash_modal_mid_tab">Лизинг<div class="mini_orange_circle"></div></div>
+
+</div>
+<div class="nash_modal_mid_action">
+   <h5><div class="red_circle"></div> Есть ограничения на регистрацию</h5>
+    <span>Собственник не оплатил штрафы, налоги или права на машину оспаривают в суде.</span> 
+    <div class="nash_modal_mid_action_card">
+        <div class="nash_modal_mid_action_card_title">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M14 14H7V16H14V14ZM19 19H5V8H19V19ZM19 3H18V1H16V3H8V1H6V3H5C3.89 3 3 3.9 3 5V19C3 19.5304 3.21071 20.0391 3.58579 20.4142C3.96086 20.7893 4.46957 21 5 21H19C19.5304 21 20.0391 20.7893 20.4142 20.4142C20.7893 20.0391 21 19.5304 21 19V5C21 4.46957 20.7893 3.96086 20.4142 3.58579C20.0391 3.21071 19.5304 3 19 3ZM17 10H7V12H17V10Z" fill="#0A4BA9"/>
+</svg>
+5 июл 2025
+        </div>
+        <div class="nash_modal_mid_action_card_grid">
+          <div class="nash_modal_mid_action_card_grid_p">
+Вид ограничения
+          </div>  <span>Запрет на регистрационные действия</span>
+        </div>
+         <div class="nash_modal_mid_action_card_grid">
+          <div class="nash_modal_mid_action_card_grid_p">
+Вид ограничения
+          </div>  <span>Запрет на регистрационные действия</span>
+        </div>  
+    </div>
+</div>
+
+    
+ </div>
+</div>
+
+
+
+
  <footer class="Home_footer">
         <p>© 2026 AvtoTekshiruv </p>
         <!-- <div></div> -->

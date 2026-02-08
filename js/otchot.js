@@ -36,3 +36,15 @@ el.style.background = `url('${paras}')`;
 el.style.backgroundSize = 'cover';
 el.style.backgroundPosition = 'center';
 }
+
+
+
+function openNashModal() {
+  document.body.classList.add("no-scroll");
+  document.querySelector('#hard_modal_1').style.display="flex"
+}
+
+function closeNashModal() {
+   document.body.classList.remove("no-scroll");
+  document.querySelector('#hard_modal_1').style.display="none"
+}
