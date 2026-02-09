@@ -1014,10 +1014,10 @@ body.no-scroll {
     transition: 1s;
 }
 
-.section_2_button:active {
+/* .section_2_button:active {
     background-color: #E6EDF6;
     border-bottom: 1px solid #0A4BA9;
-}
+} */
 
 
 .section_2 .section_2_block {
@@ -1094,6 +1094,7 @@ body.no-scroll {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 60px;
 }
 
 .section_2_right_2 {
@@ -1156,6 +1157,9 @@ body.no-scroll {
         gap: 10px;
         grid-template-columns: 34px auto;
 
+    }
+    .section_2_left_icon{
+        padding-bottom: 0px;
     }
 .section_2 .section_2_left h1 {
     font-size: 20px;
@@ -1563,6 +1567,7 @@ color: #F2F1F6;
     border-radius: 6px;
     background-color: #F9F9F9;
     margin-top: 5px;
+    margin-bottom: 7px;
 }
 .modal_mid button{
     width: 100%;

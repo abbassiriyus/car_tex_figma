@@ -27,13 +27,13 @@ router.post('/',
       const image = getImageUrl(req, req.files.image[0]);
       const icon = getImageUrl(req, req.files.icon[0]);
 
-      const { title, text } = req.body;
+      const { title, text,order } = req.body;
 
       const carousel = await HomeCarousel.create({
         image,
         icon,
         title,
-        text
+        text,order
       });
 
       res.status(201).json({ success: true, data: carousel });
@@ -45,10 +45,11 @@ router.post('/',
 );
 
 
-// GET ALL
+// GET ALL (order bo'yicha sortlangan)
 router.get('/', async (req, res) => {
   try {
-    const data = await HomeCarousel.find().sort({ createdAt: -1 });
+    // order bo'yicha o'sish tartibida, agar bir xil bo'lsa createdAt bo'yicha oxirgi qo'shilgan yuqorida
+    const data = await HomeCarousel.find().sort({ order: 1, createdAt: -1 });
     res.json({ success: true, count: data.length, data });
   } catch (err) {
     errorResponse(res, 500, err.message);
@@ -105,6 +106,8 @@ router.put('/:id',
       data.icon = icon;
       data.title = req.body.title ?? data.title;
       data.text = req.body.text ?? data.text;
+      data.order = req.body.order ?? data.order;
+
 
       await data.save();
 

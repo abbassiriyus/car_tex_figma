@@ -5,7 +5,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const connectDB = require('./config/db');
 const homeCarouselRoutes = require('./routes/homeCarousel');
-
+const usersRoutes=require('./routes/user.routes')
 const app = express();
 
 // Body parser
@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // API routelar
 app.use('/api/home-carousel', homeCarouselRoutes);
-
+app.use('/api/users', usersRoutes);
 // --- LOGIN ---
 // Hardcoded login (keyin DB bilan almashtirish mumkin)
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'admin';
@@ -50,9 +50,8 @@ app.post('/login', (req, res) => {
   }
 });
 // Logout
-app.get('/logout', (req, res) => {
-  req.session.destroy();
-  res.redirect('/login');
+app.post('/layout', (req, res) => {
+return res.sendFile(path.join(__dirname, 'public/layout.html'));
 });
 
 // Middleware: login tekshirish

@@ -116,18 +116,136 @@ router.delete('/:id',
     }
   }
 );
-router.post('/verify', async (req, res) => {
-  const { phone, code } = req.body;
+router.post('/register', async (req, res) => {
+  try {
+    const { name, phone } = req.body;
 
-  const user = await User.findOne({ phone });
+    if (!name || !phone) {
+      return res.status(400).json({ success:false, message:'Ism va telefon majburiy' });
+    }
 
-  if (!user) return res.status(404).json({ success: false, message: 'Topilmadi' });
+    const exist = await User.findOne({ phone });
+    if (exist) {
+      return res.status(409).json({ success:false, message:'Bu raqam band' });
+    }
 
-  if (user.verifyCode !== code) {
-    return res.status(400).json({ success: false, message: 'Kod xato' });
+    const verifyCode = "12345";
+
+    const user = await User.create({
+      name,
+      phone,
+      verifyCode,
+      verifyExpire: Date.now() + 5 * 60 * 1000,
+      verifyAttempts: 0
+    });
+
+    res.status(201).json({
+      success: true,
+      message: 'Kod yuborildi',
+      code: verifyCode // ❗ test uchun, prod da olib tashlanadi
+    });
+
+  } catch (err) {
+    res.status(500).json({ success:false, message: err.message });
   }
-
-  res.json({ success: true, message: 'Tasdiqlandi' });
 });
+
+router.post('/resend-code', async (req, res) => {
+  try {
+    const { phone } = req.body;
+
+    if (!phone) {
+      return res.status(400).json({ success:false, message:'Telefon majburiy' });
+    }
+
+    const user = await User.findOne({ phone });
+    if (!user) {
+      return res.status(404).json({ success:false, message:'Topilmadi' });
+    }
+
+    const verifyCode = "12345";
+
+    user.verifyCode = verifyCode;
+    user.verifyExpire = Date.now() + 5 * 60 * 1000;
+    user.verifyAttempts = 0;
+
+    await user.save();
+
+    res.json({
+      success: true,
+      message: 'Yangi kod yuborildi',
+      code: verifyCode // ❗ test uchun
+    });
+
+  } catch (err) {
+    res.status(500).json({ success:false, message: err.message });
+  }
+});
+
+router.post('/verify', async (req, res) => {
+  try {
+    const { phone, code } = req.body;
+
+    if (!phone || !code) {
+      return res.status(400).json({
+        success:false,
+        message:'Telefon va kod majburiy'
+      });
+    }
+
+    const user = await User.findOne({ phone });
+
+    if (!user) {
+      return res.status(404).json({ success:false, message:'Topilmadi' });
+    }
+
+  
+
+    if (user.verifyAttempts >= 5) {
+      return res.status(429).json({
+        success:false,
+        message:'Juda ko‘p urinish. Keyinroq urinib ko‘ring.'
+      });
+    }
+
+    if (user.verifyExpire < Date.now()) {
+      return res.status(400).json({
+        success:false,
+        message:'Kod muddati tugagan'
+      });
+    }
+
+    if (user.verifyCode !== code) {
+      user.verifyAttempts += 1;
+      await user.save();
+
+      return res.status(400).json({
+        success:false,
+        message:'Kod noto‘g‘ri'
+      });
+    }
+
+    user.isVerified = true;
+    user.verifyCode = null;
+    user.verifyExpire = null;
+    user.verifyAttempts = 0;
+
+    await user.save();
+
+    res.json({
+      user:user,
+      success:true,
+      message:'Muvaffaqiyatli tasdiqlandi'
+    });
+
+  } catch (err) {
+    res.status(500).json({
+      success:false,
+      message: err.message
+    });
+  }
+});
+
+
     
 module.exports = router;
