@@ -18,6 +18,10 @@ const HomeCarouselSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true
+  },
+  order: {
+    type: Number,
+    default: 0 // default tartib
   }
 }, {
   timestamps: true

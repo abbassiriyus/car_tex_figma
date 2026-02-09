@@ -1,16 +1,72 @@
 require('dotenv').config();
 const express = require('express');
+const path = require('path');
+const session = require('express-session');
+const bodyParser = require('body-parser');
 const connectDB = require('./config/db');
-// const homeCarouselRoutes = require('./routes/homeCarousel');
-
+const homeCarouselRoutes = require('./routes/homeCarousel');
 
 const app = express();
 
-app.use(express.json());
-app.use('/uploads', express.static('uploads'));
+// Body parser
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-// app.use('/api/users', require('./routes/user.routes'));
-// app.use('/api/home-carousel', homeCarouselRoutes);
+// Session
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'mysecret123',
+  resave: false,
+  saveUninitialized: true
+}));
+
+// Static folder
+app.use('/uploads', express.static('uploads'));
+app.use(express.static(path.join(__dirname, 'public')));
+
+// API routelar
+app.use('/api/home-carousel', homeCarouselRoutes);
+
+// --- LOGIN ---
+// Hardcoded login (keyin DB bilan almashtirish mumkin)
+const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'admin';
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || '123456';
+
+// Login page
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/login.html'));
+});
+
+// Login submit
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+
+  if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+    // ✅ Login muvaffaqiyatli → layout.htmlga yuborish
+    req.session.user = { username };
+    return res.sendFile(path.join(__dirname, 'public/layout.html'));
+  } else {
+    // ❌ Login xato → index.htmlga qaytarish
+    return res.sendFile(path.join(__dirname, 'public/index.html'));
+  }
+});
+// Logout
+app.get('/logout', (req, res) => {
+  req.session.destroy();
+  res.redirect('/login');
+});
+
+// Middleware: login tekshirish
+function isAuthenticated(req, res, next) {
+  if (req.session.user) return next();
+  res.redirect('/login');
+}
+
+// "/" ga GET qilinsa index.html ni yuboramiz (login kerak)
+app.get('/', isAuthenticated, (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/index.html'));
+});
+
+// --- DB va server ishga tushurish ---
 connectDB();
 
 const PORT = process.env.PORT || 5000;

@@ -33,6 +33,9 @@
 
     <link rel="stylesheet" href="/path/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/style.css">
+
+
+
 </head>
 
 <body class="Home_page">
@@ -410,7 +413,35 @@
             </div>
 
         </div>
+<script>
+    const API_BASE = 'http://localhost:5000/api/home-carousel';
 
+// --- GET items ---
+async function fetchCarousels(){
+  try {
+    const res = await fetch(API_BASE);
+    const data = await res.json();
+
+    const tbody = document.querySelector('.section_2_buttons');
+    tbody.innerHTML = '';
+
+    if(data.success && data.data.length){
+      data.data.forEach(item => {
+        tbody.innerHTML += ` <div class="section_2_button">${item.title}</div> `;
+      });
+    } else {
+      tbody.innerHTML = '<tr><td colspan="4">No items found</td></tr>';
+    }
+  } catch(err){
+    console.error(err);
+    document.querySelector('#carousel-table tbody').innerHTML = '<tr><td colspan="4">Error loading data</td></tr>';
+  }
+}
+
+// Sahifa yuklanganida chaqirish
+fetchCarousels();
+
+</script>
     </section>
     <section class="section_3">
         <p class="section_3_p1">Более <b>1 000 000</b> проверок по стране</p>
@@ -438,7 +469,7 @@
                     <li><span> Данные МВД Руз </span></li>
 
                 </ul>
-                <button>Получить отчет <div class="section_3_button_lent">за 2 мин.</div> </button>
+               <a style="text-decoration: none;cursor: pointer;" href="#"><button>Получить отчет <div class="section_3_button_lent">за 2 мин.</div> </button></a> 
             </div>
             <div class="section_3_card">
                 <div class="section_3_card_h5">
@@ -469,7 +500,7 @@
                     <li><span> История в стране вывоза </span> </li>
                     <li><span> Официальные отчеты </span> </li>
                 </ul>
-                <button>Получить отчет <div class="section_3_button_lent">за 10 мин.</div></button>
+                <a href="#" style="text-decoration: none;cursor: pointer;"><button>Получить отчет <div class="section_3_button_lent">за 10 мин.</div></button></a>
             </div>
         </div>
     </section>

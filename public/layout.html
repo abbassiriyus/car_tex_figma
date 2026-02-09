@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel</title>
+ <style>
+    *{ box-sizing:border-box; margin:0; padding:0; font-family:sans-serif; }
+
+body, html{ height:100%; }
+
+.container{
+  display: flex;
+  height:100vh;
+}
+
+/* Sidebar */
+.sidebar{
+  width:250px;
+  background:#2c3e50;
+  color:#fff;
+  padding:20px;
+  display:flex;
+  flex-direction: column;
+}
+
+.sidebar h2{ margin-bottom:20px; font-size:20px; }
+
+.sidebar ul{ list-style:none; }
+
+.sidebar ul li{
+  margin-bottom:10px;
+  cursor:pointer;
+  padding:8px;
+  border-radius:5px;
+  transition:0.3s;
+}
+
+.sidebar ul li.active, .sidebar ul li:hover{
+  background:#34495e;
+}
+
+.sidebar ul li a{ color:#fff; text-decoration:none; display:block; }
+
+/* Main content */
+.main-content{
+  flex:1;
+  padding:20px;
+  overflow-y:auto;
+  background:#ecf0f1;
+}
+
+.page.hidden{ display:none; }
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:15px;
+}
+
+table, th, td{
+  border:1px solid #ccc;
+}
+
+th, td{
+  padding:8px;
+  text-align:left;
+}
+
+button{
+  padding:6px 12px;
+  margin:2px;
+  cursor:pointer;
+  border:none;
+  border-radius:5px;
+  background:#2980b9;
+  color:#fff;
+  transition:0.3s;
+}
+
+button:hover{ background:#3498db; }
+
+#add-new{
+  margin-bottom:10px;
+}
+/* Modal background */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width:100%;
+  height:100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content:center;
+  align-items:center;
+  z-index:1000;
+}
+
+/* Modal content box */
+.modal-content {
+  background:#fff;
+  padding:20px 30px;
+  border-radius:10px;
+  width:400px;
+  max-width:90%;
+  position:relative;
+}
+
+/* Close button */
+.close{
+  position:absolute;
+  top:10px;
+  right:15px;
+  font-size:24px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.hidden{ display:none; }
+/* --- Text, textarea, file inputs --- */
+.modal-content input[type="number"],
+.modal-content input[type="text"],
+.modal-content input[type="file"],
+.modal-content textarea {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  outline: none;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* Focus effect */
+.modal-content input[type="number"],
+.modal-content input[type="text"]:focus,
+.modal-content input[type="file"]:focus,
+.modal-content textarea:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 8px rgba(102,126,234,0.5);
+}
+
+/* Textarea resize */
+.modal-content textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+/* Custom file input button */
+.modal-content input[type="file"] {
+  cursor: pointer;
+}
+
+/* Submit button */
+.modal-content button {
+  width: 100%;
+  padding: 12px;
+  background: #667eea;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.modal-content button:hover {
+  background: #5a67d8;
+}
+
+
+ </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2>Admin Panel</h2>
+      <ul>
+        <li class="nav-item active" data-page="home-carousel">Home Carousel</li>
+        <li class="nav-item" data-page="page2">Page 2</li>
+        <li class="nav-item" data-page="page3">Page 3</li>
+        <li class="nav-item" data-page="page4">Page 4</li>
+        <li class="nav-item" data-page="page5">Page 5</li>
+        <li><a href="/logout">Logout</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main content -->
+    <main class="main-content">
+      <div id="home-carousel" class="page">
+        <h2>Home Carousel</h2>
+        <button id="add-new">Add New</button>
+        <table id="carousel-table">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Icon</th>
+              <th>Title</th>
+              <th>Text</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div id="page2" class="page hidden">
+        <h2>Page 2</h2>
+      </div>
+
+      <div id="page3" class="page hidden">
+        <h2>Page 3</h2>
+      </div>
+
+      <div id="page4" class="page hidden">
+        <h2>Page 4</h2>
+      </div>
+
+      <div id="page5" class="page hidden">
+        <h2>Page 5</h2>
+      </div>
+    </main>
+  </div>
+<!-- Add New Modal -->
+<div id="modal" class="modal hidden">
+  <div class="modal-content">
+    <span id="close-modal" class="close">&times;</span>
+    <h3>Add New Carousel</h3>
+    <form id="modal-form" enctype="multipart/form-data">
+      <label>Image:</label>
+      <input type="file" name="image" required><br><br>
+
+      <label>Icon:</label>
+      <input type="file" name="icon" required><br><br>
+
+      <label>Title:</label>
+      <input type="text" name="title" required><br><br>
+
+      <label>Text:</label>
+      <textarea name="text" rows="3" required></textarea><br><br>
+
+      <label>Order:</label>
+      <input type="number" name="order" value="0" required min="0"><br><br>
+
+      <button type="submit">Save</button>
+    </form>
+  </div>
+</div>
+
+<!-- Edit Modal -->
+<div id="edit-modal" class="modal hidden">
+  <div class="modal-content">
+    <span id="close-edit-modal" class="close">&times;</span>
+    <h3>Edit Carousel</h3>
+    <form id="edit-modal-form" enctype="multipart/form-data">
+      <input type="hidden" name="id" />
+
+      <label>Image (yangilash uchun tanlang):</label>
+      <input type="file" name="image"><br><br>
+
+      <label>Icon (yangilash uchun tanlang):</label>
+      <input type="file" name="icon"><br><br>
+
+      <label>Title:</label>
+      <input type="text" name="title" required><br><br>
+
+      <label>Text:</label>
+      <textarea name="text" rows="3" required></textarea><br><br>
+
+      <label>Order:</label>
+      <input type="number" name="order" value="0" required min="0"><br><br>
+
+      <button type="submit">Update</button>
+    </form>
+  </div>
+</div>
+
+
+<script>
+
+    // --- Edit modal ---
+const editModal = document.getElementById('edit-modal');
+const closeEditModal = document.getElementById('close-edit-modal');
+const editForm = document.getElementById('edit-modal-form');
+
+closeEditModal.addEventListener('click', ()=> editModal.classList.add('hidden'));
+
+// Edit button function
+window.editCarousel = async function(id){
+  // 1️⃣ Get carousel data
+  const res = await fetch(`${API_BASE}/${id}`);
+  const data = await res.json();
+  if(!data.success){
+    alert('Item topilmadi');
+    return;
+  }
+
+  const carousel = data.data;
+
+  // 2️⃣ Fill form
+  editForm.id.value = carousel._id;
+  editForm.title.value = carousel.title;
+  editForm.text.value = carousel.text;
+
+  // 3️⃣ Show modal
+  editModal.classList.remove('hidden');
+}
+
+// --- Submit edit form ---
+editForm.addEventListener('submit', async e=>{
+  e.preventDefault();
+  const formData = new FormData(editForm);
+  const id = editForm.id.value;
+
+  try{
+    const res = await fetch(`${API_BASE}/${id}`,{
+      method:'PUT',
+      body: formData
+    });
+    const data = await res.json();
+
+    if(data.success){
+      alert('Item updated!');
+      editForm.reset();
+      editModal.classList.add('hidden');
+      fetchCarousels();
+    }else{
+      alert(data.message || 'Xato yuz berdi');
+    }
+  }catch(err){
+    console.error(err);
+    alert('Server bilan bog‘lanishda xato');
+  }
+});
+
+    // --- Modal logic ---
+const modal = document.getElementById('modal');
+const addBtn = document.getElementById('add-new');
+const closeModal = document.getElementById('close-modal');
+const modalForm = document.getElementById('modal-form');
+
+addBtn.addEventListener('click', ()=> modal.classList.remove('hidden'));
+closeModal.addEventListener('click', ()=> modal.classList.add('hidden'));
+
+// Form submit
+modalForm.addEventListener('submit', async e => {
+  e.preventDefault();
+  const formData = new FormData(modalForm);
+
+  try{
+    const res = await fetch(API_BASE, {
+      method:'POST',
+      body: formData
+    });
+
+    const data = await res.json();
+    if(data.success){
+      alert('Carousel item added!');
+      modalForm.reset();
+      modal.classList.add('hidden');
+      fetchCarousels();
+    }else{
+      alert(data.message || 'Xato yuz berdi');
+    }
+  }catch(err){
+    console.error(err);
+    alert('Server bilan bog‘lanishda xato');
+  }
+});
+
+    const API_BASE = 'http://localhost:5000/api/home-carousel';
+
+// --- Sidebar navigation ---
+const navItems = document.querySelectorAll('.nav-item');
+const pages = document.querySelectorAll('.page');
+
+navItems.forEach(item=>{
+  item.addEventListener('click', ()=>{
+    navItems.forEach(i=>i.classList.remove('active'));
+    item.classList.add('active');
+
+    const pageId = item.dataset.page;
+    pages.forEach(p=>{
+      if(p.id === pageId) p.classList.remove('hidden');
+      else p.classList.add('hidden');
+    });
+  });
+});
+
+// --- HomeCarousel CRUD ---
+async function fetchCarousels(){
+  const res = await fetch(`${API_BASE}`);
+  const data = await res.json();
+  const tbody = document.querySelector('#carousel-table tbody');
+  tbody.innerHTML = '';
+  data.data.forEach(carousel=>{
+    tbody.innerHTML += `
+      <tr>
+        <td><img src="${carousel.image}" width="80"/></td>
+        <td><img src="${carousel.icon}" width="40"/></td>
+        <td>${carousel.title}</td>
+        <td>${carousel.text}</td>
+        <td>
+          <button onclick="editCarousel('${carousel._id}')">Edit</button>
+          <button onclick="deleteCarousel('${carousel._id}')">Delete</button>
+        </td>
+      </tr>
+    `;
+  });
+}
+
+async function deleteCarousel(id){
+  if(confirm('O‘chirmoqchimisiz?')){
+    await fetch(`${API_BASE}/${id}`, { method:'DELETE' });
+    fetchCarousels();
+  }
+}
+
+// TODO: add editCarousel() va add new modal
+
+// Init
+fetchCarousels();
+
+</script>
+</body>
+</html>
