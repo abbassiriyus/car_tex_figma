@@ -18,7 +18,7 @@ if(i==2){
   background-size: cover;
   background-position: center;
 ">
-  <button><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <button  onclick="openCarImgModal()" ><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M12 4C13.0609 4 14.0783 4.42143 14.8284 5.17157C15.5786 5.92172 16 6.93913 16 8C16 9.06087 15.5786 10.0783 14.8284 10.8284C14.0783 11.5786 13.0609 12 12 12C10.9391 12 9.92172 11.5786 9.17157 10.8284C8.42143 10.0783 8 9.06087 8 8C8 6.93913 8.42143 5.92172 9.17157 5.17157C9.92172 4.42143 10.9391 4 12 4ZM12 14C16.42 14 20 15.79 20 18V20H4V18C4 15.79 7.58 14 12 14Z" fill="#606266"/>
 </svg>
 Еще +${slider1.length-3}</button>
@@ -47,4 +47,70 @@ function openNashModal() {
 function closeNashModal() {
    document.body.classList.remove("no-scroll");
   document.querySelector('#hard_modal_1').style.display="none"
+}
+function openYurModal() {
+  document.body.classList.add("no-scroll");
+  document.querySelector('#hard_modal_2').style.display="flex"
+}
+
+function closeYurModal() {
+   document.body.classList.remove("no-scroll");
+  document.querySelector('#hard_modal_2').style.display="none"
+}
+
+
+
+
+
+function switch_modal(id) {
+  var length_page=document.querySelectorAll('.nash_modal_mid_tab')
+  for (let i = 0; i < length_page.length; i++) {
+  if(id==i){
+    document.querySelectorAll('.nash_modal_mid_action')[i].style="display:block"
+length_page[i].classList.add('nash_modal_mid_tab_active')
+  }else{
+    document.querySelectorAll('.nash_modal_mid_action')[i].style="display:none"
+
+length_page[i].classList.remove('nash_modal_mid_tab_active')
+
+  }
+  }
+}
+switch_modal(0)
+
+
+
+
+function openVIRModal() {
+  document.body.classList.add("no-scroll");
+  document.querySelector('#hard_modal_3').style.display="flex"
+}
+
+function closeVIRModal() {
+   document.body.classList.remove("no-scroll");
+  document.querySelector('#hard_modal_3').style.display="none"
+}
+
+var carImageVeribl=false
+document.querySelector('.car_image_modal_mid_filter_w').style.transform = "rotate(180deg)";
+
+function openCarImgModal() {
+  document.body.classList.add("no-scroll");
+  document.querySelector('#hard_modal_4').style.display="flex"
+}
+
+function closeCarImgModal() {
+   document.body.classList.remove("no-scroll");
+  document.querySelector('#hard_modal_4').style.display="none"
+}
+function openCarImgFilter() {
+  if(carImageVeribl){
+document.querySelector('.car_image_modal_mid_menu_ul').style="display:none"
+document.querySelector('.car_image_modal_mid_filter_w').style.transform = "rotate(180deg)";
+carImageVeribl=false
+  }else{
+document.querySelector('.car_image_modal_mid_menu_ul').style="display:flex"
+carImageVeribl=true
+document.querySelector('.car_image_modal_mid_filter_w').style.transform = "rotate(0deg)";
+  }
 }

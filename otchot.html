@@ -38,12 +38,12 @@
 <body>
 
     <nav class="navbar_all">
-        <img onclick="window.location='/index.html'" src="/img/logo.png" alt="" class="logo">
+        <img src="/img/logo.png" alt="" class="logo">
         <ul class="nav_items">
-            <li class="nav_item">Проверка авто</li>
+            <li style="color: #0A4BA9;" class="nav_item">Проверка авто</li>
             <li class="nav_item">Как это работает</li>
             <li class="nav_item">Тарифы</li>
-            <li style="color: #0A4BA9;" class="nav_item">Пример отчета</li>
+            <li class="nav_item">Пример отчета</li>
         </ul>
         <!-- <div></div> -->
 
@@ -84,7 +84,7 @@
                 <h2 style="padding-left: 10px;border-left: 1px solid #ABAAAA">RU</h2>
             </div>
             <div class="navbar_all_user_toggle">
-                <img onclick="toggle_menu()" src="./img/menu-4-line.png" alt="">
+                <img onclick="toggle_menu()" src="./img/menu-4-line.png" id="togle" alt="">
                 <div class="navbar_all_menu">
                     <ul>
                         <li>Проверка авто</li>
@@ -207,14 +207,42 @@
                         <div class="car_slider_mid_image_big_circle"></div>
                         <p>Повреждения на 6 фото</p>
                     </button>
+                    <button onclick=" openCarImgModal()" class="car_slider_mid_image_big_p2"><svg width="16" height="16" viewBox="0 0 16 16"
+                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M7.99984 2.66666C8.70708 2.66666 9.38536 2.94761 9.88546 3.4477C10.3856 3.9478 10.6665 4.62608 10.6665 5.33332C10.6665 6.04057 10.3856 6.71884 9.88546 7.21894C9.38536 7.71904 8.70708 7.99999 7.99984 7.99999C7.29259 7.99999 6.61432 7.71904 6.11422 7.21894C5.61412 6.71884 5.33317 6.04057 5.33317 5.33332C5.33317 4.62608 5.61412 3.9478 6.11422 3.4477C6.61432 2.94761 7.29259 2.66666 7.99984 2.66666ZM7.99984 9.33332C10.9465 9.33332 13.3332 10.5267 13.3332 12V13.3333H2.6665V12C2.6665 10.5267 5.05317 9.33332 7.99984 9.33332Z"
+                                fill="white" />
+                        </svg>
+                        2/45</button>
                 </div>
                 <div class="car_slider_mid_image_smalls">
 
                 </div>
             </div>
             <div class="car_slider_mid_text">
+                <div class="car_slider_mid_text_getIcon">
+                    <h1>BMW M5, 2020 </h1>
+                    <div class="car_slider_mid_text_getIcon_1">
+                        <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#clip0_626_6255)">
+                                    <path d="M19 9H15V3H9V9H5L12 16L19 9ZM5 18V20H19V18H5Z" fill="#383838" />
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_626_6255">
+                                        <rect width="24" height="24" fill="white" />
+                                    </clipPath>
+                                </defs>
+                            </svg></div>
+                        <div>
+                            <svg width="18" height="15" viewBox="0 0 18 15" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18 7L11 0V4C4 5 1 10 0 15C2.5 11.5 6 9.9 11 9.9V14L18 7Z" fill="#383838" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
 
-                <h1>BMW M5, 2020</h1>
                 <p class="car_slider_mid_text_p"><b>VIN</b>:
                     WBS81CH050CF56143
                     <svg onclick="navigator.clipboard.writeText('WBS81CH050CF56143');alert('saqlandi')" width="19"
@@ -251,8 +279,8 @@ top: 5px;" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://
                 <div class="car_slider_svet">
                     <div class="car_slider_mid_image_big_circle"></div>Есть ограничения на регистрацию
                 </div>
-                <button type="button" onclick="openNashModal() " class="car_slider_pod">Подробнее<svg width="7" height="12" viewBox="0 0 7 12" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
+                <button type="button" onclick="openNashModal() " class="car_slider_pod">Подробнее<svg width="7"
+                        height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M0.2925 9.4625L4.1725 5.5825L0.2925 1.7025C-0.0975 1.3125 -0.0975 0.6825 0.2925 0.2925C0.6825 -0.0975 1.3125 -0.0975 1.7025 0.2925L6.2925 4.8825C6.6825 5.2725 6.6825 5.9025 6.2925 6.2925L1.7025 10.8825C1.3125 11.2725 0.6825 11.2725 0.2925 10.8825C-0.0875 10.4925 -0.0975 9.8525 0.2925 9.4625Z"
                             fill="#E73C3B" />
@@ -481,7 +509,7 @@ top: 5px;" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://
 
                 </div>
                 <p>Обязательно проверьте VIN и номер кузова на совпадение с ПТС и базой</p>
-                <button>Подробнее</button>
+                <button type="button" onclick="openVIRModal() ">Подробнее</button>
             </div>
 
         </div>
@@ -490,7 +518,7 @@ top: 5px;" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://
     <section class="yurist">
         <div class="yurist_title">
             <h1>Юридические риски</h1>
-            <button>Показать еще</button>
+            <button type="button" onclick="openYurModal()">Показать еще</button>
         </div>
         <div class="yurist_red">Судя по нашим данным, этот автомобиль не получится поставить на учёт в ГИБДД, а значит
             вы не сможете ездить на нём.</div>
@@ -507,47 +535,51 @@ top: 5px;" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://
                     <h1>Есть ограничения </h1>
                     <div class="red_circle"></div>
                 </div>
-                <p>Есть ограничения 
-Перед покупкой попросите владельца погасить долг.</p>
+                <p>Есть ограничения
+                    Перед покупкой попросите владельца погасить долг.</p>
             </div>
             <div class="yurist_card">
                 <div class="yurist_card_title">
                     <h1>В залоге</h1>
                     <div class="yelow_circle"></div>
                 </div>
-                <p>Собственник не оплатил штрафы, налоги или права на машину оспаривают в суде.</p>
+                <p>Если заложенное авто продадут без согласия банка, сделку могут признать недействительной, а машину -
+                    забрать.</p>
             </div>
-        
 
-               <div class="yurist_card">
+
+            <div class="yurist_card">
                 <div class="yurist_card_title">
                     <h1>Нет сведений о розыске </h1>
                     <div class="green_circle"></div>
                 </div>
-                <p>Если заложенное авто продадут без согласия банка, сделку могут признать недействительной, а машину - забрать.</p>
+                <p>Если заложенное авто продадут без согласия банка, сделку могут признать недействительной, а машину -
+                    забрать.</p>
             </div>
-             <div class="yurist_card">
+            <div class="yurist_card">
                 <div class="yurist_card_title">
                     <h1>Нет сведений об арбитражных делах </h1>
                     <div class="green_circle"></div>
                 </div>
                 <p>Данные предоставлены реестром арбитражных дел.</p>
             </div>
-             <div class="yurist_card">
+            <div class="yurist_card">
                 <div class="yurist_card_title">
                     <h1>В залоге </h1>
                     <div class="green_circle"></div>
                 </div>
-                <p>Если заложенное авто продадут без согласия банка, сделку могут признать недействительной, а машину - забрать.</p>
+                <p>Если заложенное авто продадут без согласия банка, сделку могут признать недействительной, а машину -
+                    забрать.</p>
             </div>
-             <div class="yurist_card">
+            <div class="yurist_card">
                 <div class="yurist_card_title">
                     <h1>Зарегистрирован в ГИБДД </h1>
                     <div class="green_circle"></div>
                 </div>
-                <p>Если заложенное авто продадут без согласия банка, сделку могут признать недействительной, а машину - забрать.</p>
+                <p>Если заложенное авто продадут без согласия банка, сделку могут признать недействительной, а машину -
+                    забрать.</p>
             </div>
-             <div class="yurist_card">
+            <div class="yurist_card">
                 <div class="yurist_card_title">
                     <h1>Есть действующий ПТС или ЭПТС </h1>
                     <div class="green_circle"></div>
@@ -555,484 +587,862 @@ top: 5px;" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://
                 <p>Он нужен для заключения договора купли-продажи и регистрации автомобиля</p>
             </div>
         </div>
-<button class="yurist_button">Показать</button>
+        <button class="yurist_button" type="button" onclick="openYurModal()">Показать</button>
     </section>
 
 
-<section class="sena">
-<h1>Цена</h1>
+    <section class="sena">
+        <h1>Цена</h1>
 
-<div class="sena_oneCard">
-    <h2>1 100 800 сум - цена в объявлении ниже нашей оценки</h2>
-<p class="sena_p"> Изучили отчёт и фотографии, чтобы определить наиболее вероятную цену продажи этой машины</p>
-<hr style="opacity: 0.3;">
-<div class="sena_urns">
-    
-    <div class="sena_urn">
-        <p class="sena_urn_p">Ниже</p>
-        <div class="sena_urn_line"></div>
-        <p class="sena_urn_p2">До 1 878 677 000 сум</p>
-    </div>
-    <div class="sena_urn">
-        <p class="sena_urn_p">Наша оценка</p>
-        <div class="sena_urn_line"></div>
-        <p class="sena_urn_p2">1 878 677 000 - 2 140 000 000 сум</p>
-    </div>
-    <div class="sena_urn">
-        <p class="sena_urn_p">Выше</p>
-        <div class="sena_urn_line"></div>
-        <p class="sena_urn_p2">От 2 600 000 000 сум</p>
+        <div class="sena_oneCard">
+            <h2>1 100 800 сум - цена в объявлении ниже нашей оценки</h2>
+            <p class="sena_p"> Изучили отчёт и фотографии, чтобы определить наиболее вероятную цену продажи этой машины
+            </p>
+            <hr style="opacity: 0.3;">
+            <div class="sena_urns">
+
+                <div class="sena_urn">
+                    <p class="sena_urn_p">Ниже</p>
+                    <div class="sena_urn_line"></div>
+                    <p class="sena_urn_p2">До 1 878 677 000 сум</p>
+                </div>
+                <div class="sena_urn">
+                    <p class="sena_urn_p">Наша оценка</p>
+                    <div class="sena_urn_line"></div>
+                    <p class="sena_urn_p2">1 878 677 000 - 2 140 000 000 сум</p>
+                </div>
+                <div class="sena_urn">
+                    <p class="sena_urn_p">Выше</p>
+                    <div class="sena_urn_line"></div>
+                    <p class="sena_urn_p2">От 2 600 000 000 сум</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="istoriya-section">
+
+        <div class="istoriya-header">
+            <div class="istoriya-header-title">История продаж</div>
+            <button class="istoriya-header-btn">Показать еще</button>
+        </div>
+
+        <div class="istoriya-grid">
+
+            <!-- CARD 1 -->
+            <div class="istoriya-card">
+                <div class="istoriya-card-top">
+                    <div>
+                        <div class="istoriya-date">18 янв 2026</div>
+                        <div class="istoriya-card-title">Объявление на OLX</div>
+                    </div>
+                    <div class="istoriya-car-icon"><svg width="63" height="63" viewBox="0 0 63 63" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M13.125 28.875L17.0625 17.0625H45.9375L49.875 28.875H13.125ZM45.9375 42C44.8932 42 43.8917 41.5852 43.1533 40.8467C42.4148 40.1083 42 39.1068 42 38.0625C42 37.0182 42.4148 36.0167 43.1533 35.2783C43.8917 34.5398 44.8932 34.125 45.9375 34.125C46.9818 34.125 47.9833 34.5398 48.7217 35.2783C49.4602 36.0167 49.875 37.0182 49.875 38.0625C49.875 39.1068 49.4602 40.1083 48.7217 40.8467C47.9833 41.5852 46.9818 42 45.9375 42ZM17.0625 42C16.0182 42 15.0167 41.5852 14.2783 40.8467C13.5398 40.1083 13.125 39.1068 13.125 38.0625C13.125 37.0182 13.5398 36.0167 14.2783 35.2783C15.0167 34.5398 16.0182 34.125 17.0625 34.125C18.1068 34.125 19.1083 34.5398 19.8467 35.2783C20.5852 36.0167 21 37.0182 21 38.0625C21 39.1068 20.5852 40.1083 19.8467 40.8467C19.1083 41.5852 18.1068 42 17.0625 42ZM49.665 15.75C49.14 14.2275 47.67 13.125 45.9375 13.125H17.0625C15.33 13.125 13.86 14.2275 13.335 15.75L7.875 31.5V52.5C7.875 53.1962 8.15156 53.8639 8.64384 54.3562C9.13613 54.8484 9.80381 55.125 10.5 55.125H13.125C13.8212 55.125 14.4889 54.8484 14.9812 54.3562C15.4734 53.8639 15.75 53.1962 15.75 52.5V49.875H47.25V52.5C47.25 53.1962 47.5266 53.8639 48.0188 54.3562C48.5111 54.8484 49.1788 55.125 49.875 55.125H52.5C53.1962 55.125 53.8639 54.8484 54.3562 54.3562C54.8484 53.8639 55.125 53.1962 55.125 52.5V31.5L49.665 15.75Z"
+                                fill="#1B1B1B" fill-opacity="0.6" />
+                        </svg></div>
+                </div>
+
+                <div class="istoriya-rows">
+                    <div class="istoriya-row">
+                        <div class="istoriya-label">Цена</div>
+                        <div class="istoriya-value">
+                            500 060 000 сум
+                            <span class="istoriya-price-down">↓ 50 060 000 сум</span>
+                        </div>
+                    </div>
+
+                    <div class="istoriya-row">
+                        <div class="istoriya-label">Пробег</div>
+                        <div class="istoriya-value">10 000 км</div>
+                    </div>
+
+                    <div class="istoriya-row">
+                        <div class="istoriya-label">Регион</div>
+                        <div class="istoriya-value">Ташкент</div>
+                    </div>
+
+                    <div class="istoriya-row">
+                        <div class="istoriya-label">Состояние</div>
+                        <div class="istoriya-value istoriya-bad">Битый</div>
+                    </div>
+                </div>
+
+                <button class="istoriya-detail-btn">Подробнее</button>
+            </div>
+
+            <!-- CARD 2 -->
+            <div class="istoriya-card">
+                <div class="istoriya-card-top">
+                    <div>
+                        <div class="istoriya-date">18 янв 2026</div>
+                        <div class="istoriya-card-title">Объявление на OLX</div>
+                    </div>
+                    <div class="istoriya-car-icon"><svg width="63" height="63" viewBox="0 0 63 63" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M13.125 28.875L17.0625 17.0625H45.9375L49.875 28.875H13.125ZM45.9375 42C44.8932 42 43.8917 41.5852 43.1533 40.8467C42.4148 40.1083 42 39.1068 42 38.0625C42 37.0182 42.4148 36.0167 43.1533 35.2783C43.8917 34.5398 44.8932 34.125 45.9375 34.125C46.9818 34.125 47.9833 34.5398 48.7217 35.2783C49.4602 36.0167 49.875 37.0182 49.875 38.0625C49.875 39.1068 49.4602 40.1083 48.7217 40.8467C47.9833 41.5852 46.9818 42 45.9375 42ZM17.0625 42C16.0182 42 15.0167 41.5852 14.2783 40.8467C13.5398 40.1083 13.125 39.1068 13.125 38.0625C13.125 37.0182 13.5398 36.0167 14.2783 35.2783C15.0167 34.5398 16.0182 34.125 17.0625 34.125C18.1068 34.125 19.1083 34.5398 19.8467 35.2783C20.5852 36.0167 21 37.0182 21 38.0625C21 39.1068 20.5852 40.1083 19.8467 40.8467C19.1083 41.5852 18.1068 42 17.0625 42ZM49.665 15.75C49.14 14.2275 47.67 13.125 45.9375 13.125H17.0625C15.33 13.125 13.86 14.2275 13.335 15.75L7.875 31.5V52.5C7.875 53.1962 8.15156 53.8639 8.64384 54.3562C9.13613 54.8484 9.80381 55.125 10.5 55.125H13.125C13.8212 55.125 14.4889 54.8484 14.9812 54.3562C15.4734 53.8639 15.75 53.1962 15.75 52.5V49.875H47.25V52.5C47.25 53.1962 47.5266 53.8639 48.0188 54.3562C48.5111 54.8484 49.1788 55.125 49.875 55.125H52.5C53.1962 55.125 53.8639 54.8484 54.3562 54.3562C54.8484 53.8639 55.125 53.1962 55.125 52.5V31.5L49.665 15.75Z"
+                                fill="#1B1B1B" fill-opacity="0.6" />
+                        </svg></div>
+                </div>
+
+                <div class="istoriya-rows">
+                    <div class="istoriya-row">
+                        <div class="istoriya-label">Цена</div>
+                        <div class="istoriya-value">
+                            500 060 000 сум
+                            <span class="istoriya-price-down">↓ 50 060 000 сум</span>
+                        </div>
+                    </div>
+
+                    <div class="istoriya-row">
+                        <div class="istoriya-label">Пробег</div>
+                        <div class="istoriya-value">10 000 км</div>
+                    </div>
+
+                    <div class="istoriya-row">
+                        <div class="istoriya-label">Регион</div>
+                        <div class="istoriya-value">Ташкент</div>
+                    </div>
+
+                    <div class="istoriya-row">
+                        <div class="istoriya-label">Состояние</div>
+                        <div class="istoriya-value istoriya-bad">Битый</div>
+                    </div>
+                </div>
+
+                <button class="istoriya-detail-btn">Подробнее</button>
+            </div>
+
+            <!-- CARD 4 -->
+            <div class="istoriya-card">
+                <div class="istoriya-card-top">
+                    <div>
+                        <div class="istoriya-date">18 янв 2026</div>
+                        <div class="istoriya-card-title">
+                            Лот на аукционе
+                        </div>
+                    </div>
+                    <div class="istoriya-car-icon">
+                        <svg width="63" height="63" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M13.125 28.875L17.0625 17.0625H45.9375L49.875 28.875H13.125ZM45.9375 42C44.8932 42 43.8917 41.5852 43.1533 40.8467C42.4148 40.1083 42 39.1068 42 38.0625C42 37.0182 42.4148 36.0167 43.1533 35.2783C43.8917 34.5398 44.8932 34.125 45.9375 34.125C46.9818 34.125 47.9833 34.5398 48.7217 35.2783C49.4602 36.0167 49.875 37.0182 49.875 38.0625C49.875 39.1068 49.4602 40.1083 48.7217 40.8467C47.9833 41.5852 46.9818 42 45.9375 42ZM17.0625 42C16.0182 42 15.0167 41.5852 14.2783 40.8467C13.5398 40.1083 13.125 39.1068 13.125 38.0625C13.125 37.0182 13.5398 36.0167 14.2783 35.2783C15.0167 34.5398 16.0182 34.125 17.0625 34.125C18.1068 34.125 19.1083 34.5398 19.8467 35.2783C20.5852 36.0167 21 37.0182 21 38.0625C21 39.1068 20.5852 40.1083 19.8467 40.8467C19.1083 41.5852 18.1068 42 17.0625 42ZM49.665 15.75C49.14 14.2275 47.67 13.125 45.9375 13.125H17.0625C15.33 13.125 13.86 14.2275 13.335 15.75L7.875 31.5V52.5C7.875 53.1962 8.15156 53.8639 8.64384 54.3562C9.13613 54.8484 9.80381 55.125 10.5 55.125H13.125C13.8212 55.125 14.4889 54.8484 14.9812 54.3562C15.4734 53.8639 15.75 53.1962 15.75 52.5V49.875H47.25V52.5C47.25 53.1962 47.5266 53.8639 48.0188 54.3562C48.5111 54.8484 49.1788 55.125 49.875 55.125H52.5C53.1962 55.125 53.8639 54.8484 54.3562 54.3562C54.8484 53.8639 55.125 53.1962 55.125 52.5V31.5L49.665 15.75Z"
+                                fill="#1B1B1B" fill-opacity="0.6" />
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="istoriya-rows">
+                    <div class="istoriya-row">
+                        <div class="istoriya-label">Цена</div>
+                        <div class="istoriya-value">500 060 000 сум</div>
+                    </div>
+
+                    <div class="istoriya-row">
+                        <div class="istoriya-label">Пробег</div>
+                        <div class="istoriya-value">10 000 км</div>
+                    </div>
+
+                    <div class="istoriya-row">
+                        <div class="istoriya-label">Регион</div>
+                        <div class="istoriya-value">Ташкент</div>
+                    </div>
+                </div>
+            </div>
+            <!-- CARD 3 -->
+            <div class="istoriya-card">
+                <div class="istoriya-card-top">
+                    <div>
+                        <div class="istoriya-date">18 янв 2026</div>
+                        <div class="istoriya-card-title">
+                            Объявление на другой площадке за границей
+                        </div>
+                    </div>
+                    <div class="istoriya-car-icon">
+                        <svg width="63" height="63" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M13.125 28.875L17.0625 17.0625H45.9375L49.875 28.875H13.125ZM45.9375 42C44.8932 42 43.8917 41.5852 43.1533 40.8467C42.4148 40.1083 42 39.1068 42 38.0625C42 37.0182 42.4148 36.0167 43.1533 35.2783C43.8917 34.5398 44.8932 34.125 45.9375 34.125C46.9818 34.125 47.9833 34.5398 48.7217 35.2783C49.4602 36.0167 49.875 37.0182 49.875 38.0625C49.875 39.1068 49.4602 40.1083 48.7217 40.8467C47.9833 41.5852 46.9818 42 45.9375 42ZM17.0625 42C16.0182 42 15.0167 41.5852 14.2783 40.8467C13.5398 40.1083 13.125 39.1068 13.125 38.0625C13.125 37.0182 13.5398 36.0167 14.2783 35.2783C15.0167 34.5398 16.0182 34.125 17.0625 34.125C18.1068 34.125 19.1083 34.5398 19.8467 35.2783C20.5852 36.0167 21 37.0182 21 38.0625C21 39.1068 20.5852 40.1083 19.8467 40.8467C19.1083 41.5852 18.1068 42 17.0625 42ZM49.665 15.75C49.14 14.2275 47.67 13.125 45.9375 13.125H17.0625C15.33 13.125 13.86 14.2275 13.335 15.75L7.875 31.5V52.5C7.875 53.1962 8.15156 53.8639 8.64384 54.3562C9.13613 54.8484 9.80381 55.125 10.5 55.125H13.125C13.8212 55.125 14.4889 54.8484 14.9812 54.3562C15.4734 53.8639 15.75 53.1962 15.75 52.5V49.875H47.25V52.5C47.25 53.1962 47.5266 53.8639 48.0188 54.3562C48.5111 54.8484 49.1788 55.125 49.875 55.125H52.5C53.1962 55.125 53.8639 54.8484 54.3562 54.3562C54.8484 53.8639 55.125 53.1962 55.125 52.5V31.5L49.665 15.75Z"
+                                fill="#1B1B1B" fill-opacity="0.6" />
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="istoriya-rows">
+                    <div class="istoriya-row">
+                        <div class="istoriya-label">Цена</div>
+                        <div class="istoriya-value">500 060 000 сум</div>
+                    </div>
+
+                    <div class="istoriya-row">
+                        <div class="istoriya-label">Пробег</div>
+                        <div class="istoriya-value">10 000 км</div>
+                    </div>
+
+                    <div class="istoriya-row">
+                        <div class="istoriya-label">Регион</div>
+                        <div class="istoriya-value">Ташкент</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="istoriya-header-btn istoriya-header-btn_2">Показать еще</button>
+    </section>
+
+
+
+    <section class="step_pt">
+        <h1>Повреждение автомобиля</h1>
+        <div class="step_pt_card">
+            <div class="step_pt_card_title">
+                <h2>Происшествий не найдено</h2>
+                <div class="green_circle"></div>
+            </div>
+            <p>Мы проверили базы данных госсервисов, страховых компаний, независимых оценщиков, дилеров и СТО.</p>
+            <hr>
+            <p>ДТП не найденоb <br>
+                Расчёт стоимости ремонта не найден<br>
+                Страховая выплата не найдена<br>
+                Кузовной ремонт не найден</p>
+
+        </div>
+        <div class="step_pt_card">
+            <div class="step_pt_card_title">
+                <h2>Нет сведений о продаже на аукционах аварийных автомобилей</h2>
+                <div class="green_circle"></div>
+            </div>
+            <p>Мы проверили базы данных наших партнёров.</p>
+            <hr>
+            <p><b>Что такое аукцион аварийных автомобилей?</b></p>
+            <p>Это место, куда попадают автомобили с сильными повреждениями, например <br> после аварии, пожара или
+                стихийного бедствия.</p>
+
+        </div>
+        <div class="step_pt_card">
+            <div class="step_pt_card_title">
+                <h2>Не найдены сведения о диагностике</h2>
+                <div class="grey_circle"></div>
+            </div>
+            <p>Наши партнёры не осматривали автомобиль.</p>
+
+        </div>
+    </section>
+
+    <h3 class="probeg_title">Пробег</h3>
+    <section class="probeg">
+
+        <div class="top">
+            <div class="left" style="width: 100%;">
+                <h3 style="display: flex;justify-content: space-between;">По нашим данным <div class="status">
+                        Похоже, скручен <span></span>
+                    </div>
+                </h3>
+                <h2>от 93 000 км</h2>
+                <p>Он нужен для заключения договора купли-продажи и регистрации автомобиля</p>
+            </div>
+
+
+        </div>
+
+        <div class="chart">
+
+            <!-- SVG GRAPH -->
+            <svg viewBox="0 0 1000 260" width="100%" height="260" preserveAspectRatio="none">
+
+                <!-- GRID -->
+                <g stroke="#eee" stroke-width="1">
+                    <line x1="0" y1="40" x2="1000" y2="40" />
+                    <line x1="0" y1="80" x2="1000" y2="80" />
+                    <line x1="0" y1="120" x2="1000" y2="120" />
+                    <line x1="0" y1="160" x2="1000" y2="160" />
+                    <line x1="0" y1="200" x2="1000" y2="200" />
+                </g>
+
+                <!-- LINES -->
+                <polyline points="20,200 250,120 500,200 980,40" fill="none" stroke="red" stroke-width="3"
+                    stroke-linejoin="round" stroke-linecap="round" />
+
+                <!-- GREEN PART -->
+                <polyline points="20,200 250,120" fill="none" stroke="#00b050" stroke-width="3" stroke-linejoin="round"
+                    stroke-linecap="round" />
+
+                <!-- POINTS -->
+                <g>
+                    <circle cx="20" cy="200" r="6" fill="#fff" stroke="#00b050" stroke-width="2" />
+                    <circle cx="250" cy="120" r="6" fill="#fff" stroke="red" stroke-width="2" />
+                    <circle cx="500" cy="200" r="6" fill="red" />
+                    <!-- <circle cx="750" cy="60" r="6" fill="#fff" stroke="red" stroke-width="2"/> -->
+                    <circle cx="980" cy="40" r="6" fill="#fff" stroke="red" stroke-width="2" />
+                </g>
+
+            </svg>
+
+            <div class="years">
+                <span>2020</span>
+                <span>2022</span>
+                <span>2023</span>
+                <span>2024</span>
+                <span>2025</span>
+            </div>
+
+            <div class="footer">
+                <div class="switch"></div>
+                Повторы и аномальные события
+            </div>
+
+        </div>
+
+    </section>
+    <section class="istoriya">
+        <div class="istoriya_title">
+            <h1>История эксплуатации</h1><button>Показать еще</button>
+        </div>
+        <div class="istoriya_card">
+            <div class="istoriya_card_top">
+                <p>Найдено 9 событий и 1 владелец</p>
+                <h6>
+                    Коммерч. использование: 3 записи
+                    <span class="istoriya_red_circle"></span>
+                </h6>
+            </div>
+
+            <div class="istoriya_timeline">
+
+                <!-- item -->
+                <div class="istoriya_item">
+                    <div class="istoriya_date">
+                        <span>18.12.2025</span><br>
+                        <div class="istoriya_km"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M8 0C9.06087 0 10.0783 0.421427 10.8284 1.17157C11.5786 1.92172 12 2.93913 12 4C12 5.06087 11.5786 6.07828 10.8284 6.82843C10.0783 7.57857 9.06087 8 8 8C6.93913 8 5.92172 7.57857 5.17157 6.82843C4.42143 6.07828 4 5.06087 4 4C4 2.93913 4.42143 1.92172 5.17157 1.17157C5.92172 0.421427 6.93913 0 8 0ZM8 10C12.42 10 16 11.79 16 14V16H0V14C0 11.79 3.58 10 8 10Z"
+                                    fill="white" />
+                            </svg> 1 203 км</div>
+                    </div>
+
+                    <div class="istoriya_line">
+                        <span class="istoriya_circle"></span>
+                    </div>
+
+                    <div class="istoriya_content">
+                        <div class="istoriya_date istoriya_date_2">
+                            <span>18.12.2025</span><br>
+                            <div class="istoriya_km"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M8 0C9.06087 0 10.0783 0.421427 10.8284 1.17157C11.5786 1.92172 12 2.93913 12 4C12 5.06087 11.5786 6.07828 10.8284 6.82843C10.0783 7.57857 9.06087 8 8 8C6.93913 8 5.92172 7.57857 5.17157 6.82843C4.42143 6.07828 4 5.06087 4 4C4 2.93913 4.42143 1.92172 5.17157 1.17157C5.92172 0.421427 6.93913 0 8 0ZM8 10C12.42 10 16 11.79 16 14V16H0V14C0 11.79 3.58 10 8 10Z"
+                                        fill="white" />
+                                </svg> 1 203 км</div>
+                        </div>
+                        <h3>Участие в аукционе на OLX</h3>
+                        <p class="istoriya_subtitle">OLX</p>
+                        <p class="istoriya_location">Узбекистан, Ташкент</p>
+                    </div>
+                </div>
+
+                <!-- item -->
+                <div class="istoriya_item">
+                    <div class="istoriya_date">
+                        <span>02.2024 — 11.2025 (Коммерция)</span><br>
+                        <div class="istoriya_km"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M8 0C9.06087 0 10.0783 0.421427 10.8284 1.17157C11.5786 1.92172 12 2.93913 12 4C12 5.06087 11.5786 6.07828 10.8284 6.82843C10.0783 7.57857 9.06087 8 8 8C6.93913 8 5.92172 7.57857 5.17157 6.82843C4.42143 6.07828 4 5.06087 4 4C4 2.93913 4.42143 1.92172 5.17157 1.17157C5.92172 0.421427 6.93913 0 8 0ZM8 10C12.42 10 16 11.79 16 14V16H0V14C0 11.79 3.58 10 8 10Z"
+                                    fill="white" />
+                            </svg> 78 203 км</div>
+                    </div>
+
+                    <div class="istoriya_line">
+                        <span class="istoriya_circle"></span>
+                    </div>
+
+                    <div class="istoriya_content">
+                        <div class="istoriya_date istoriya_date_2">
+                            <span>02.2024 — 11.2025 (Коммерция)</span><br>
+                            <div class="istoriya_km"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M8 0C9.06087 0 10.0783 0.421427 10.8284 1.17157C11.5786 1.92172 12 2.93913 12 4C12 5.06087 11.5786 6.07828 10.8284 6.82843C10.0783 7.57857 9.06087 8 8 8C6.93913 8 5.92172 7.57857 5.17157 6.82843C4.42143 6.07828 4 5.06087 4 4C4 2.93913 4.42143 1.92172 5.17157 1.17157C5.92172 0.421427 6.93913 0 8 0ZM8 10C12.42 10 16 11.79 16 14V16H0V14C0 11.79 3.58 10 8 10Z"
+                                        fill="white" />
+                                </svg> 78 203 км</div>
+                        </div>
+                        <h3>Частая перепродажа</h3>
+                        <p class="istoriya_subtitle">Несколько объявлений о продаже</p>
+                        <p class="istoriya_location">Узбекистан, Ташкент</p>
+                    </div>
+                </div>
+
+                <!-- item -->
+                <div class="istoriya_item">
+                    <div class="istoriya_date">
+                        <span>12.2022 — 01.2024 (Коммерция)</span><br>
+                        <div class="istoriya_km"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M8 0C9.06087 0 10.0783 0.421427 10.8284 1.17157C11.5786 1.92172 12 2.93913 12 4C12 5.06087 11.5786 6.07828 10.8284 6.82843C10.0783 7.57857 9.06087 8 8 8C6.93913 8 5.92172 7.57857 5.17157 6.82843C4.42143 6.07828 4 5.06087 4 4C4 2.93913 4.42143 1.92172 5.17157 1.17157C5.92172 0.421427 6.93913 0 8 0ZM8 10C12.42 10 16 11.79 16 14V16H0V14C0 11.79 3.58 10 8 10Z"
+                                    fill="white" />
+                            </svg> 12 500 → 78 200 км</div>
+                    </div>
+
+                    <div class="istoriya_line">
+                        <span class="istoriya_circle"></span>
+                    </div>
+
+                    <div class="istoriya_content">
+                        <div class="istoriya_date istoriya_date_2">
+                            <span>12.2022 — 01.2024 (Коммерция)</span><br>
+                            <div class="istoriya_km"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M8 0C9.06087 0 10.0783 0.421427 10.8284 1.17157C11.5786 1.92172 12 2.93913 12 4C12 5.06087 11.5786 6.07828 10.8284 6.82843C10.0783 7.57857 9.06087 8 8 8C6.93913 8 5.92172 7.57857 5.17157 6.82843C4.42143 6.07828 4 5.06087 4 4C4 2.93913 4.42143 1.92172 5.17157 1.17157C5.92172 0.421427 6.93913 0 8 0ZM8 10C12.42 10 16 11.79 16 14V16H0V14C0 11.79 3.58 10 8 10Z"
+                                        fill="white" />
+                                </svg> 12 500 → 78 200 км</div>
+                        </div>
+                        <h3>Использование в такси</h3>
+                        <p class="istoriya_subtitle">Зафиксирована лицензия такси</p>
+                        <p class="istoriya_location">Узбекистан, Ташкент</p>
+                    </div>
+                </div>
+
+                <!-- item -->
+                <div class="istoriya_item">
+                    <div class="istoriya_date">
+                        <span>02.12.2022</span><br>
+                        <div class="istoriya_km"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M8 0C9.06087 0 10.0783 0.421427 10.8284 1.17157C11.5786 1.92172 12 2.93913 12 4C12 5.06087 11.5786 6.07828 10.8284 6.82843C10.0783 7.57857 9.06087 8 8 8C6.93913 8 5.92172 7.57857 5.17157 6.82843C4.42143 6.07828 4 5.06087 4 4C4 2.93913 4.42143 1.92172 5.17157 1.17157C5.92172 0.421427 6.93913 0 8 0ZM8 10C12.42 10 16 11.79 16 14V16H0V14C0 11.79 3.58 10 8 10Z"
+                                    fill="white" />
+                            </svg> 12 500 км</div>
+                    </div>
+
+                    <div class="istoriya_line">
+                        <span class="istoriya_circle"></span>
+                    </div>
+
+                    <div class="istoriya_content">
+                        <div class="istoriya_date istoriya_date_2">
+                            <span>02.12.2022</span><br>
+                            <div class="istoriya_km"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M8 0C9.06087 0 10.0783 0.421427 10.8284 1.17157C11.5786 1.92172 12 2.93913 12 4C12 5.06087 11.5786 6.07828 10.8284 6.82843C10.0783 7.57857 9.06087 8 8 8C6.93913 8 5.92172 7.57857 5.17157 6.82843C4.42143 6.07828 4 5.06087 4 4C4 2.93913 4.42143 1.92172 5.17157 1.17157C5.92172 0.421427 6.93913 0 8 0ZM8 10C12.42 10 16 11.79 16 14V16H0V14C0 11.79 3.58 10 8 10Z"
+                                        fill="white" />
+                                </svg> 12 500 км</div>
+                        </div>
+                        <h3>Регистрация на юридическое лицо</h3>
+                        <p class="istoriya_subtitle">
+                            Владелец: ООО «ГринТакси», вид деятельности: перевозки пассажиров
+                        </p>
+                        <p class="istoriya_location">Узбекистан, Ташкент</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="istoriya_title istoriya_title_2"><button>Показать еще</button></div>
+
+    </section>
+
+    <div class="nash_modal" id="hard_modal_1">
+        <div class="nash_modal_mid">
+            <div onclick="closeNashModal()" class="nash_modal_close">✕</div>
+            <h3>Наши рекомендации</h3>
+            <p>Есть критические недостатки, лучше не рисковать</p>
+            <h3>Что повлияло на рекомендацию</h3>
+            <h5>
+                <div class="red_circle"></div> Есть ограничения на регистрацию
+            </h5>
+            <span>Вы не сможете поставить автомобиль на учёт в ГИБДД и ездить на нём.</span>
+        </div>
     </div>
 
+
+
+    <div class="nash_modal" id="hard_modal_2">
+        <div class="nash_modal_mid">
+            <div onclick="closeYurModal()" class="nash_modal_close">✕</div>
+            <h3>Юридические риски</h3>
+            <p>Судя по нашим данным, этот автомобиль не получится поставить на учёт в ГИБДД, а значит вы не сможете
+                ездить на нём.</p>
+
+            <div class="nash_modal_mid_tabs">
+                <div class="nash_modal_mid_tab nash_modal_mid_tab_active" onclick="switch_modal(0)">Ограничения <div
+                        class="mini_red_circle">
+                    </div>
+                </div>
+                <div class="nash_modal_mid_tab" onclick="switch_modal(1)">Штрафы <div class="mini_red_circle"></div>
+                </div>
+                <div class="nash_modal_mid_tab" onclick="switch_modal(2)">Залог<div class="mini_orange_circle"></div>
+                </div>
+                <div class="nash_modal_mid_tab" onclick="switch_modal(3)">Розыски<div class="mini_orange_circle"></div>
+                </div>
+                <div class="nash_modal_mid_tab" onclick="switch_modal(4)">Судебные споры<div class="mini_orange_circle">
+                    </div>
+                </div>
+                <div class="nash_modal_mid_tab" onclick="switch_modal(5)">Лизинг<div class="mini_orange_circle"></div>
+                </div>
+
+            </div>
+            <div class="nash_modal_mid_action">
+                <h5>
+                    <div class="red_circle"></div> Есть ограничения на регистрацию
+                </h5>
+                <span>Собственник не оплатил штрафы, налоги или права на машину оспаривают в суде.</span>
+                <div class="nash_modal_mid_action_card">
+                    <div class="nash_modal_mid_action_card_title">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M14 14H7V16H14V14ZM19 19H5V8H19V19ZM19 3H18V1H16V3H8V1H6V3H5C3.89 3 3 3.9 3 5V19C3 19.5304 3.21071 20.0391 3.58579 20.4142C3.96086 20.7893 4.46957 21 5 21H19C19.5304 21 20.0391 20.7893 20.4142 20.4142C20.7893 20.0391 21 19.5304 21 19V5C21 4.46957 20.7893 3.96086 20.4142 3.58579C20.0391 3.21071 19.5304 3 19 3ZM17 10H7V12H17V10Z"
+                                fill="#0A4BA9" />
+                        </svg>
+                        5 июл 2025
+                    </div>
+                    <div class="nash_modal_mid_action_card_grid">
+                        <div class="nash_modal_mid_action_card_grid_p">
+                            <svg width="21" height="21" viewBox="0 0 21 21" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M19.39 18.09L5.3 4L1.3 0L0 1.24L3.46 4.7L1.89 9.24V17.24C1.89 17.5052 1.99536 17.7596 2.18289 17.9471C2.37043 18.1346 2.62478 18.24 2.89 18.24H3.89C4.15522 18.24 4.40957 18.1346 4.59711 17.9471C4.78464 17.7596 4.89 17.5052 4.89 17.24V16.24H15L19.73 20.97L21 19.7L19.39 18.09ZM5.39 13.24C4.99218 13.24 4.61064 13.082 4.32934 12.8007C4.04804 12.5194 3.89 12.1378 3.89 11.74C3.89 11.3422 4.04804 10.9606 4.32934 10.6793C4.61064 10.398 4.99218 10.24 5.39 10.24C5.78782 10.24 6.16936 10.398 6.45066 10.6793C6.73196 10.9606 6.89 11.3422 6.89 11.74C6.89 12.1378 6.73196 12.5194 6.45066 12.8007C6.16936 13.082 5.78782 13.24 5.39 13.24ZM3.89 8.24L4.67 5.91L7 8.24H3.89ZM16.39 3.74L17.89 8.24H12.09L15.01 11.16C15.39 10.41 16.26 10.1 17.01 10.45C17.76 10.81 18.07 11.71 17.72 12.45C17.57 12.74 17.32 13.01 17.01 13.16L19.89 16.04V9.24L17.81 3.24C17.6 2.64 17.03 2.24 16.39 2.24H6.09L7.59 3.74H16.39Z"
+                                    fill="#1B1B1B" fill-opacity="0.6" />
+                            </svg>
+                            Вид ограничения
+                        </div> <span>Запрет на регистрационные действия</span>
+                    </div>
+                    <div class="nash_modal_mid_action_card_grid">
+                        <div class="nash_modal_mid_action_card_grid_p">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M11.5 1L2 6V8H21V6L11.5 1ZM16 10V17H19V10H16ZM2 22H21V19H2V22ZM10 10V17H13V10H10ZM4 10V17H7V10H4Z"
+                                    fill="#1B1B1B" fill-opacity="0.6" />
+                            </svg>
+                            Организация
+                        </div> <span>Судебный пристав</span>
+                    </div>
+
+                    <div class="nash_modal_mid_action_card_grid">
+                        <div class="nash_modal_mid_action_card_grid_p">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M14 20V22H2V20H14ZM14.586 0.685974L22.364 8.46397L20.95 9.87997L19.89 9.52597L17.413 12L23.07 17.657L21.656 19.071L16 13.414L13.596 15.818L13.879 16.95L12.464 18.364L4.686 10.586L6.101 9.17197L7.231 9.45397L13.525 3.16097L13.172 2.10097L14.586 0.685974Z"
+                                    fill="#1B1B1B" fill-opacity="0.6" />
+                            </svg>Предмет исполнения
+                        </div> <span>Предмет исполнения
+                            Акт по делу об административном правонарушении</span>
+                    </div>
+
+                    <div class="nash_modal_mid_action_card_grid">
+                        <div class="nash_modal_mid_action_card_grid_p">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M11.997 9.12042e-07C13.827 -0.000872552 15.602 0.625667 17.0259 1.77513C18.4498 2.92458 19.4366 4.52748 19.8217 6.31647C20.2068 8.10546 19.9669 9.97241 19.1421 11.6059C18.3172 13.2395 16.9573 14.5408 15.289 15.293C14.7558 16.4719 13.9446 17.5039 12.9249 18.3004C11.9052 19.097 10.7076 19.6343 9.43467 19.8663C8.16174 20.0984 6.85153 20.0182 5.6164 19.6327C4.38127 19.2472 3.25807 18.5678 2.34315 17.6529C1.42822 16.738 0.748867 15.6148 0.363349 14.3796C-0.0221685 13.1445 -0.102346 11.8343 0.129694 10.5614C0.361733 9.28844 0.899065 8.0908 1.69561 7.07114C2.49215 6.05148 3.52412 5.24024 4.70303 4.707C5.33718 3.30389 6.36262 2.1135 7.65638 1.27861C8.95014 0.443714 10.4573 -0.000237065 11.997 9.12042e-07ZM8.99703 7H6.99703V8C6.34715 7.99842 5.72219 8.24997 5.25462 8.70134C4.78705 9.15271 4.51363 9.76842 4.4923 10.418C4.47097 11.0675 4.70342 11.6998 5.14038 12.1809C5.57733 12.6619 6.18444 12.9539 6.83303 12.995L6.99703 13H8.99703L9.08703 13.008C9.20232 13.0289 9.30661 13.0896 9.38171 13.1795C9.45681 13.2694 9.49795 13.3828 9.49795 13.5C9.49795 13.6172 9.45681 13.7306 9.38171 13.8205C9.30661 13.9104 9.20232 13.9711 9.08703 13.992L8.99703 14H4.99703V16H6.99703V17H8.99703V16C9.64692 16.0016 10.2719 15.75 10.7394 15.2987C11.207 14.8473 11.4804 14.2316 11.5018 13.582C11.5231 12.9325 11.2906 12.3002 10.8537 11.8191C10.4167 11.3381 9.80962 11.0461 9.16103 11.005L8.99703 11H6.99703L6.90703 10.992C6.79175 10.9711 6.68746 10.9104 6.61236 10.8205C6.53726 10.7306 6.49612 10.6172 6.49612 10.5C6.49612 10.3828 6.53726 10.2694 6.61236 10.1795C6.68746 10.0896 6.79175 10.0289 6.90703 10.008L6.99703 10H10.997V8H8.99703V7ZM11.997 2C11.1497 1.99901 10.3119 2.17794 9.53886 2.52496C8.76586 2.87198 8.07536 3.37918 7.51303 4.013C8.6433 3.94439 9.77525 4.1165 10.834 4.51795C11.8928 4.9194 12.8543 5.54105 13.655 6.34178C14.4556 7.14252 15.0772 8.1041 15.4785 9.16293C15.8798 10.2218 16.0518 11.3537 15.983 12.484C16.8922 11.6756 17.5342 10.6099 17.8239 9.42831C18.1135 8.24668 18.037 7.00492 17.6047 5.86772C17.1723 4.73053 16.4045 3.75164 15.403 3.06088C14.4015 2.37013 13.2136 2.00014 11.997 2Z"
+                                    fill="#1B1B1B" fill-opacity="0.6" />
+                            </svg>Сумма задолженности, включая пени и исполнительский сбор
+                        </div> <span>2 650 000 сум</span>
+                    </div>
+                    <div class="nash_modal_mid_action_card_grid">
+                        <div class="nash_modal_mid_action_card_grid_p">
+
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M2.0498 13H7.5268C7.69792 16.1668 8.70735 19.2314 10.4518 21.88C8.26674 21.5368 6.257 20.4791 4.73682 18.8725C3.21664 17.2658 2.27172 15.2007 2.0498 13ZM2.0498 11C2.27172 8.7993 3.21664 6.73417 4.73682 5.12751C6.257 3.52084 8.26674 2.46322 10.4518 2.12C8.70735 4.76861 7.69792 7.83314 7.5268 11H2.0498ZM21.9498 11H16.4728C16.3017 7.83314 15.2923 4.76861 13.5478 2.12C15.7329 2.46322 17.7426 3.52084 19.2628 5.12751C20.783 6.73417 21.7279 8.7993 21.9498 11ZM21.9498 13C21.7279 15.2007 20.783 17.2658 19.2628 18.8725C17.7426 20.4791 15.7329 21.5368 13.5478 21.88C15.2923 19.2314 16.3017 16.1668 16.4728 13H21.9508H21.9498ZM9.5298 13H14.4698C14.3052 15.6995 13.4551 18.3124 11.9998 20.592C10.5445 18.3124 9.6944 15.6995 9.5298 13ZM9.5298 11C9.6944 8.30051 10.5445 5.68756 11.9998 3.408C13.4551 5.68756 14.3052 8.30051 14.4698 11H9.5298Z"
+                                    fill="#1B1B1B" fill-opacity="0.6" />
+                            </svg>
+                            Регион
+                        </div> <span>Ташкент</span>
+                    </div>
+                </div>
+            </div>
+            <div class="nash_modal_mid_action">
+                <h5>
+                    <div class="red_circle"></div> 1 неоплаченный штраф
+                </h5>
+                <span>Перед покупкой попросите владельца погасить долг</span>
+                <div class="nash_modal_mid_action_a">
+                    <span>
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M9.9 6.3H8.1V4.5H9.9V6.3ZM9.9 13.5H8.1V8.1H9.9V13.5ZM9 0C7.8181 0 6.64778 0.232792 5.55585 0.685084C4.46392 1.13738 3.47177 1.80031 2.63604 2.63604C0.948211 4.32387 0 6.61305 0 9C0 11.3869 0.948211 13.6761 2.63604 15.364C3.47177 16.1997 4.46392 16.8626 5.55585 17.3149C6.64778 17.7672 7.8181 18 9 18C11.3869 18 13.6761 17.0518 15.364 15.364C17.0518 13.6761 18 11.3869 18 9C18 7.8181 17.7672 6.64778 17.3149 5.55585C16.8626 4.46392 16.1997 3.47177 15.364 2.63604C14.5282 1.80031 13.5361 1.13738 12.4442 0.685084C11.3522 0.232792 10.1819 0 9 0Z"
+                                fill="#ABAAAA" />
+                        </svg>
+                        Оплаченные штрафы не влияют на регистрацию</span>
+                    <a href="">Показать оплаченные штрафы
+                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M8.51568 14.5566L12.0724 11L8.51568 7.44332C8.15818 7.08582 8.15818 6.50832 8.51568 6.15082C8.87318 5.79332 9.45068 5.79332 9.80818 6.15082L14.0157 10.3583C14.3732 10.7158 14.3732 11.2933 14.0157 11.6508L9.80818 15.8583C9.45068 16.2158 8.87318 16.2158 8.51568 15.8583C8.16735 15.5008 8.15818 14.9141 8.51568 14.5566Z"
+                                fill="#11B566" />
+                        </svg>
+                    </a>
+                </div>
+                <div class="nash_modal_mid_action_card">
+                    <div class="nash_modal_mid_action_card_title nash_modal_mid_action_card_title_red">
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M3 12H5V14H3V12ZM8 10H15V12H8V10ZM8 6H15V8H8V6ZM3 4H5V10H3V4ZM2 0C0.89 0 0 0.9 0 2V16C0 16.5304 0.210714 17.0391 0.585786 17.4142C0.960859 17.7893 1.46957 18 2 18H16C16.5304 18 17.0391 17.7893 17.4142 17.4142C17.7893 17.0391 18 16.5304 18 16V2C18 1.46957 17.7893 0.960859 17.4142 0.585786C17.0391 0.210714 16.5304 0 16 0H2Z"
+                                fill="#E73C3B" />
+                        </svg>Штраф: 10 явн 2026 на 30 000 сум
+                    </div>
+                    <div class="nash_modal_mid_action_card_grid">
+                        <div class="nash_modal_mid_action_card_grid_p">Статус</div><span>
+                            <svg width="16" height="19" viewBox="0 0 16 19" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M10.1053 9.5H14.7368L10.1053 4.75V9.5ZM5.05263 3.45455H10.9474L16 8.63636V17.2727C16 17.7308 15.8226 18.1702 15.5067 18.4941C15.1909 18.818 14.7625 19 14.3158 19H5.05263C4.11789 19 3.36842 18.2227 3.36842 17.2727V14.6818H7.57895V16.4091L10.9474 13.8182L7.57895 11.2273V12.9545H3.36842V5.18182C3.36842 4.72372 3.54586 4.28438 3.86171 3.96045C4.17757 3.63653 4.60595 3.45455 5.05263 3.45455ZM9.68421 1.72727H1.68421V12.9545H3.36842V14.6818H1.68421C1.23753 14.6818 0.809144 14.4998 0.493294 14.1759C0.177443 13.852 0 13.4126 0 12.9545V1.72727C0 1.26917 0.177443 0.829833 0.493294 0.505907C0.809144 0.18198 1.23753 0 1.68421 0H8L9.68421 1.72727Z"
+                                    fill="#FFB614" />
+                            </svg>
+                            Передан в ФССП 10 сентября 2025</span>
+                    </div>
+                    <div class="nash_modal_mid_action_card_grid">
+                        <div class="nash_modal_mid_action_card_grid_p">Сумма</div><span>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M8 0C3.584 0 0 3.584 0 8C0 12.416 3.584 16 8 16C12.416 16 16 12.416 16 8C16 3.584 12.416 0 8 0ZM8.8 12H7.2V10.4H8.8V12ZM8.8 8.8H7.2V4H8.8V8.8Z"
+                                    fill="#E73C3B" />
+                            </svg>
+                            30 000 сум</span>
+                    </div>
+                    <div class="nash_modal_mid_action_card_grid">
+                        <div class="nash_modal_mid_action_card_grid_p">Номер постановления</div>
+                        <span>2424253536363636</span>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="nash_modal_mid_action">
+                <h5>
+                    <div style="background-color: #FFB614;" class="red_circle"></div> В залоге
+                </h5>
+                <span>Если авто продадут без согласия банка, сделку признают недействительной</span>
+
+                <div class="nash_modal_mid_action_card">
+
+                    <div class="nash_modal_mid_action_card_grid">
+                        <div class="nash_modal_mid_action_card_grid_p">Источник</div><span>
+
+                            Нотариальная палата РУз</span>
+                    </div>
+                    <div class="nash_modal_mid_action_card_grid">
+                        <div class="nash_modal_mid_action_card_grid_p">Дата возникновения залога</div><span>
+
+                            22.11.2024</span>
+                    </div>
+                    <div class="nash_modal_mid_action_card_grid">
+                        <div class="nash_modal_mid_action_card_grid_p">Залогодержатель</div>
+                        <span>Asaka Bank</span>
+                    </div>
+
+                </div>
+                <div class="nash_modal_mid_action_a">
+                    <span>
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M9.9 6.3H8.1V4.5H9.9V6.3ZM9.9 13.5H8.1V8.1H9.9V13.5ZM9 0C7.8181 0 6.64778 0.232792 5.55585 0.685084C4.46392 1.13738 3.47177 1.80031 2.63604 2.63604C0.948211 4.32387 0 6.61305 0 9C0 11.3869 0.948211 13.6761 2.63604 15.364C3.47177 16.1997 4.46392 16.8626 5.55585 17.3149C6.64778 17.7672 7.8181 18 9 18C11.3869 18 13.6761 17.0518 15.364 15.364C17.0518 13.6761 18 11.3869 18 9C18 7.8181 17.7672 6.64778 17.3149 5.55585C16.8626 4.46392 16.1997 3.47177 15.364 2.63604C14.5282 1.80031 13.5361 1.13738 12.4442 0.685084C11.3522 0.232792 10.1819 0 9 0Z"
+                                fill="#ABAAAA" />
+                        </svg>
+                        Автомобиль в залоге нельзя продать или переоформить без согласия залогодержателя.</span>
+
+                </div>
+            </div>
+            <div class="nash_modal_mid_action">
+                <h5>
+                    <div style="background-color: #FFB614;" class="red_circle"></div> В розыске
+                </h5>
+
+
+                <div class="nash_modal_mid_action_card">
+
+                    <div class="nash_modal_mid_action_card_grid">
+
+                        <span>
+                            Тип розыска: <b>Розыск по делу</b>
+                        </span>
+                    </div>
+
+
+
+                </div>
+                <div class="nash_modal_mid_action_a">
+                    <span>
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M9.9 6.3H8.1V4.5H9.9V6.3ZM9.9 13.5H8.1V8.1H9.9V13.5ZM9 0C7.8181 0 6.64778 0.232792 5.55585 0.685084C4.46392 1.13738 3.47177 1.80031 2.63604 2.63604C0.948211 4.32387 0 6.61305 0 9C0 11.3869 0.948211 13.6761 2.63604 15.364C3.47177 16.1997 4.46392 16.8626 5.55585 17.3149C6.64778 17.7672 7.8181 18 9 18C11.3869 18 13.6761 17.0518 15.364 15.364C17.0518 13.6761 18 11.3869 18 9C18 7.8181 17.7672 6.64778 17.3149 5.55585C16.8626 4.46392 16.1997 3.47177 15.364 2.63604C14.5282 1.80031 13.5361 1.13738 12.4442 0.685084C11.3522 0.232792 10.1819 0 9 0Z"
+                                fill="#ABAAAA" />
+                        </svg>
+                        Если авто находится в розыске, связывайтесь с владельцем или правоохранительными органами,
+                        прежде чем совершать покупку.</span>
+
+                </div>
+            </div>
+            <div class="nash_modal_mid_action">
+                <h5>
+                    <div style="background-color: #FFB614;" class="red_circle"></div> Найдено 3 записи
+                </h5>
+                <span>Авто участвовало в судебных разбирательствах. Чаще всего<br> это связано с юрлицами, лизингом или
+                    банкротством.</span>
+
+                <div class="nash_modal_mid_action_card">
+
+                    <div class="nash_modal_mid_action_card_grid">
+                        <div class="nash_modal_mid_action_card_grid_p">В процессе</div><span>
+
+                            1 дело</span>
+                    </div>
+                    <div class="nash_modal_mid_action_card_grid">
+                        <div class="nash_modal_mid_action_card_grid_p">Завершенные </div><span>
+
+                            2 дела</span>
+                    </div>
+
+
+                </div>
+                <div class="nash_modal_mid_action_a">
+                    <span>
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M9.9 6.3H8.1V4.5H9.9V6.3ZM9.9 13.5H8.1V8.1H9.9V13.5ZM9 0C7.8181 0 6.64778 0.232792 5.55585 0.685084C4.46392 1.13738 3.47177 1.80031 2.63604 2.63604C0.948211 4.32387 0 6.61305 0 9C0 11.3869 0.948211 13.6761 2.63604 15.364C3.47177 16.1997 4.46392 16.8626 5.55585 17.3149C6.64778 17.7672 7.8181 18 9 18C11.3869 18 13.6761 17.0518 15.364 15.364C17.0518 13.6761 18 11.3869 18 9C18 7.8181 17.7672 6.64778 17.3149 5.55585C16.8626 4.46392 16.1997 3.47177 15.364 2.63604C14.5282 1.80031 13.5361 1.13738 12.4442 0.685084C11.3522 0.232792 10.1819 0 9 0Z"
+                                fill="#ABAAAA" />
+                        </svg>
+                        Если авто участвует в текущих судебных делах, рекомендуем уточнить детали перед покупкой.</span>
+
+                </div>
+            </div>
+            <div class="nash_modal_mid_action">
+                <h5>
+                    <div style="background-color: #FFB614;" class="red_circle"></div> В лизинге
+                </h5>
+
+
+                <div class="nash_modal_mid_action_card">
+
+                    <div class="nash_modal_mid_action_card_grid">
+                        <div class="nash_modal_mid_action_card_grid_p">Период</div><span>
+
+                            22.11.2024-22.11.2025</span>
+                    </div>
+                    <div class="nash_modal_mid_action_card_grid">
+                        <div class="nash_modal_mid_action_card_grid_p">Компания</div><span>
+
+                            АО «ЛизингКом»</span>
+                    </div>
+
+
+                </div>
+                <div class="nash_modal_mid_action_a">
+                    <span>
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M9.9 6.3H8.1V4.5H9.9V6.3ZM9.9 13.5H8.1V8.1H9.9V13.5ZM9 0C7.8181 0 6.64778 0.232792 5.55585 0.685084C4.46392 1.13738 3.47177 1.80031 2.63604 2.63604C0.948211 4.32387 0 6.61305 0 9C0 11.3869 0.948211 13.6761 2.63604 15.364C3.47177 16.1997 4.46392 16.8626 5.55585 17.3149C6.64778 17.7672 7.8181 18 9 18C11.3869 18 13.6761 17.0518 15.364 15.364C17.0518 13.6761 18 11.3869 18 9C18 7.8181 17.7672 6.64778 17.3149 5.55585C16.8626 4.46392 16.1997 3.47177 15.364 2.63604C14.5282 1.80031 13.5361 1.13738 12.4442 0.685084C11.3522 0.232792 10.1819 0 9 0Z"
+                                fill="#ABAAAA" />
+                        </svg>
+                        Если авто в лизинге — продавать его нельзя, пока договор не закрыт.</span>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="nash_modal" id="hard_modal_3"
+        style="justify-content: center;padding-top: 40px;padding-bottom: 40px;overflow: auto;">
+        <div class="nash_modal_mid"
+            style="max-width: 500px;border-radius: 16px; position: relative;overflow: visible;height: auto;">
+            <div onclick="closeVIRModal()" class="nash_modal_close">✕</div>
+            <h3>Как проверить VIN, госномер и номер кузова</h3>
+            <h5>Проверьте документы</h5>
+            <span>VIN-код и государственный номер автомобиля можно найти в свидетельстве о регистрации транспортного
+                средства (СТС) или в страховом полисе.
+                <br><br>
+                Государственный номер указывается в строке «Регистрационный знак», VIN — в строке «Идентификационный
+                номер (VIN)».
+                Для проверки праворульных автомобилей используется номер кузова — он указан в строке «Кузов
+                №» или «Шасси №».</span><br>
+            <img src="./img/Frame 2087330637.png" alt="">
+            <h5>Осмотрите автомобиль</h5>
+            <span>Госномер написан на пластинах спереди и сзади, а VIN - на панели под стеклом, стойке у передней двери
+                и под капотом.</span>
+            <img src="./img/Frame 2087330640.png" alt=""><br>
+            <span>Номер кузова написан на табличке под капотом в строке «Frame N° »
+                или «Chassis N° » .</span>
+            <img src="./img/Frame 2087330642.png" alt="">
+        </div>
+    </div>
+
+
+    <div class="car_image_modal" id="hard_modal_4">
+        <div class="car_image_modal_mid">
+            <div class="car_image_modal_mid_title">
+                <div onclick="openCarImgFilter()" class="car_image_modal_mid_filter">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 18H14V16H10V18ZM3 6V8H21V6H3ZM6 13H18V11H6V13Z" fill="#09121F" />
+                    </svg> Все подряд <div class="car_image_modal_mid_filter_w">
+                        <svg width="11" height="7" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M1.56979 5.76813L5.12646 2.21146L8.68312 5.76813C9.04062 6.12563 9.61813 6.12563 9.97563 5.76813C10.3331 5.41063 10.3331 4.83313 9.97563 4.47563L5.76812 0.268125C5.41062 -0.089375 4.83312 -0.089375 4.47562 0.268125L0.268125 4.47563C-0.089375 4.83313 -0.089375 5.41063 0.268125 5.76813C0.625625 6.11646 1.21229 6.12563 1.56979 5.76813V5.76813Z"
+                                fill="#383838" />
+                        </svg>
+                      
+                    </div>  <div class="car_image_modal_mid_menu_ul" style="display: none;">
+                            <div class="car_image_modal_mid_menu_li car_image_modal_mid_menu_li_active ">
+                                Все подряд
+                            </div>
+                            <div class="car_image_modal_mid_menu_li">
+                                Сначала с повреждениями
+                            </div>
+                        </div>
+                </div>
+                <div onclick="closeCarImgModal()" class="car_image_modal_mid_close">✕</div>
+            </div>
+<div class="car_image_modal_mid_cards">
+    <div class="car_image_modal_mid_card">
+<div class="car_image_modal_mid_card_type">
+    <div class="red_circle"></div>
+    <p>Царапины</p>
 </div>
+    </div>
+      <div class="car_image_modal_mid_card">
+        <div class="car_image_modal_mid_card_type">
+    <div class="red_circle"></div>
+    <p>Вмятина</p>
 </div>
-</section>
-
-<section class="istoriya-section">
-
-  <div class="istoriya-header">
-    <div class="istoriya-header-title">История продаж</div>
-    <button class="istoriya-header-btn">Показать еще</button>
-  </div>
-
-  <div class="istoriya-grid">
-
-    <!-- CARD 1 -->
-    <div class="istoriya-card">
-      <div class="istoriya-card-top">
-        <div>
-          <div class="istoriya-date">18 янв 2026</div>
-          <div class="istoriya-card-title">Объявление на OLX</div>
-        </div>
-        <div class="istoriya-car-icon"><svg width="63" height="63" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M13.125 28.875L17.0625 17.0625H45.9375L49.875 28.875H13.125ZM45.9375 42C44.8932 42 43.8917 41.5852 43.1533 40.8467C42.4148 40.1083 42 39.1068 42 38.0625C42 37.0182 42.4148 36.0167 43.1533 35.2783C43.8917 34.5398 44.8932 34.125 45.9375 34.125C46.9818 34.125 47.9833 34.5398 48.7217 35.2783C49.4602 36.0167 49.875 37.0182 49.875 38.0625C49.875 39.1068 49.4602 40.1083 48.7217 40.8467C47.9833 41.5852 46.9818 42 45.9375 42ZM17.0625 42C16.0182 42 15.0167 41.5852 14.2783 40.8467C13.5398 40.1083 13.125 39.1068 13.125 38.0625C13.125 37.0182 13.5398 36.0167 14.2783 35.2783C15.0167 34.5398 16.0182 34.125 17.0625 34.125C18.1068 34.125 19.1083 34.5398 19.8467 35.2783C20.5852 36.0167 21 37.0182 21 38.0625C21 39.1068 20.5852 40.1083 19.8467 40.8467C19.1083 41.5852 18.1068 42 17.0625 42ZM49.665 15.75C49.14 14.2275 47.67 13.125 45.9375 13.125H17.0625C15.33 13.125 13.86 14.2275 13.335 15.75L7.875 31.5V52.5C7.875 53.1962 8.15156 53.8639 8.64384 54.3562C9.13613 54.8484 9.80381 55.125 10.5 55.125H13.125C13.8212 55.125 14.4889 54.8484 14.9812 54.3562C15.4734 53.8639 15.75 53.1962 15.75 52.5V49.875H47.25V52.5C47.25 53.1962 47.5266 53.8639 48.0188 54.3562C48.5111 54.8484 49.1788 55.125 49.875 55.125H52.5C53.1962 55.125 53.8639 54.8484 54.3562 54.3562C54.8484 53.8639 55.125 53.1962 55.125 52.5V31.5L49.665 15.75Z" fill="#1B1B1B" fill-opacity="0.6"/>
-</svg></div>
-      </div>
-
-      <div class="istoriya-rows">
-        <div class="istoriya-row">
-          <div class="istoriya-label">Цена</div>
-          <div class="istoriya-value">
-            500 060 000 сум
-            <span class="istoriya-price-down">↓ 50 060 000 сум</span>
-          </div>
-        </div>
-
-        <div class="istoriya-row">
-          <div class="istoriya-label">Пробег</div>
-          <div class="istoriya-value">10 000 км</div>
-        </div>
-
-        <div class="istoriya-row">
-          <div class="istoriya-label">Регион</div>
-          <div class="istoriya-value">Ташкент</div>
-        </div>
-
-        <div class="istoriya-row">
-          <div class="istoriya-label">Состояние</div>
-          <div class="istoriya-value istoriya-bad">Битый</div>
-        </div>
-      </div>
-
-      <button class="istoriya-detail-btn">Подробнее</button>
     </div>
-
-    <!-- CARD 2 -->
-     <div class="istoriya-card">
-      <div class="istoriya-card-top">
-        <div>
-          <div class="istoriya-date">18 янв 2026</div>
-          <div class="istoriya-card-title">Объявление на OLX</div>
-        </div>
-        <div class="istoriya-car-icon"><svg width="63" height="63" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M13.125 28.875L17.0625 17.0625H45.9375L49.875 28.875H13.125ZM45.9375 42C44.8932 42 43.8917 41.5852 43.1533 40.8467C42.4148 40.1083 42 39.1068 42 38.0625C42 37.0182 42.4148 36.0167 43.1533 35.2783C43.8917 34.5398 44.8932 34.125 45.9375 34.125C46.9818 34.125 47.9833 34.5398 48.7217 35.2783C49.4602 36.0167 49.875 37.0182 49.875 38.0625C49.875 39.1068 49.4602 40.1083 48.7217 40.8467C47.9833 41.5852 46.9818 42 45.9375 42ZM17.0625 42C16.0182 42 15.0167 41.5852 14.2783 40.8467C13.5398 40.1083 13.125 39.1068 13.125 38.0625C13.125 37.0182 13.5398 36.0167 14.2783 35.2783C15.0167 34.5398 16.0182 34.125 17.0625 34.125C18.1068 34.125 19.1083 34.5398 19.8467 35.2783C20.5852 36.0167 21 37.0182 21 38.0625C21 39.1068 20.5852 40.1083 19.8467 40.8467C19.1083 41.5852 18.1068 42 17.0625 42ZM49.665 15.75C49.14 14.2275 47.67 13.125 45.9375 13.125H17.0625C15.33 13.125 13.86 14.2275 13.335 15.75L7.875 31.5V52.5C7.875 53.1962 8.15156 53.8639 8.64384 54.3562C9.13613 54.8484 9.80381 55.125 10.5 55.125H13.125C13.8212 55.125 14.4889 54.8484 14.9812 54.3562C15.4734 53.8639 15.75 53.1962 15.75 52.5V49.875H47.25V52.5C47.25 53.1962 47.5266 53.8639 48.0188 54.3562C48.5111 54.8484 49.1788 55.125 49.875 55.125H52.5C53.1962 55.125 53.8639 54.8484 54.3562 54.3562C54.8484 53.8639 55.125 53.1962 55.125 52.5V31.5L49.665 15.75Z" fill="#1B1B1B" fill-opacity="0.6"/>
-</svg></div>
-      </div>
-
-      <div class="istoriya-rows">
-        <div class="istoriya-row">
-          <div class="istoriya-label">Цена</div>
-          <div class="istoriya-value">
-            500 060 000 сум
-            <span class="istoriya-price-down">↓ 50 060 000 сум</span>
-          </div>
-        </div>
-
-        <div class="istoriya-row">
-          <div class="istoriya-label">Пробег</div>
-          <div class="istoriya-value">10 000 км</div>
-        </div>
-
-        <div class="istoriya-row">
-          <div class="istoriya-label">Регион</div>
-          <div class="istoriya-value">Ташкент</div>
-        </div>
-
-        <div class="istoriya-row">
-          <div class="istoriya-label">Состояние</div>
-          <div class="istoriya-value istoriya-bad">Битый</div>
-        </div>
-      </div>
-
-      <button class="istoriya-detail-btn">Подробнее</button>
-    </div>
-
-    <!-- CARD 4 -->
-    <div class="istoriya-card">
-      <div class="istoriya-card-top">
-        <div>
-          <div class="istoriya-date">18 янв 2026</div>
-          <div class="istoriya-card-title">
-            Объявление на другой площадке за границей
-          </div>
-        </div>
-        <div class="istoriya-car-icon"><svg width="63" height="63" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M13.125 28.875L17.0625 17.0625H45.9375L49.875 28.875H13.125ZM45.9375 42C44.8932 42 43.8917 41.5852 43.1533 40.8467C42.4148 40.1083 42 39.1068 42 38.0625C42 37.0182 42.4148 36.0167 43.1533 35.2783C43.8917 34.5398 44.8932 34.125 45.9375 34.125C46.9818 34.125 47.9833 34.5398 48.7217 35.2783C49.4602 36.0167 49.875 37.0182 49.875 38.0625C49.875 39.1068 49.4602 40.1083 48.7217 40.8467C47.9833 41.5852 46.9818 42 45.9375 42ZM17.0625 42C16.0182 42 15.0167 41.5852 14.2783 40.8467C13.5398 40.1083 13.125 39.1068 13.125 38.0625C13.125 37.0182 13.5398 36.0167 14.2783 35.2783C15.0167 34.5398 16.0182 34.125 17.0625 34.125C18.1068 34.125 19.1083 34.5398 19.8467 35.2783C20.5852 36.0167 21 37.0182 21 38.0625C21 39.1068 20.5852 40.1083 19.8467 40.8467C19.1083 41.5852 18.1068 42 17.0625 42ZM49.665 15.75C49.14 14.2275 47.67 13.125 45.9375 13.125H17.0625C15.33 13.125 13.86 14.2275 13.335 15.75L7.875 31.5V52.5C7.875 53.1962 8.15156 53.8639 8.64384 54.3562C9.13613 54.8484 9.80381 55.125 10.5 55.125H13.125C13.8212 55.125 14.4889 54.8484 14.9812 54.3562C15.4734 53.8639 15.75 53.1962 15.75 52.5V49.875H47.25V52.5C47.25 53.1962 47.5266 53.8639 48.0188 54.3562C48.5111 54.8484 49.1788 55.125 49.875 55.125H52.5C53.1962 55.125 53.8639 54.8484 54.3562 54.3562C54.8484 53.8639 55.125 53.1962 55.125 52.5V31.5L49.665 15.75Z" fill="#1B1B1B" fill-opacity="0.6"/>
-</svg></div>
-      </div>
-
-      <div class="istoriya-rows">
-        <div class="istoriya-row">
-          <div class="istoriya-label">Цена</div>
-          <div class="istoriya-value">500 060 000 сум</div>
-        </div>
-
-        <div class="istoriya-row">
-          <div class="istoriya-label">Пробег</div>
-          <div class="istoriya-value">10 000 км</div>
-        </div>
-
-        <div class="istoriya-row">
-          <div class="istoriya-label">Регион</div>
-          <div class="istoriya-value">Ташкент</div>
-        </div>
-      </div>
-    </div>
-    <!-- CARD 3 -->
-    <div class="istoriya-card">
-      <div class="istoriya-card-top">
-        <div>
-          <div class="istoriya-date">18 янв 2026</div>
-          <div class="istoriya-card-title">
-            Объявление на другой площадке за границей
-          </div>
-        </div>
-        <div class="istoriya-car-icon"><svg width="63" height="63" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M13.125 28.875L17.0625 17.0625H45.9375L49.875 28.875H13.125ZM45.9375 42C44.8932 42 43.8917 41.5852 43.1533 40.8467C42.4148 40.1083 42 39.1068 42 38.0625C42 37.0182 42.4148 36.0167 43.1533 35.2783C43.8917 34.5398 44.8932 34.125 45.9375 34.125C46.9818 34.125 47.9833 34.5398 48.7217 35.2783C49.4602 36.0167 49.875 37.0182 49.875 38.0625C49.875 39.1068 49.4602 40.1083 48.7217 40.8467C47.9833 41.5852 46.9818 42 45.9375 42ZM17.0625 42C16.0182 42 15.0167 41.5852 14.2783 40.8467C13.5398 40.1083 13.125 39.1068 13.125 38.0625C13.125 37.0182 13.5398 36.0167 14.2783 35.2783C15.0167 34.5398 16.0182 34.125 17.0625 34.125C18.1068 34.125 19.1083 34.5398 19.8467 35.2783C20.5852 36.0167 21 37.0182 21 38.0625C21 39.1068 20.5852 40.1083 19.8467 40.8467C19.1083 41.5852 18.1068 42 17.0625 42ZM49.665 15.75C49.14 14.2275 47.67 13.125 45.9375 13.125H17.0625C15.33 13.125 13.86 14.2275 13.335 15.75L7.875 31.5V52.5C7.875 53.1962 8.15156 53.8639 8.64384 54.3562C9.13613 54.8484 9.80381 55.125 10.5 55.125H13.125C13.8212 55.125 14.4889 54.8484 14.9812 54.3562C15.4734 53.8639 15.75 53.1962 15.75 52.5V49.875H47.25V52.5C47.25 53.1962 47.5266 53.8639 48.0188 54.3562C48.5111 54.8484 49.1788 55.125 49.875 55.125H52.5C53.1962 55.125 53.8639 54.8484 54.3562 54.3562C54.8484 53.8639 55.125 53.1962 55.125 52.5V31.5L49.665 15.75Z" fill="#1B1B1B" fill-opacity="0.6"/>
-</svg></div>
-      </div>
-
-      <div class="istoriya-rows">
-        <div class="istoriya-row">
-          <div class="istoriya-label">Цена</div>
-          <div class="istoriya-value">500 060 000 сум</div>
-        </div>
-
-        <div class="istoriya-row">
-          <div class="istoriya-label">Пробег</div>
-          <div class="istoriya-value">10 000 км</div>
-        </div>
-
-        <div class="istoriya-row">
-          <div class="istoriya-label">Регион</div>
-          <div class="istoriya-value">Ташкент</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <button class="istoriya-header-btn istoriya-header-btn_2">Показать еще</button>
-</section>
-
-
-
-<section class="step_pt" >
-<h1>Повреждение автомобиля</h1>
-<div class="step_pt_card">
-    <div class="step_pt_card_title"><h2>Есть действующий ПТС или ЭПТС</h2><div class="green_circle"></div></div>
-    <p>Он нужен для заключения договора купли-продажи и регистрации автомобиля</p>
-    <hr>
-    <p>ДТП не найденоb <br>
-Расчёт стоимости ремонта не найден<br>
-Страховая выплата не найдена<br>
-Кузовной ремонт не найден</p>
-   
+      <div class="car_image_modal_mid_card">
+        <div class="car_image_modal_mid_card_type">
+    <div class="red_circle"></div>
+    <p>Царапины</p>
 </div>
-<div class="step_pt_card">
-    <div class="step_pt_card_title"><h2>Есть действующий ПТС или ЭПТС</h2><div class="green_circle"></div></div>
-    <p>Он нужен для заключения договора купли-продажи и регистрации автомобиля</p>
-    <hr>
-    <p>ДТП не найдено <br>
-Расчёт стоимости ремонта не найден <br>
-Страховая выплата не найдена <br>
-Кузовной ремонт не найден</p>
-  
+    </div>
+      <div class="car_image_modal_mid_card">
+        <div class="car_image_modal_mid_card_type">
+    <div class="red_circle"></div>
+    <p>Повреждения</p>
 </div>
-<div class="step_pt_card">
-    <div class="step_pt_card_title"><h2>Есть действующий ПТС или ЭПТС</h2><div class="grey_circle"></div></div>
-    <p>Он нужен для заключения договора купли-продажи и регистрации автомобиля</p>
-   
-</div>
-</section>
-
-
-<section class="probeg">
-
-  <div class="top">
-    <div class="left" style="width: 100%;">
-      <h3 style="display: flex;justify-content: space-between;">По нашим данным  <div class="status">
-      Похоже, скручен <span></span>
-    </div></h3>
-      <h2>от 93 000 км</h2>
-      <p>Он нужен для заключения договора купли-продажи и регистрации автомобиля</p>
     </div>
-
-  
-  </div>
-
-  <div class="chart">
-
-    <!-- SVG GRAPH -->
-    <svg viewBox="0 0 1000 260" width="100%" height="260" preserveAspectRatio="none">
-
-      <!-- GRID -->
-      <g stroke="#eee" stroke-width="1">
-        <line x1="0" y1="40" x2="1000" y2="40"/>
-        <line x1="0" y1="80" x2="1000" y2="80"/>
-        <line x1="0" y1="120" x2="1000" y2="120"/>
-        <line x1="0" y1="160" x2="1000" y2="160"/>
-        <line x1="0" y1="200" x2="1000" y2="200"/>
-      </g>
-
-      <!-- LINES -->
-      <polyline 
-        points="20,200 250,120 500,200 980,40"
-        fill="none"
-        stroke="red"
-        stroke-width="3"
-        stroke-linejoin="round"
-        stroke-linecap="round"/>
-
-      <!-- GREEN PART -->
-      <polyline 
-        points="20,200 250,120"
-        fill="none"
-        stroke="#00b050"
-        stroke-width="3"
-        stroke-linejoin="round"
-        stroke-linecap="round"/>
-
-      <!-- POINTS -->
-      <g>
-        <circle cx="20" cy="200" r="6" fill="#fff" stroke="#00b050" stroke-width="2"/>
-        <circle cx="250" cy="120" r="6" fill="#fff" stroke="red" stroke-width="2"/>
-        <circle cx="500" cy="200" r="6" fill="red"/>
-        <!-- <circle cx="750" cy="60" r="6" fill="#fff" stroke="red" stroke-width="2"/> -->
-        <circle cx="980" cy="40" r="6" fill="#fff" stroke="red" stroke-width="2"/>
-      </g>
-
-    </svg>
-
-    <div class="years">
-      <span>2020</span>
-      <span>2022</span>
-      <span>2023</span>
-      <span>2024</span>
-      <span>2025</span>
+      <div class="car_image_modal_mid_card">
+        
     </div>
-
-    <div class="footer">
-      <div class="switch"></div>
-      Повторы и аномальные события
+       <div class="car_image_modal_mid_card">
+        
     </div>
-
-  </div>
-
-</section>
-<section class="istoriya">
-    <div class="istoriya_title"><h1>История эксплуатации</h1><button>Показать еще</button></div>
-<div class="istoriya_card">
-    <div class="istoriya_card_top">
-        <p>Найдено 9 событий и 1 владелец</p>
-        <h6>
-            Коммерч. использование: 3 записи
-            <span class="istoriya_red_circle"></span>
-        </h6>
+      <div class="car_image_modal_mid_card">
+        
     </div>
-
-    <div class="istoriya_timeline">
-
-        <!-- item -->
-        <div class="istoriya_item">
-            <div class="istoriya_date">
-                <span>18.12.2025</span><br>
-                <div class="istoriya_km"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M8 0C9.06087 0 10.0783 0.421427 10.8284 1.17157C11.5786 1.92172 12 2.93913 12 4C12 5.06087 11.5786 6.07828 10.8284 6.82843C10.0783 7.57857 9.06087 8 8 8C6.93913 8 5.92172 7.57857 5.17157 6.82843C4.42143 6.07828 4 5.06087 4 4C4 2.93913 4.42143 1.92172 5.17157 1.17157C5.92172 0.421427 6.93913 0 8 0ZM8 10C12.42 10 16 11.79 16 14V16H0V14C0 11.79 3.58 10 8 10Z" fill="white"/>
-</svg> 1 203 км</div>
-            </div>
-
-            <div class="istoriya_line">
-                <span class="istoriya_circle"></span>
-            </div>
-
-            <div class="istoriya_content">
-                 <div class="istoriya_date istoriya_date_2">
-                <span>18.12.2025</span><br>
-                <div class="istoriya_km"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M8 0C9.06087 0 10.0783 0.421427 10.8284 1.17157C11.5786 1.92172 12 2.93913 12 4C12 5.06087 11.5786 6.07828 10.8284 6.82843C10.0783 7.57857 9.06087 8 8 8C6.93913 8 5.92172 7.57857 5.17157 6.82843C4.42143 6.07828 4 5.06087 4 4C4 2.93913 4.42143 1.92172 5.17157 1.17157C5.92172 0.421427 6.93913 0 8 0ZM8 10C12.42 10 16 11.79 16 14V16H0V14C0 11.79 3.58 10 8 10Z" fill="white"/>
-</svg> 1 203 км</div>
-            </div>
-                <h3>Участие в аукционе на OLX</h3>
-                <p class="istoriya_subtitle">OLX</p>
-                <p class="istoriya_location">Узбекистан, Ташкент</p>
-            </div>
-        </div>
-
-        <!-- item -->
-        <div class="istoriya_item">
-            <div class="istoriya_date">
-                <span>02.2024 — 11.2025 (Коммерция)</span><br>
-                <div class="istoriya_km"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M8 0C9.06087 0 10.0783 0.421427 10.8284 1.17157C11.5786 1.92172 12 2.93913 12 4C12 5.06087 11.5786 6.07828 10.8284 6.82843C10.0783 7.57857 9.06087 8 8 8C6.93913 8 5.92172 7.57857 5.17157 6.82843C4.42143 6.07828 4 5.06087 4 4C4 2.93913 4.42143 1.92172 5.17157 1.17157C5.92172 0.421427 6.93913 0 8 0ZM8 10C12.42 10 16 11.79 16 14V16H0V14C0 11.79 3.58 10 8 10Z" fill="white"/>
-</svg> 78 203 км</div>
-            </div>
-
-            <div class="istoriya_line">
-                <span class="istoriya_circle"></span>
-            </div>
-
-            <div class="istoriya_content">
-                   <div class="istoriya_date istoriya_date_2">
-                <span>02.2024 — 11.2025 (Коммерция)</span><br>
-                <div class="istoriya_km"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M8 0C9.06087 0 10.0783 0.421427 10.8284 1.17157C11.5786 1.92172 12 2.93913 12 4C12 5.06087 11.5786 6.07828 10.8284 6.82843C10.0783 7.57857 9.06087 8 8 8C6.93913 8 5.92172 7.57857 5.17157 6.82843C4.42143 6.07828 4 5.06087 4 4C4 2.93913 4.42143 1.92172 5.17157 1.17157C5.92172 0.421427 6.93913 0 8 0ZM8 10C12.42 10 16 11.79 16 14V16H0V14C0 11.79 3.58 10 8 10Z" fill="white"/>
-</svg> 78 203 км</div>
-            </div>
-                <h3>Частая перепродажа</h3>
-                <p class="istoriya_subtitle">Несколько объявлений о продаже</p>
-                <p class="istoriya_location">Узбекистан, Ташкент</p>
-            </div>
-        </div>
-
-        <!-- item -->
-        <div class="istoriya_item">
-            <div class="istoriya_date">
-                <span>12.2022 — 01.2024 (Коммерция)</span><br>
-                <div class="istoriya_km"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M8 0C9.06087 0 10.0783 0.421427 10.8284 1.17157C11.5786 1.92172 12 2.93913 12 4C12 5.06087 11.5786 6.07828 10.8284 6.82843C10.0783 7.57857 9.06087 8 8 8C6.93913 8 5.92172 7.57857 5.17157 6.82843C4.42143 6.07828 4 5.06087 4 4C4 2.93913 4.42143 1.92172 5.17157 1.17157C5.92172 0.421427 6.93913 0 8 0ZM8 10C12.42 10 16 11.79 16 14V16H0V14C0 11.79 3.58 10 8 10Z" fill="white"/>
-</svg> 12 500 → 78 200 км</div>
-            </div>
-
-            <div class="istoriya_line">
-                <span class="istoriya_circle"></span>
-            </div>
-
-            <div class="istoriya_content">
-                 <div class="istoriya_date istoriya_date_2">
-                <span>12.2022 — 01.2024 (Коммерция)</span><br>
-                <div class="istoriya_km"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M8 0C9.06087 0 10.0783 0.421427 10.8284 1.17157C11.5786 1.92172 12 2.93913 12 4C12 5.06087 11.5786 6.07828 10.8284 6.82843C10.0783 7.57857 9.06087 8 8 8C6.93913 8 5.92172 7.57857 5.17157 6.82843C4.42143 6.07828 4 5.06087 4 4C4 2.93913 4.42143 1.92172 5.17157 1.17157C5.92172 0.421427 6.93913 0 8 0ZM8 10C12.42 10 16 11.79 16 14V16H0V14C0 11.79 3.58 10 8 10Z" fill="white"/>
-</svg> 12 500 → 78 200 км</div>
-            </div>
-                <h3>Использование в такси</h3>
-                <p class="istoriya_subtitle">Зафиксирована лицензия такси</p>
-                <p class="istoriya_location">Узбекистан, Ташкент</p>
-            </div>
-        </div>
-
-        <!-- item -->
-        <div class="istoriya_item">
-            <div class="istoriya_date">
-                <span>02.12.2022</span><br>
-                <div class="istoriya_km"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M8 0C9.06087 0 10.0783 0.421427 10.8284 1.17157C11.5786 1.92172 12 2.93913 12 4C12 5.06087 11.5786 6.07828 10.8284 6.82843C10.0783 7.57857 9.06087 8 8 8C6.93913 8 5.92172 7.57857 5.17157 6.82843C4.42143 6.07828 4 5.06087 4 4C4 2.93913 4.42143 1.92172 5.17157 1.17157C5.92172 0.421427 6.93913 0 8 0ZM8 10C12.42 10 16 11.79 16 14V16H0V14C0 11.79 3.58 10 8 10Z" fill="white"/>
-</svg> 12 500 км</div>
-            </div>
-
-            <div class="istoriya_line">
-                <span class="istoriya_circle"></span>
-            </div>
-
-            <div class="istoriya_content">
-                <div class="istoriya_date istoriya_date_2">
-                <span>02.12.2022</span><br>
-                <div class="istoriya_km"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M8 0C9.06087 0 10.0783 0.421427 10.8284 1.17157C11.5786 1.92172 12 2.93913 12 4C12 5.06087 11.5786 6.07828 10.8284 6.82843C10.0783 7.57857 9.06087 8 8 8C6.93913 8 5.92172 7.57857 5.17157 6.82843C4.42143 6.07828 4 5.06087 4 4C4 2.93913 4.42143 1.92172 5.17157 1.17157C5.92172 0.421427 6.93913 0 8 0ZM8 10C12.42 10 16 11.79 16 14V16H0V14C0 11.79 3.58 10 8 10Z" fill="white"/>
-</svg> 12 500 км</div>
-            </div>
-                <h3>Регистрация на юридическое лицо</h3>
-                <p class="istoriya_subtitle">
-                    Владелец: ООО «ГринТакси», вид деятельности: перевозки пассажиров
-                </p>
-                <p class="istoriya_location">Узбекистан, Ташкент</p>
-            </div>
-        </div>
-
+      <div class="car_image_modal_mid_card">
+        
     </div>
 </div>
 
- <div class="istoriya_title istoriya_title_2" ><button>Показать еще</button></div>
 
-</section>
-
-<div class="nash_modal" id="hard_modal_1">
- <div class="nash_modal_mid">
-    <div onclick="closeNashModal()" class="nash_modal_close">✕</div>
-       <h3>Наши рекомендации</h3>
-    <p>Есть критические недостатки, лучше не рисковать</p>
-    <h3>Что повлияло на рекомендацию</h3>
-    <h5><div class="red_circle"></div> Есть ограничения на регистрацию</h5>
-    <span>Вы не сможете поставить автомобиль на учёт в ГИБДД и ездить на нём.</span>
- </div>
-</div>
-
-
-
-<div class="nash_modal" id="hard_modal_2">
- <div class="nash_modal_mid">
-    <div onclick="closeNashModal()" class="nash_modal_close">✕</div>
-       <h3>Юридические риски</h3>
-    <p>Судя по нашим данным, этот автомобиль не получится поставить на учёт в ГИБДД, а значит вы не сможете ездить на нём.</p>
-
-<div class="nash_modal_mid_tabs">
-    <div class="nash_modal_mid_tab">Ограничения <div class="mini_red_circle"></div></div>
-    <div class="nash_modal_mid_tab">Штрафы <div class="mini_red_circle"></div></div>
-    <div class="nash_modal_mid_tab">Залог<div class="mini_orange_circle"></div></div>
-    <div class="nash_modal_mid_tab">Розыски<div class="mini_orange_circle"></div></div>
-    <div class="nash_modal_mid_tab">Судебные споры<div class="mini_orange_circle"></div></div>
-    <div class="nash_modal_mid_tab">Лизинг<div class="mini_orange_circle"></div></div>
-
-</div>
-<div class="nash_modal_mid_action">
-   <h5><div class="red_circle"></div> Есть ограничения на регистрацию</h5>
-    <span>Собственник не оплатил штрафы, налоги или права на машину оспаривают в суде.</span> 
-    <div class="nash_modal_mid_action_card">
-        <div class="nash_modal_mid_action_card_title">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M14 14H7V16H14V14ZM19 19H5V8H19V19ZM19 3H18V1H16V3H8V1H6V3H5C3.89 3 3 3.9 3 5V19C3 19.5304 3.21071 20.0391 3.58579 20.4142C3.96086 20.7893 4.46957 21 5 21H19C19.5304 21 20.0391 20.7893 20.4142 20.4142C20.7893 20.0391 21 19.5304 21 19V5C21 4.46957 20.7893 3.96086 20.4142 3.58579C20.0391 3.21071 19.5304 3 19 3ZM17 10H7V12H17V10Z" fill="#0A4BA9"/>
-</svg>
-5 июл 2025
         </div>
-        <div class="nash_modal_mid_action_card_grid">
-          <div class="nash_modal_mid_action_card_grid_p">
-Вид ограничения
-          </div>  <span>Запрет на регистрационные действия</span>
-        </div>
-         <div class="nash_modal_mid_action_card_grid">
-          <div class="nash_modal_mid_action_card_grid_p">
-Вид ограничения
-          </div>  <span>Запрет на регистрационные действия</span>
-        </div>  
     </div>
-</div>
 
-    
- </div>
-</div>
-
-
-
-
- <footer class="Home_footer">
+    <footer class="Home_footer">
         <p>© 2026 AvtoTekshiruv </p>
         <!-- <div></div> -->
         <p>Политика конфиденциальности</p>

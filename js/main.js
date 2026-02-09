@@ -33,6 +33,8 @@ toggle_type=false
 }
 }
 function toggle_menu() {
+    console.log("sss");
+    
     if(!menu_navbar){
         menu_navbar=true
 document.querySelector('.navbar_all_menu').style="display: flex;"
