@@ -132,8 +132,9 @@ body.no-scroll {
 .navbar_all_user_menu {
     position: absolute;
     top: 170%;
-    left: -5px;
-    display: flex;
+       right: -32%;
+
+    display: none;
     gap: 6px;
     color: #E73C3B;
     background-color: #FFFFFF;
@@ -205,7 +206,7 @@ body.no-scroll {
     z-index: 99999;
     left: -6%;
     background-color: white;
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: space-between;
 }
@@ -304,7 +305,7 @@ body.no-scroll {
 
     .navbar_all_user_menu {
         align-items: start;
-        font-size: 12px;
+        font-size: 16px;
     }
 
     .navbar_all_user_menu h4 {
@@ -338,6 +339,9 @@ body.no-scroll {
     .navbar_all .logo {
         height: 36px;
     }
+    .navbar_all_user_menu {
+        padding: 10px;
+    }
 
     .navbar_all .navbar_all_user_toggle {
         width: 36px;
@@ -365,10 +369,17 @@ body.no-scroll {
     }
 
 }
-
+@media(max-width:840px) {
+     .navbar_all .logo {
+        height: 30px;
+    }
+    .navbar_all{
+        height: 56px;
+    }
+}
 @media (max-width: 340px) {
     .navbar_all_user_name h3 {
-        font-size: 12px;
+        font-size: 16px;
     }
 
     .navbar_all .navbar_all_user_icon {
@@ -614,15 +625,17 @@ color: #ABAAAA;
     .Home_header_mid_left {
         display: none;
     }
-
+.Home_header .vin-input {
+    font-size: 16px;
+}
     .Home_header {
-        height: auto;
+   height: auto;
         padding-bottom: 230px;
-        /* min-height: 400px; */
+        min-height: 271px;
     }
 
     .Home_header form {
-                margin-top: 85px;
+        margin-top: 107px;
         margin-bottom: -460px;
         width: 100%;
         position: relative;
@@ -634,21 +647,20 @@ color: #ABAAAA;
     }
 
     .Home_header .Home_header_mid h1 {
-        width: 90%;
+               width: 90%;
         margin: auto;
-        margin-top: 30px;
-
+        margin-top: 9px;
         font-weight: 600;
         font-style: DemiBold;
         font-size: 38px;
         leading-trim: NONE;
         line-height: 120%;
-        letter-spacing: 0%;
+        margin-left: 0%;
 
     }
 
     .Home_header .Home_header_mid p {
-        width: 90%;
+              width: 90%;
         margin: auto;
         text-wrap: wrap;
         font-weight: 400;
@@ -656,6 +668,8 @@ color: #ABAAAA;
         font-size: 20px;
         leading-trim: NONE;
         line-height: 120%;
+        margin-top: 19px;
+        margin-left: 2px;
         letter-spacing: 0%;
 
     }
@@ -665,6 +679,7 @@ color: #ABAAAA;
         box-shadow: none;
         border-radius: 0px;
         /* width: 98%; */
+                margin-left: -4%;
     }
 
     .Home_header .radio-box {
@@ -697,46 +712,58 @@ color: #ABAAAA;
 
 @media (max-width:400px) {
 
-    .Home_header .radio-box {
-        width: 100%;
-        font-size: 14px;
-        padding: 4px 10px 4px 5px;
-        border-radius: 6px;
-        gap: 4px;
-    }
+ 
 
     .Home_header .price-box span {
-        font-size: 14px;
+        font-size: 16px;
     }
 
     .Home_header .price-box b {
-        font-size: 14px;
+        font-size: 16px;
     }
 
     .Home_header .price-box button {
-        font-size: 14px;
+        font-size: 16px;
     }
 
     .Home_header .check-form {
-        padding: 10px;
+        padding: 0px;
+    }
+    .Home_header .radio-group {
+        gap: 4px;
     }
 }
 
-@media (max-width:346px) {
+@media (max-width:380px) {
+      
+       .Home_header .radio-box {
+        width: 100%;
+        font-size: 14px;
+        padding: 4px 5px 4px 5px;
+        border-radius: 6px;
+        gap: 4px;
+    }
     .Home_header .Home_header_mid h1 {
         font-size: 34px;
     }
 
     .Home_header .check-form {
-        min-width: 310px;
+       
+        min-width: 302px;
+        margin-top: 113px;
+        margin-left: -8px;
+    
     }
 
     .Home_header .radio-group {
         gap: 7px;
     }
+  
 }
-
-
+@media(max-width:328px){
+    .Home_header form {
+        margin-top: 44px;}
+}
 
 
 
@@ -879,18 +906,28 @@ color: #ABAAAA;
 @media(max-width:700px) {
     .section_1 {
         margin-top: 170px;
+        gap: 7px;
+        padding-bottom: 43px;
+    }
+    .section_1_grid_card {
+        margin-bottom: 9px;
     }
 
+.section_1_grid_card p {margin-top: 8px;}
     .section_1_grid_cards {
         display: grid;
         grid-template-columns: 1fr;
-        gap: 18px;
+        gap: 0px;
+    }
+        .section_1_grid_2 {
+        min-height: 214px;
+        padding: 18px;
     }
 }
 
 @media(max-width:540px) {
     .section_1 {
-        margin-top: 170px;
+       margin-top: 189px;
     }
 
     .section_1_grid_card h1 {
@@ -931,16 +968,17 @@ color: #ABAAAA;
         letter-spacing: 0%;
 
     }
-
     .section_1_grid_2 button {
         font-size: 16px;
-
-        padding-top: 14px;
-        padding-right: 20px;
-        padding-bottom: 14px;
-        padding-left: 20px;
-
+        /* padding-top: 3px; */
+        /* padding-right: 16px; */
+        /* padding-bottom: 14px; */
+        /* padding-left: 20px; */
+        padding: 10px;
+        width: 119px;
+        height: 48px;
     }
+
 }
 
 @media(max-width:370px) {
@@ -1156,6 +1194,7 @@ margin: auto;
     }
     .section_2 h1 {
         font-size: 26px;
+        margin-top: 0px;
     }
 
     .section_2_buttons {
@@ -1391,6 +1430,22 @@ max-width: 800px;
 margin: auto;
 margin-top: 20px;
 }
+.section_3 h2 {
+    margin-bottom: 9px;
+}
+.section_3_card h1 b {
+    font-family: TT Hoves;
+font-weight: 600;
+font-style: DemiBold;
+font-size: 26px;
+leading-trim: NONE;
+line-height: 120%;
+letter-spacing: 0%;
+
+}
+.section_3_card h1 {
+    font-size: 20px;
+}
     .section_3_card{
 max-width: 500px;
 margin: auto;
@@ -1513,6 +1568,9 @@ color: #F2F1F6;
 @media (max-width:760px){
     .Home_footer p{width: 90%;
     text-align: left;
+    }
+    .Home_footer {
+        margin-top: 0px;
     }
 }
 
@@ -1778,11 +1836,16 @@ letter-spacing: 0%;
 
 }
 .infocar_info_1_card p{
-    min-width: 120px;
-    display: flex;
+      min-width: 120px;
+    display: grid;
     align-items: center;
-    gap: 5px;
-text-wrap: wrap;
+    grid-template-columns: 22px auto;
+    gap: 8px;
+    text-wrap: wrap;
+}
+.infocar_info_1_card p:nth-child(2){
+
+    display: flex;
 }
 .infocar_info_2 ul{
 list-style: url('../img/sticker-check.svg');
