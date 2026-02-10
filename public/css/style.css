@@ -6,6 +6,7 @@
     text-wrap: nowrap;
     transition: 0.5s;
     user-select: NONE;
+    color: #383838;
 }
 
 @font-face {
@@ -68,7 +69,7 @@ body.no-scroll {
 }
 
 .navbar_all .logo {
-    height: 65px;
+    height: 53px;
     width: auto;
 
 }
@@ -130,15 +131,14 @@ body.no-scroll {
 
 .navbar_all_user_menu {
     position: absolute;
-    top: 200%;
-    left: 0px;
+    top: 170%;
+    left: -5px;
     display: flex;
     gap: 6px;
-
     color: #E73C3B;
     background-color: #FFFFFF;
-    padding: 4px 8px;
-    border-radius: 6px;
+    padding: 11px 13px;
+    border-radius: 11px;
     /* right: 10px; */
     cursor: pointer;
     text-wrap: wrap !important;
@@ -424,7 +424,7 @@ body.no-scroll {
 .Home_header .radio-group {
     display: flex;
     gap: 12px;
-    margin-bottom: 16px;
+    margin-bottom: 8px;
 }
 
 .Home_header .radio-box {
@@ -445,7 +445,7 @@ body.no-scroll {
     line-height: 120%;
     letter-spacing: 0%;
     text-align: center;
-
+color: #606266;
 }
 
 .Home_header .radio-box input {
@@ -464,7 +464,7 @@ body.no-scroll {
     content: "";
     width: 6px;
     height: 6px;
-    background: #1f5eff;
+    background: white;
     border-radius: 50%;
     position: absolute;
     top: 50%;
@@ -474,7 +474,8 @@ body.no-scroll {
 }
 
 .Home_header .radio-box input:checked+.custom-radio {
-    border-color: #1f5eff;
+    border-color: #0A4BA9;
+    border: 7px solid #0A4BA9;
 }
 
 .Home_header .radio-box input:checked+.custom-radio::after {
@@ -482,8 +483,9 @@ body.no-scroll {
 }
 
 .Home_header .radio-box:has(input:checked) {
-    border-color: #1f5eff;
+    border-color: #0A4BA9;
     background: #f4f7ff;
+    color: #0A4BA9;
 }
 
 /* INPUT */
@@ -494,6 +496,14 @@ body.no-scroll {
     border: 1.5px solid #d0d7e2;
     outline: none;
     font-size: 14px;
+    font-family: TT Hoves;
+font-weight: 400;
+font-style: Regular;
+font-size: 18px;
+leading-trim: NONE;
+line-height: 120%;
+letter-spacing: 0%;
+color: #ABAAAA;
     margin-bottom: 14px;
 }
 
@@ -508,7 +518,7 @@ body.no-scroll {
     align-items: center;
 
     background: #eef3ff;
-    padding: 6px 6px;
+    padding: 6px 12px;
     border-radius: 5px;
     font-family: "TT Hoves", Arial, sans-serif;
     font-weight: 400;
@@ -525,7 +535,7 @@ body.no-scroll {
     font-weight: 400;
     font-style: Regular;
     font-size: 18px;
-    padding-left: 16px;
+        padding-left: 6px;
     line-height: 120%;
     letter-spacing: 0%;
 }
@@ -541,10 +551,11 @@ body.no-scroll {
 }
 
 .Home_header .price-box button {
-    background: #1f5eff;
+    background: #0A4BA9;
     color: #fff;
     border: none;
-    padding: 10px 18px;
+   padding: 10px 25px;
+
     height: 100%;
     border-radius: 5px;
     cursor: pointer;
@@ -611,9 +622,11 @@ body.no-scroll {
     }
 
     .Home_header form {
-        margin-top: 72px;
+                margin-top: 85px;
         margin-bottom: -460px;
         width: 100%;
+        position: relative;
+        left: -2%;
     }
 
     .Home_header .Home_header_mid {
@@ -733,8 +746,8 @@ body.no-scroll {
 /* section_1 */
 
 .section_1 {
-    display: flex;
-    justify-content: space-around;
+        display: grid;
+    grid-template-columns: 631px 1fr;
     width: 90%;
     margin: auto;
     padding-bottom: 60px;
@@ -753,7 +766,8 @@ body.no-scroll {
 .section_1_grid_card_title {
     display: flex;
     align-items: start;
-    gap: 5px;
+  gap: 10px;
+    margin-left: 10px;
 }
 
 .section_1_grid_card_title_svg {
@@ -767,9 +781,11 @@ body.no-scroll {
 }
 
 .section_1_grid_card {
-    background-color: white;
-    padding: 23px;
+     background-color: white;
+    padding: 16px;
     border-radius: 8px;
+        margin-bottom: 11px;
+        padding-right: 5px;
 }
 
 .section_1_grid_card h1 {
@@ -778,8 +794,7 @@ body.no-scroll {
     font-style: DemiBold;
     font-size: 24px;
     line-height: 130%;
-    letter-spacing: 0%;
-
+   letter-spacing: -0.4px;
     text-wrap: wrap;
 }
 
@@ -802,7 +817,8 @@ body.no-scroll {
     border-radius: 8px;
     justify-content: space-between;
     flex-direction: column;
-    padding: 40px 25px;
+   padding: 24px 25px;
+        overflow: hidden;
 }
 
 .section_1_grid_2 h1 {
@@ -969,7 +985,7 @@ body.no-scroll {
     letter-spacing: 0%;
     color: #383838;
     text-wrap: wrap;
-    margin-top: 25px;
+    margin-top: 31px;
 }
 
 .section_2 p {
@@ -1029,6 +1045,7 @@ body.no-scroll {
     justify-content: space-between;
     gap: 50px;
     max-width: 1400px;
+    padding-right: 4%;
     /* margin: auto; */
 }
 
@@ -1038,6 +1055,8 @@ body.no-scroll {
     justify-content: space-around;
     flex-direction: column;
         min-height: 292px;
+        padding: 15px;
+    padding-top: 0px;
 }
 
 .section_2 .section_2_left h1 {
@@ -1054,7 +1073,7 @@ body.no-scroll {
     margin-bottom: 30px;
     line-height: 130%;
     letter-spacing: 0%;
-
+    max-width: 473px;
 }
 
 .section_2 .section_2_left button {
@@ -1073,7 +1092,9 @@ body.no-scroll {
 
     line-height: 120%;
     letter-spacing: 0%;
-
+margin: auto;
+    margin-left: 0px;
+    margin-top: 34px;
 }
 
 .section_2 .section_2_left button:hover {
@@ -1223,7 +1244,7 @@ font-size: 38px;
 line-height: 120%;
 letter-spacing: 0%;
 text-align: center;
-margin-top: 10px;
+margin-top: 13px;
   
 }
 .section_3_card h1{
@@ -1234,7 +1255,7 @@ font-size: 24px;
 line-height: 130%;
 letter-spacing: 0%;
 margin-top: 20px;
-margin-bottom: 30px;
+margin-bottom: 24px;
 } 
 .section_3_card h1 b{
   font-family: "TT Hoves", Arial, sans-serif;
@@ -1250,15 +1271,16 @@ display: grid;
 grid-template-columns: 1fr 1fr;
 align-items: center;
 gap: 20px;
-max-width: 800px;
+max-width: 846px;
 margin: auto;
 margin-top: 20px;
 }
 .section_3_card{
-    padding: 20px;
+      padding: 26px;
     background-color: white;
     border-radius: 10px;
     width: 100%;
+    padding-top: 14px;
 }
 .section_3_card_h5{
     display: flex;
@@ -1283,7 +1305,7 @@ color: #383838;
     color: #383838;
 }
 .section_3_card ul{
-    list-style: url("../img/sticker-check.png");
+    list-style: url("../img/sticker-check.svg");
 }
 .section_3_card li {
   list-style-position: inside;
@@ -1291,7 +1313,7 @@ color: #383838;
 font-weight: 400;
 
 font-size: 17px;
-margin-bottom: 4px;
+margin-bottom: 11px;
 color: #383838;
 line-height: 120%;
 letter-spacing: 0%;
@@ -1330,7 +1352,7 @@ display: flex;
 text-align: left;
 border: none;
 background-color: #0A4BA9;
-margin-top: 30px;
+    margin-top: 22px;
 position: relative;
 color: white;
 }
@@ -1414,7 +1436,7 @@ leading-trim: NONE;
 line-height: 120%;
 letter-spacing: 0%;
 text-align: center;
-margin-top: 129px;
+margin-top: 106px;
 margin-bottom: 10px;
 text-wrap: wrap;
 }
@@ -1431,13 +1453,13 @@ text-align: center;
 
 }
 .section_4 .section_4_cards{
-display: flex;
-    max-width: 1071px;
+    display: flex;
+    max-width: 884px;
     margin: auto;
     gap: 6px;
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: 47px;
+    margin-top: 42px;
 }
 .section_4 .section_4_card{
 width: 24%;
@@ -1474,6 +1496,7 @@ padding-top: 20px;
 padding-bottom: 20px;
 align-items: center;
 gap: 15px;
+    margin-top: 110px;
 }
 .Home_footer p{
     font-family: "TT Hoves", Arial, sans-serif;
@@ -1762,7 +1785,7 @@ letter-spacing: 0%;
 text-wrap: wrap;
 }
 .infocar_info_2 ul{
-list-style: url('../img/sticker-check.png');
+list-style: url('../img/sticker-check.svg');
 }
 .infocar_info_2 ul li {
     margin-left: 23px;
