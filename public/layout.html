@@ -4,176 +4,173 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Panel</title>
- <style>
-    *{ box-sizing:border-box; margin:0; padding:0; font-family:sans-serif; }
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    * { box-sizing:border-box; margin:0; padding:0; font-family:sans-serif; }
+    body, html { height:100%; }
+    .container { display: flex; height:100vh; }
+    
+    /* Sidebar */
+    .sidebar {
+      width:250px;
+      background:#2c3e50;
+      color:#fff;
+      padding:20px;
+      display:flex;
+      flex-direction: column;
+    }
+    .sidebar h2 { margin-bottom:20px; font-size:20px; }
+    .sidebar ul { list-style:none; }
+    .sidebar ul li {
+      margin-bottom:10px;
+      cursor:pointer;
+      padding:8px;
+      border-radius:5px;
+      transition:0.3s;
+    }
+    .sidebar ul li.active, .sidebar ul li:hover { background:#34495e; }
+    .sidebar ul li a { color:#fff; text-decoration:none; display:block; }
 
-body, html{ height:100%; }
+    /* Main content */
+    .main-content {
+      flex:1;
+      padding:20px;
+      overflow-y:auto;
+      background:#ecf0f1;
+    }
+    .page.hidden { display:none; }
 
-.container{
-  display: flex;
-  height:100vh;
-}
+    table {
+      width:100%;
+      border-collapse:collapse;
+      margin-top:15px;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+    table, th, td { border:1px solid #ccc; }
+    th, td { padding:8px; text-align:left; }
+    th {
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      color: white;
+      font-weight: 600;
+    }
 
-/* Sidebar */
-.sidebar{
-  width:250px;
-  background:#2c3e50;
-  color:#fff;
-  padding:20px;
-  display:flex;
-  flex-direction: column;
-}
+    button {
+      padding:6px 12px;
+      margin:2px;
+      cursor:pointer;
+      border:none;
+      border-radius:5px;
+      background:#2980b9;
+      color:#fff;
+      transition:0.3s;
+    }
+    button:hover { background:#3498db; }
 
-.sidebar h2{ margin-bottom:20px; font-size:20px; }
+    #add-new, #add-user-btn { margin-bottom:10px; }
 
-.sidebar ul{ list-style:none; }
+    /* Modal */
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width:100%; height:100%;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      justify-content:center;
+      align-items:center;
+      z-index:1000;
+    }
+    .modal-content {
+      background:#fff;
+      padding:20px 30px;
+      border-radius:10px;
+      width:600px;
+      max-width:90%;
+      position:relative;
+      max-height:80vh;
+      overflow-y:auto;
+    }
+    .close {
+      position:absolute;
+      top:10px;
+      right:15px;
+      font-size:24px;
+      font-weight:bold;
+      cursor:pointer;
+    }
+    .hidden { display:none; }
 
-.sidebar ul li{
-  margin-bottom:10px;
-  cursor:pointer;
-  padding:8px;
-  border-radius:5px;
-  transition:0.3s;
-}
+    input[type="text"], input[type="number"], input[type="file"], textarea, select {
+      width: 100%;
+      padding: 10px 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+    input:focus, textarea:focus, select:focus {
+      border-color: #667eea;
+      outline: none;
+      box-shadow: 0 0 8px rgba(102,126,234,0.5);
+    }
+    .modal-content button {
+      width: 100%;
+      padding: 12px;
+      background: #667eea;
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .modal-content button:hover { background: #5a67d8; }
 
-.sidebar ul li.active, .sidebar ul li:hover{
-  background:#34495e;
-}
+    .sub-section { margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px; }
+    .list-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 8px; background: #f9f9f9; border-radius: 5px; }
+    .list-item img { max-width: 50px; margin-right: 10px; }
+    .chip { display: inline-block; background: #e0e0e0; padding: 4px 8px; border-radius: 12px; margin: 2px; }
+    .chip-risk-1 { background: #ffebee; color: #c62828; }
+    .chip-risk-2 { background: #fff3e0; color: #f57c00; }
+    .chip-risk-3 { background: #e8f5e9; color: #2e7d32; }
 
-.sidebar ul li a{ color:#fff; text-decoration:none; display:block; }
-
-/* Main content */
-.main-content{
-  flex:1;
-  padding:20px;
-  overflow-y:auto;
-  background:#ecf0f1;
-}
-
-.page.hidden{ display:none; }
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  margin-top:15px;
-}
-
-table, th, td{
-  border:1px solid #ccc;
-}
-
-th, td{
-  padding:8px;
-  text-align:left;
-}
-
-button{
-  padding:6px 12px;
-  margin:2px;
-  cursor:pointer;
-  border:none;
-  border-radius:5px;
-  background:#2980b9;
-  color:#fff;
-  transition:0.3s;
-}
-
-button:hover{ background:#3498db; }
-
-#add-new{
-  margin-bottom:10px;
-}
-/* Modal background */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width:100%;
-  height:100%;
-  background: rgba(0,0,0,0.6);
-  display: flex;
-  justify-content:center;
-  align-items:center;
-  z-index:1000;
-}
-
-/* Modal content box */
-.modal-content {
-  background:#fff;
-  padding:20px 30px;
-  border-radius:10px;
-  width:400px;
-  max-width:90%;
-  position:relative;
-}
-
-/* Close button */
-.close{
-  position:absolute;
-  top:10px;
-  right:15px;
-  font-size:24px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.hidden{ display:none; }
-/* --- Text, textarea, file inputs --- */
-.modal-content input[type="number"],
-.modal-content input[type="text"],
-.modal-content input[type="file"],
-.modal-content textarea {
-  width: 100%;
-  padding: 10px 12px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 15px;
-  transition: all 0.3s ease;
-  outline: none;
-  box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
-}
-
-/* Focus effect */
-.modal-content input[type="number"],
-.modal-content input[type="text"]:focus,
-.modal-content input[type="file"]:focus,
-.modal-content textarea:focus {
-  border-color: #667eea;
-  box-shadow: 0 0 8px rgba(102,126,234,0.5);
-}
-
-/* Textarea resize */
-.modal-content textarea {
-  resize: vertical;
-  min-height: 60px;
-}
-
-/* Custom file input button */
-.modal-content input[type="file"] {
-  cursor: pointer;
-}
-
-/* Submit button */
-.modal-content button {
-  width: 100%;
-  padding: 12px;
-  background: #667eea;
-  color: #fff;
-  font-size: 16px;
-  font-weight: bold;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.modal-content button:hover {
-  background: #5a67d8;
-}
-
-
- </style>
+    /* Yangi dizayn qo'shimchalari */
+    td img.car-preview {
+      width: 90px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid #e0e0e0;
+      transition: transform 0.2s;
+    }
+    td img.car-preview:hover {
+      transform: scale(1.1);
+    }
+    .action-btn {
+      padding: 6px 10px;
+      font-size: 13px;
+      border-radius: 6px;
+      transition: all 0.2s;
+      margin: 0 3px;
+    }
+    .action-btn i {
+      margin-right: 4px;
+    }
+    .btn-edit   { background: #f39c12; }
+    .btn-edit:hover   { background: #e67e22; }
+    .btn-delete { background: #e74c3c; }
+    .btn-delete:hover { background: #c0392b; }
+    .btn-view   { background: #27ae60; }
+    .btn-view:hover   { background: #219653; }
+    #features-table tbody tr {
+      transition: background 0.2s;
+    }
+    #features-table tbody tr:hover {
+      background: #f8f9fa;
+    }
+  </style>
 </head>
 <body>
 
@@ -183,11 +180,11 @@ button:hover{ background:#3498db; }
       <h2>Admin Panel</h2>
       <ul>
         <li class="nav-item active" data-page="home-carousel">Home Carousel</li>
-        <li class="nav-item" data-page="page2">Page 2</li>
-        <li class="nav-item" data-page="page3">Page 3</li>
-        <li class="nav-item" data-page="page4">Page 4</li>
-        <li class="nav-item" data-page="page5">Page 5</li>
-        <li><a href="/logout">Logout</a></li>
+        <li class="nav-item" data-page="users">Users</li>
+        <li class="nav-item" data-page="page3">Mashinalar</li>
+        <li class="nav-item" data-page="features">Xususiyatlar (Features)</li>
+        <li class="nav-item" data-page="legal-risks">Huquqiy Risklar</li>
+        <li><a href="/logout" style="color:#e74c3c;">Logout</a></li>
       </ul>
     </aside>
 
@@ -210,223 +207,1184 @@ button:hover{ background:#3498db; }
         </table>
       </div>
 
-      <div id="page2" class="page hidden">
-        <h2>Page 2</h2>
+      <!-- Users Page -->
+      <div id="users" class="page hidden">
+        <h2>Foydalanuvchilar</h2>
+        <button id="add-user-btn">Yangi foydalanuvchi qo'shish</button>
+        <table id="users-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Ism</th>
+              <th>Telefon</th>
+              <th>Tasdiqlangan</th>
+              <th>Yaratilgan sana</th>
+              <th>Amallar</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
       </div>
 
+      <!-- Mashinalar Page (Page 3) -->
       <div id="page3" class="page hidden">
-        <h2>Page 3</h2>
+        <h2>Mashinalar</h2>
+        <button id="add-car-btn">Yangi mashina qo'shish</button>
+        <table id="cars-table">
+          <thead>
+            <tr>
+              <th>Rasm</th>
+              <th>Car Name</th>
+              <th>VIN</th>
+              <th>Gos raqam</th>
+              <th>Rang</th>
+              <th>Amallar</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
       </div>
 
-      <div id="page4" class="page hidden">
-        <h2>Page 4</h2>
+      <!-- Features Page (Page 4) -->
+      <div id="features" class="page hidden">
+        <h2>Xususiyatlar (Features)</h2>
+        <button id="add-feature-main-btn">Yangi xususiyat qo'shish</button>
+        <table id="features-table">
+          <thead>
+            <tr>
+              <th>Rasm</th>
+              <th>Sarlavha</th>
+              <th>Tartib raqami</th>
+              <th>Amallar</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
       </div>
 
-      <div id="page5" class="page hidden">
-        <h2>Page 5</h2>
+      <!-- Legal Risks Page (Page 5) -->
+      <div id="legal-risks" class="page hidden">
+        <h2>Huquqiy Risklar</h2>
+        <button id="add-risk-main-btn">Yangi risk qo'shish</button>
+        <table id="risks-table">
+          <thead>
+            <tr>
+              <th>Sarlavha</th>
+              <th>Matn</th>
+              <th>Tartib raqami</th>
+              <th>Amallar</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
       </div>
+
     </main>
   </div>
-<!-- Add New Modal -->
-<div id="modal" class="modal hidden">
-  <div class="modal-content">
-    <span id="close-modal" class="close">&times;</span>
-    <h3>Add New Carousel</h3>
-    <form id="modal-form" enctype="multipart/form-data">
-      <label>Image:</label>
-      <input type="file" name="image" required><br><br>
 
-      <label>Icon:</label>
-      <input type="file" name="icon" required><br><br>
-
-      <label>Title:</label>
-      <input type="text" name="title" required><br><br>
-
-      <label>Text:</label>
-      <textarea name="text" rows="3" required></textarea><br><br>
-
-      <label>Order:</label>
-      <input type="number" name="order" value="0" required min="0"><br><br>
-
-      <button type="submit">Save</button>
-    </form>
+  <!-- Add New Carousel Modal -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <span id="close-modal" class="close">×</span>
+      <h3>Yangi Carousel qo'shish</h3>
+      <form id="modal-form" enctype="multipart/form-data">
+        <label>Image:</label>
+        <input type="file" name="image" required>
+        <label>Icon:</label>
+        <input type="file" name="icon" required>
+        <label>Title:</label>
+        <input type="text" name="title" required>
+        <label>Text:</label>
+        <textarea name="text" rows="3" required></textarea>
+        <label>Order:</label>
+        <input type="number" name="order" value="0" required min="0">
+        <button type="submit">Saqlash</button>
+      </form>
+    </div>
   </div>
-</div>
 
-<!-- Edit Modal -->
-<div id="edit-modal" class="modal hidden">
-  <div class="modal-content">
-    <span id="close-edit-modal" class="close">&times;</span>
-    <h3>Edit Carousel</h3>
-    <form id="edit-modal-form" enctype="multipart/form-data">
-      <input type="hidden" name="id" />
-
-      <label>Image (yangilash uchun tanlang):</label>
-      <input type="file" name="image"><br><br>
-
-      <label>Icon (yangilash uchun tanlang):</label>
-      <input type="file" name="icon"><br><br>
-
-      <label>Title:</label>
-      <input type="text" name="title" required><br><br>
-
-      <label>Text:</label>
-      <textarea name="text" rows="3" required></textarea><br><br>
-
-      <label>Order:</label>
-      <input type="number" name="order" value="0" required min="0"><br><br>
-
-      <button type="submit">Update</button>
-    </form>
+  <!-- Edit Carousel Modal (agar kerak bo'lsa, qayta qo'shish mumkin) -->
+  <div id="edit-modal" class="modal hidden">
+    <div class="modal-content">
+      <span id="close-edit-modal" class="close">×</span>
+      <h3>Carouselni tahrirlash</h3>
+      <form id="edit-modal-form" enctype="multipart/form-data">
+        <input type="hidden" name="id">
+        <label>Image (yangilash uchun tanlang):</label>
+        <input type="file" name="image">
+        <label>Icon (yangilash uchun tanlang):</label>
+        <input type="file" name="icon">
+        <label>Title:</label>
+        <input type="text" name="title" required>
+        <label>Text:</label>
+        <textarea name="text" rows="3" required></textarea>
+        <label>Order:</label>
+        <input type="number" name="order" required min="0">
+        <button type="submit">Yangilash</button>
+      </form>
+    </div>
   </div>
-</div>
 
+  <!-- Add User Modal -->
+  <div id="add-user-modal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close" id="close-add-user">×</span>
+      <h3>Yangi foydalanuvchi qo'shish</h3>
+      <form id="add-user-form">
+        <label>Ism:</label>
+        <input type="text" name="name" required>
+        <label>Telefon raqam:</label>
+        <input type="text" name="phone" required placeholder="+998901234567">
+        <button type="submit">Saqlash</button>
+      </form>
+    </div>
+  </div>
 
-<script>
+  <!-- Edit User Modal -->
+  <div id="edit-user-modal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close" id="close-edit-user">×</span>
+      <h3>Foydalanuvchini tahrirlash</h3>
+      <form id="edit-user-form">
+        <input type="hidden" name="id">
+        <label>Ism:</label>
+        <input type="text" name="name" required>
+        <label>Telefon raqam:</label>
+        <input type="text" name="phone" required>
+        <button type="submit">Yangilash</button>
+      </form>
+    </div>
+  </div>
 
-    // --- Edit modal ---
-const editModal = document.getElementById('edit-modal');
-const closeEditModal = document.getElementById('close-edit-modal');
-const editForm = document.getElementById('edit-modal-form');
+  <!-- Add/Edit Car Modal -->
+  <div id="car-modal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close" id="close-car-modal">×</span>
+      <h3 id="car-modal-title">Yangi mashina qo'shish</h3>
+      <form id="car-form">
+        <input type="hidden" name="id">
+        <label>Car Name:</label>
+        <input type="text" name="carName" required>
+        <label>VIN:</label>
+        <input type="text" name="vin" required>
+        <label>Gos raqam:</label>
+        <input type="text" name="gosNumber" required>
+        <label>Dvigatel raqami:</label>
+        <input type="text" name="engineNumber" required>
+        <label>STS raqami:</label>
+        <input type="text" name="stsNumber" required>
+        <label>Mashina turi:</label>
+        <input type="text" name="carType" required>
+        <label>Rang:</label>
+        <input type="text" name="color" required>
+        <label>Dvigatel:</label>
+        <input type="text" name="engine" required>
+        <button type="submit">Saqlash</button>
+      </form>
+    </div>
+  </div>
 
-closeEditModal.addEventListener('click', ()=> editModal.classList.add('hidden'));
+  <!-- Car Details Modal -->
+  <div id="car-details-modal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close" id="close-car-details">×</span>
+      <h3 id="car-details-title">Mashina tafsilotlari</h3>
+      <input type="hidden" id="current-car-id">
 
-// Edit button function
-window.editCarousel = async function(id){
-  // 1️⃣ Get carousel data
-  const res = await fetch(`${API_BASE}/${id}`);
-  const data = await res.json();
-  if(!data.success){
-    alert('Item topilmadi');
-    return;
-  }
+      <!-- Images Section -->
+      <div class="sub-section">
+        <h4>Rasmlar</h4>
+        <div id="images-list"></div>
+        <form id="add-image-form" enctype="multipart/form-data">
+          <label>Yangi rasm:</label>
+          <input type="file" name="image" required>
+          <button type="submit">Qo‘shish</button>
+        </form>
+      </div>
 
-  const carousel = data.data;
+      <!-- Extra Gos Numbers Section -->
+      <div class="sub-section">
+        <h4>Qo‘shimcha Gos raqamlar</h4>
+        <div id="extra-gos-list"></div>
+        <form id="add-extra-gos-form">
+          <label>Yangi raqam:</label>
+          <input type="text" name="number" required>
+          <button type="submit">Qo‘shish</button>
+        </form>
+      </div>
 
-  // 2️⃣ Fill form
-  editForm.id.value = carousel._id;
-  editForm.title.value = carousel.title;
-  editForm.text.value = carousel.text;
+      <!-- Features Section -->
+      <div class="sub-section">
+        <h4>Xususiyatlar</h4>
+        <div id="features-list"></div>
+        <form id="add-feature-form">
+          <label>Xususiyat tanlang:</label>
+          <select name="featureId" id="feature-select" required></select>
+          <label>Matn:</label>
+          <input type="text" name="text">
+          <button type="submit">Qo‘shish</button>
+        </form>
+      </div>
 
-  // 3️⃣ Show modal
-  editModal.classList.remove('hidden');
-}
+      <!-- Legal Risks Section -->
+      <div class="sub-section">
+        <h4>Huquqiy risklar</h4>
+        <div id="risks-list"></div>
+        <form id="add-risk-form">
+          <label>Risk tanlang:</label>
+          <select name="riskId" id="risk-select" required></select>
+          <label>Pozitsiya (1-3):</label>
+          <input type="number" name="position" min="1" max="3" required>
+          <button type="submit">Qo‘shish</button>
+        </form>
+      </div>
+    </div>
+  </div>
 
-// --- Submit edit form ---
-editForm.addEventListener('submit', async e=>{
-  e.preventDefault();
-  const formData = new FormData(editForm);
-  const id = editForm.id.value;
+  <!-- Add/Edit Feature Modal -->
+  <div id="feature-main-modal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close" id="close-feature-main">×</span>
+      <h3 id="feature-main-title">Yangi xususiyat qo'shish</h3>
+      <form id="feature-main-form" enctype="multipart/form-data">
+        <input type="hidden" name="id">
+        <label>Sarlavha:</label>
+        <input type="text" name="title" required>
+        <label>Rasm:</label>
+        <input type="file" name="image" id="feature-image-input" accept="image/*">
+        <div id="feature-preview" style="margin:10px 0;"></div>
+        <label>Tartib raqami:</label>
+        <input type="number" name="order" value="0" min="0" required>
+        <button type="submit">Saqlash</button>
+      </form>
+    </div>
+  </div>
 
-  try{
-    const res = await fetch(`${API_BASE}/${id}`,{
-      method:'PUT',
-      body: formData
+  <!-- Add/Edit Legal Risk Modal -->
+  <div id="risk-main-modal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close" id="close-risk-main">×</span>
+      <h3 id="risk-main-title">Yangi huquqiy risk qo'shish</h3>
+      <form id="risk-main-form">
+        <input type="hidden" name="id">
+        <label>Sarlavha:</label>
+        <input type="text" name="title" required>
+        <label>Matn:</label>
+        <textarea name="text" rows="4" required></textarea>
+        <label>Tartib raqami:</label>
+        <input type="number" name="order" value="0" min="0" required>
+        <button type="submit">Saqlash</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // API manzillari
+    const CAROUSEL_API = 'http://localhost:5000/api/home-carousel';
+    const USERS_API = 'http://localhost:5000/api/users';
+    const CARS_API = 'http://localhost:5000/api/cars';
+    const FEATURES_API = 'http://localhost:5000/api/features'; // Yangilangan endpoint
+    const RISKS_API = 'http://localhost:5000/api/legal-risks'; // Yangilangan endpoint
+
+    // ------------------ Sidebar Navigatsiya ------------------
+    const navItems = document.querySelectorAll('.nav-item');
+    const pages = document.querySelectorAll('.page');
+
+    navItems.forEach(item => {
+      item.addEventListener('click', () => {
+        navItems.forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+
+        const pageId = item.dataset.page;
+        pages.forEach(p => {
+          p.classList.toggle('hidden', p.id !== pageId);
+        });
+
+        // Sahifa ochilganda ma'lumotlarni yangilash
+        if (pageId === 'home-carousel') fetchCarousels();
+        if (pageId === 'users') fetchUsers();
+        if (pageId === 'page3') fetchCars();
+        if (pageId === 'features') fetchFeatures();
+        if (pageId === 'legal-risks') fetchLegalRisks();
+      });
     });
-    const data = await res.json();
 
-    if(data.success){
-      alert('Item updated!');
-      editForm.reset();
-      editModal.classList.add('hidden');
-      fetchCarousels();
-    }else{
-      alert(data.message || 'Xato yuz berdi');
+    // ------------------ Home Carousel CRUD ------------------
+    async function fetchCarousels() {
+      try {
+        const res = await fetch(CAROUSEL_API);
+        const data = await res.json();
+        const tbody = document.querySelector('#carousel-table tbody');
+        tbody.innerHTML = '';
+
+        if (data.success && data.data) {
+          data.data.forEach(item => {
+            tbody.innerHTML += `
+              <tr>
+                <td><img src="${item.image || ''}" width="80" onerror="this.src='https://via.placeholder.com/80?text=Image'"/></td>
+                <td><img src="${item.icon || ''}" width="40" onerror="this.src='https://via.placeholder.com/40?text=Icon'"/></td>
+                <td>${item.title || '—'}</td>
+                <td>${item.text || '—'}</td>
+                <td>
+                  <button class="action-btn btn-edit" onclick="editCarousel('${item._id}')"><i class="fas fa-edit"></i> Edit</button>
+                  <button class="action-btn btn-delete" onclick="deleteCarousel('${item._id}')"><i class="fas fa-trash-alt"></i> Delete</button>
+                </td>
+              </tr>
+            `;
+          });
+        }
+      } catch (err) {
+        console.error("Carousel yuklash xatosi:", err);
+      }
     }
-  }catch(err){
-    console.error(err);
-    alert('Server bilan bog‘lanishda xato');
-  }
-});
 
-    // --- Modal logic ---
-const modal = document.getElementById('modal');
-const addBtn = document.getElementById('add-new');
-const closeModal = document.getElementById('close-modal');
-const modalForm = document.getElementById('modal-form');
-
-addBtn.addEventListener('click', ()=> modal.classList.remove('hidden'));
-closeModal.addEventListener('click', ()=> modal.classList.add('hidden'));
-
-// Form submit
-modalForm.addEventListener('submit', async e => {
-  e.preventDefault();
-  const formData = new FormData(modalForm);
-
-  try{
-    const res = await fetch(API_BASE, {
-      method:'POST',
-      body: formData
-    });
-
-    const data = await res.json();
-    if(data.success){
-      alert('Carousel item added!');
-      modalForm.reset();
-      modal.classList.add('hidden');
-      fetchCarousels();
-    }else{
-      alert(data.message || 'Xato yuz berdi');
+    async function deleteCarousel(id) {
+      if (!confirm('O‘chirishni tasdiqlaysizmi?')) return;
+      try {
+        await fetch(`${CAROUSEL_API}/${id}`, { method: 'DELETE' });
+        fetchCarousels();
+      } catch (err) {
+        alert('O‘chirishda xato');
+      }
     }
-  }catch(err){
-    console.error(err);
-    alert('Server bilan bog‘lanishda xato');
-  }
-});
 
-    const API_BASE = 'http://localhost:5000/api/home-carousel';
+    window.editCarousel = async function(id) {
+      // Edit logikasi (agar kerak bo'lsa to'liq yoziladi, hozircha placeholder)
+      alert('Edit funksiyasi: ' + id + ' (bu yerda to‘liq implementatsiya qo‘shishingiz mumkin)');
+    };
 
-// --- Sidebar navigation ---
-const navItems = document.querySelectorAll('.nav-item');
-const pages = document.querySelectorAll('.page');
+    // Add Carousel
+    const modal = document.getElementById('modal');
+    const addBtn = document.getElementById('add-new');
+    const closeModal = document.getElementById('close-modal');
+    const modalForm = document.getElementById('modal-form');
 
-navItems.forEach(item=>{
-  item.addEventListener('click', ()=>{
-    navItems.forEach(i=>i.classList.remove('active'));
-    item.classList.add('active');
+    addBtn.addEventListener('click', () => modal.classList.remove('hidden'));
+    closeModal.addEventListener('click', () => modal.classList.add('hidden'));
 
-    const pageId = item.dataset.page;
-    pages.forEach(p=>{
-      if(p.id === pageId) p.classList.remove('hidden');
-      else p.classList.add('hidden');
+    modalForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      const formData = new FormData(modalForm);
+      try {
+        const res = await fetch(CAROUSEL_API, { method: 'POST', body: formData });
+        const data = await res.json();
+        if (data.success) {
+          modalForm.reset();
+          modal.classList.add('hidden');
+          fetchCarousels();
+        } else {
+          alert(data.message || 'Xato');
+        }
+      } catch (err) {
+        alert('Server xatosi');
+      }
     });
-  });
-});
 
-// --- HomeCarousel CRUD ---
-async function fetchCarousels(){
-  const res = await fetch(`${API_BASE}`);
-  const data = await res.json();
-  const tbody = document.querySelector('#carousel-table tbody');
-  tbody.innerHTML = '';
-  data.data.forEach(carousel=>{
-    tbody.innerHTML += `
-      <tr>
-        <td><img src="${carousel.image}" width="80"/></td>
-        <td><img src="${carousel.icon}" width="40"/></td>
-        <td>${carousel.title}</td>
-        <td>${carousel.text}</td>
-        <td>
-          <button onclick="editCarousel('${carousel._id}')">Edit</button>
-          <button onclick="deleteCarousel('${carousel._id}')">Delete</button>
-        </td>
-      </tr>
-    `;
-  });
-}
+    // ------------------ Users CRUD ------------------
+    async function fetchUsers() {
+      const tbody = document.querySelector('#users-table tbody');
+      tbody.innerHTML = '<tr><td colspan="6">Yuklanmoqda...</td></tr>';
 
-async function deleteCarousel(id){
-  if(confirm('O‘chirmoqchimisiz?')){
-    await fetch(`${API_BASE}/${id}`, { method:'DELETE' });
+      try {
+        const res = await fetch(USERS_API);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+        const data = await res.json();
+        tbody.innerHTML = '';
+
+        if (data.success && data.data?.length > 0) {
+          data.data.forEach(user => {
+            const date = user.createdAt ? new Date(user.createdAt).toLocaleString('uz-UZ') : '—';
+            tbody.innerHTML += `
+              <tr>
+                <td>${user._id}</td>
+                <td>${user.name || '—'}</td>
+                <td>${user.phone || '—'}</td>
+                <td style="color:${user.isVerified ? 'green' : 'red'}">${user.isVerified ? 'Ha' : 'Yo‘q'}</td>
+                <td>${date}</td>
+                <td>
+                  <button class="action-btn btn-edit" onclick="editUser('${user._id}')"><i class="fas fa-edit"></i> Tahrirlash</button>
+                  <button class="action-btn btn-delete" onclick="deleteUser('${user._id}')"><i class="fas fa-trash-alt"></i> O'chirish</button>
+                </td>
+              </tr>
+            `;
+          });
+        } else {
+          tbody.innerHTML = '<tr><td colspan="6">Foydalanuvchilar topilmadi</td></tr>';
+        }
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="6" style="color:red">Xato: ${err.message}</td></tr>`;
+      }
+    }
+
+    // Add User
+    const addUserModal = document.getElementById('add-user-modal');
+    const addUserBtn = document.getElementById('add-user-btn');
+    const closeAddUser = document.getElementById('close-add-user');
+    const addUserForm = document.getElementById('add-user-form');
+
+    addUserBtn.addEventListener('click', () => addUserModal.classList.remove('hidden'));
+    closeAddUser.addEventListener('click', () => addUserModal.classList.add('hidden'));
+
+    addUserForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      const formData = new FormData(addUserForm);
+      const data = Object.fromEntries(formData);
+
+      try {
+        const res = await fetch(USERS_API, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const result = await res.json();
+        if (result.success) {
+          addUserForm.reset();
+          addUserModal.classList.add('hidden');
+          fetchUsers();
+        } else {
+          alert(result.message || 'Xato');
+        }
+      } catch (err) {
+        alert('Server xatosi');
+      }
+    });
+
+    // Edit User
+    const editUserModal = document.getElementById('edit-user-modal');
+    const closeEditUser = document.getElementById('close-edit-user');
+    const editUserForm = document.getElementById('edit-user-form');
+
+    closeEditUser.addEventListener('click', () => editUserModal.classList.add('hidden'));
+
+    window.editUser = async function(id) {
+      try {
+        const res = await fetch(`${USERS_API}/${id}`);
+        const data = await res.json();
+        if (data.success) {
+          const user = data.data;
+          editUserForm.id.value = user._id;
+          editUserForm.name.value = user.name || '';
+          editUserForm.phone.value = user.phone || '';
+          editUserModal.classList.remove('hidden');
+        }
+      } catch (err) {
+        alert('Ma\'lumot yuklashda xato');
+      }
+    };
+
+    editUserForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      const formData = new FormData(editUserForm);
+      const id = formData.get('id');
+      const data = Object.fromEntries(formData);
+      delete data.id;
+
+      try {
+        const res = await fetch(`${USERS_API}/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const result = await res.json();
+        if (result.success) {
+          editUserForm.reset();
+          editUserModal.classList.add('hidden');
+          fetchUsers();
+        } else {
+          alert(result.message || 'Xato');
+        }
+      } catch (err) {
+        alert('Yangilashda xato');
+      }
+    });
+
+    // Delete User
+    window.deleteUser = async function(id) {
+      if (!confirm('O‘chirmoqchimisiz?')) return;
+      try {
+        const res = await fetch(`${USERS_API}/${id}`, { method: 'DELETE' });
+        const data = await res.json();
+        if (data.success) fetchUsers();
+      } catch (err) {
+        alert('O‘chirishda xato');
+      }
+    };
+
+    // ------------------ Mashinalar CRUD (Page 3) ------------------
+    async function fetchCars() {
+      const tbody = document.querySelector('#cars-table tbody');
+      tbody.innerHTML = '<tr><td colspan="6">Yuklanmoqda...</td></tr>';
+
+      try {
+        const res = await fetch(CARS_API);
+        const data = await res.json();
+        tbody.innerHTML = '';
+
+        if (data.success && data.data?.length > 0) {
+          data.data.forEach(car => {
+            const firstImage = car.images && car.images.length > 0 ? car.images[0] : 'https://via.placeholder.com/90x60?text=No+Image';
+            tbody.innerHTML += `
+              <tr>
+                <td><img class="car-preview" src="${firstImage}" alt="${car.carName || 'Mashina'}" onerror="this.src='https://via.placeholder.com/90x60?text=Image'"/></td>
+                <td>${car.carName || '—'}</td>
+                <td>${car.vin || '—'}</td>
+                <td>${car.gosNumber || '—'}</td>
+                <td>${car.color || '—'}</td>
+                <td>
+                  <button class="action-btn btn-edit" onclick="editCar('${car._id}')"><i class="fas fa-edit"></i> Tahrirlash</button>
+                  <button class="action-btn btn-view" onclick="showCarDetails('${car._id}')"><i class="fas fa-eye"></i> Tafsilotlar</button>
+                  <button class="action-btn btn-delete" onclick="deleteCar('${car._id}')"><i class="fas fa-trash-alt"></i> O'chirish</button>
+                </td>
+              </tr>
+            `;
+          });
+        } else {
+          tbody.innerHTML = '<tr><td colspan="6">Mashinalar topilmadi</td></tr>';
+        }
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="6" style="color:red">Xato: ${err.message}</td></tr>`;
+      }
+    }
+
+    // Add/Edit Car
+    const carModal = document.getElementById('car-modal');
+    const addCarBtn = document.getElementById('add-car-btn');
+    const closeCarModal = document.getElementById('close-car-modal');
+    const carForm = document.getElementById('car-form');
+    const carModalTitle = document.getElementById('car-modal-title');
+
+    addCarBtn.addEventListener('click', () => {
+      carModalTitle.textContent = 'Yangi mashina qo‘shish';
+      carForm.reset();
+      carForm.id.value = '';
+      carModal.classList.remove('hidden');
+    });
+
+    closeCarModal.addEventListener('click', () => carModal.classList.add('hidden'));
+
+    carForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      const formData = new FormData(carForm);
+      const id = formData.get('id');
+      const data = Object.fromEntries(formData);
+      delete data.id;
+
+      try {
+        let res;
+        if (id) {
+          res = await fetch(`${CARS_API}/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          });
+        } else {
+          res = await fetch(CARS_API, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          });
+        }
+        const result = await res.json();
+        if (result.success) {
+          carForm.reset();
+          carModal.classList.add('hidden');
+          fetchCars();
+        } else {
+          alert(result.message || 'Xato');
+        }
+      } catch (err) {
+        alert('Server xatosi');
+      }
+    });
+
+    window.editCar = async function(id) {
+      try {
+        const res = await fetch(`${CARS_API}/${id}`);
+        const data = await res.json();
+        if (data.success) {
+          const car = data.data;
+          carModalTitle.textContent = 'Mashinani tahrirlash';
+          carForm.id.value = car._id;
+          carForm.carName.value = car.carName || '';
+          carForm.vin.value = car.vin || '';
+          carForm.gosNumber.value = car.gosNumber || '';
+          carForm.engineNumber.value = car.engineNumber || '';
+          carForm.stsNumber.value = car.stsNumber || '';
+          carForm.carType.value = car.carType || '';
+          carForm.color.value = car.color || '';
+          carForm.engine.value = car.engine || '';
+          carModal.classList.remove('hidden');
+        }
+      } catch (err) {
+        alert('Ma\'lumot yuklashda xato');
+      }
+    };
+
+    // Delete Car
+    window.deleteCar = async function(id) {
+      if (!confirm('O‘chirmoqchimisiz?')) return;
+      try {
+        const res = await fetch(`${CARS_API}/${id}`, { method: 'DELETE' });
+        const data = await res.json();
+        if (data.success) fetchCars();
+      } catch (err) {
+        alert('O‘chirishda xato');
+      }
+    };
+
+    // Car Details
+    const carDetailsModal = document.getElementById('car-details-modal');
+    const closeCarDetails = document.getElementById('close-car-details');
+    const currentCarId = document.getElementById('current-car-id');
+    const carDetailsTitle = document.getElementById('car-details-title');
+
+    closeCarDetails.addEventListener('click', () => carDetailsModal.classList.add('hidden'));
+
+    window.showCarDetails = async function(id) {
+      currentCarId.value = id;
+      carDetailsTitle.textContent = `Mashina tafsilotlari (ID: ${id})`;
+      await loadCarDetails(id);
+      carDetailsModal.classList.remove('hidden');
+    };
+
+    async function loadCarDetails(id) {
+      try {
+        const res = await fetch(`${CARS_API}/${id}`);
+        const data = await res.json();
+        if (data.success) {
+          const car = data.data;
+
+          // Images
+          const imagesList = document.getElementById('images-list');
+          imagesList.innerHTML = '';
+          (car.images || []).forEach((img, index) => {
+            imagesList.innerHTML += `
+              <div class="list-item">
+                <img src="${img}" alt="Rasm ${index + 1}" onerror="this.src='https://via.placeholder.com/50?text=Img'">
+                <button class="action-btn btn-delete" onclick="deleteImage('${id}', '${index}')"><i class="fas fa-trash-alt"></i> O'chirish</button>
+              </div>
+            `;
+          });
+
+          // Extra Gos
+          const extraGosList = document.getElementById('extra-gos-list');
+          extraGosList.innerHTML = '';
+          (car.extraGosNumber || []).forEach(num => {
+            extraGosList.innerHTML += `
+              <div class="list-item">
+                <span>${num}</span>
+                <div>
+                  <button class="action-btn btn-edit" onclick="editExtraGos('${id}', '${num}')"><i class="fas fa-edit"></i> Tahrirlash</button>
+                  <button class="action-btn btn-delete" onclick="deleteExtraGos('${id}', '${num}')"><i class="fas fa-trash-alt"></i> O'chirish</button>
+                </div>
+              </div>
+            `;
+          });
+
+          // Features
+          const featuresList = document.getElementById('features-list');
+          featuresList.innerHTML = '';
+          (car.features || []).forEach(f => {
+            featuresList.innerHTML += `
+              <div class="list-item">
+                <span>${f.featureId.title || f.featureId} - ${f.text || ''}</span>
+                <div>
+                  <button class="action-btn btn-edit" onclick="editFeature('${id}', '${f.featureId._id}')"><i class="fas fa-edit"></i> Tahrirlash</button>
+                  <button class="action-btn btn-delete" onclick="deleteFeature('${id}', '${f.featureId._id}')"><i class="fas fa-trash-alt"></i> O'chirish</button>
+                </div>
+              </div>
+            `;
+          });
+
+          // Risks
+          const risksList = document.getElementById('risks-list');
+          risksList.innerHTML = '';
+          (car.legalRisks || []).forEach(r => {
+            risksList.innerHTML += `
+              <div class="list-item chip chip-risk-${r.position}">
+                <span>${r.riskId.title || r.riskId} (${r.position})</span>
+                <div>
+                  <button class="action-btn btn-edit" onclick="editRisk('${id}', '${r.riskId._id}')"><i class="fas fa-edit"></i> Tahrirlash</button>
+                  <button class="action-btn btn-delete" onclick="deleteRisk('${id}', '${r.riskId._id}')"><i class="fas fa-trash-alt"></i> O'chirish</button>
+                </div>
+              </div>
+            `;
+          });
+        }
+      } catch (err) {
+        alert('Tafsilotlar yuklashda xato');
+      }
+    }
+
+    // Add Image (faraz qilingan endpoint /api/cars/:id/images)
+    const addImageForm = document.getElementById('add-image-form');
+    addImageForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      const id = currentCarId.value;
+      const formData = new FormData(addImageForm);
+      try {
+        const res = await fetch(`${CARS_API}/${id}/images`, { method: 'POST', body: formData });
+        const data = await res.json();
+        if (data.success) {
+          addImageForm.reset();
+          loadCarDetails(id);
+        } else {
+          alert(data.message || 'Xato');
+        }
+      } catch (err) {
+        alert('Rasm qo‘shishda xato');
+      }
+    });
+
+    window.deleteImage = async function(id, index) {
+      if (!confirm('Rasmni o‘chirmoqchimisiz?')) return;
+      try {
+        const res = await fetch(`${CARS_API}/${id}/images/${index}`, { method: 'DELETE' });
+        const data = await res.json();
+        if (data.success) loadCarDetails(id);
+      } catch (err) {
+        alert('O‘chirishda xato');
+      }
+    };
+
+    // Extra Gos
+    const addExtraGosForm = document.getElementById('add-extra-gos-form');
+    addExtraGosForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      const id = currentCarId.value;
+      const formData = new FormData(addExtraGosForm);
+      const data = Object.fromEntries(formData);
+      try {
+        const res = await fetch(`${CARS_API}/${id}/gos`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const result = await res.json();
+        if (result.success) {
+          addExtraGosForm.reset();
+          loadCarDetails(id);
+        } else {
+          alert(result.message || 'Xato');
+        }
+      } catch (err) {
+        alert('Qo‘shishda xato');
+      }
+    });
+
+    window.editExtraGos = async function(id, oldNumber) {
+      const newNumber = prompt('Yangi raqam:', oldNumber);
+      if (!newNumber) return;
+      try {
+        const res = await fetch(`${CARS_API}/${id}/gos/${oldNumber}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ newNumber })
+        });
+        const data = await res.json();
+        if (data.success) loadCarDetails(id);
+      } catch (err) {
+        alert('Yangilashda xato');
+      }
+    };
+
+    window.deleteExtraGos = async function(id, number) {
+      if (!confirm('O‘chirmoqchimisiz?')) return;
+      try {
+        const res = await fetch(`${CARS_API}/${id}/gos/${number}`, { method: 'DELETE' });
+        const data = await res.json();
+        if (data.success) loadCarDetails(id);
+      } catch (err) {
+        alert('O‘chirishda xato');
+      }
+    };
+
+    // Features
+    async function loadFeatures() {
+      try {
+        const res = await fetch(FEATURES_API);
+        const data = await res.json();
+        const select = document.getElementById('feature-select');
+        select.innerHTML = '<option value="">Tanlang</option>';
+        if (data.success && data.data) {
+          data.data.forEach(f => {
+            select.innerHTML += `<option value="${f._id}">${f.title}</option>`;
+          });
+        }
+      } catch (err) {
+        console.error('Features yuklash xatosi');
+      }
+    }
+
+    const addFeatureForm = document.getElementById('add-feature-form');
+    addFeatureForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      const id = currentCarId.value;
+      const formData = new FormData(addFeatureForm);
+      const data = Object.fromEntries(formData);
+      try {
+        const res = await fetch(`${CARS_API}/${id}/features`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const result = await res.json();
+        if (result.success) {
+          addFeatureForm.reset();
+          loadCarDetails(id);
+        } else {
+          alert(result.message || 'Xato');
+        }
+      } catch (err) {
+        alert('Qo‘shishda xato');
+      }
+    });
+
+    window.editFeature = async function(id, featureId) {
+      const newText = prompt('Yangi matn:');
+      if (newText === null) return;
+      try {
+        const res = await fetch(`${CARS_API}/${id}/features/${featureId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: newText })
+        });
+        const data = await res.json();
+        if (data.success) loadCarDetails(id);
+      } catch (err) {
+        alert('Yangilashda xato');
+      }
+    };
+
+    window.deleteFeature = async function(id, featureId) {
+      if (!confirm('O‘chirmoqchimisiz?')) return;
+      try {
+        const res = await fetch(`${CARS_API}/${id}/features/${featureId}`, { method: 'DELETE' });
+        const data = await res.json();
+        if (data.success) loadCarDetails(id);
+      } catch (err) {
+        alert('O‘chirishda xato');
+      }
+    };
+
+    // Risks
+    async function loadRisks() {
+      try {
+        const res = await fetch(RISKS_API);
+        const data = await res.json();
+        const select = document.getElementById('risk-select');
+        select.innerHTML = '<option value="">Tanlang</option>';
+        if (data.success && data.data) {
+          data.data.forEach(r => {
+            select.innerHTML += `<option value="${r._id}">${r.title}</option>`;
+          });
+        }
+      } catch (err) {
+        console.error('Risks yuklash xatosi');
+      }
+    }
+
+    const addRiskForm = document.getElementById('add-risk-form');
+    addRiskForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      const id = currentCarId.value;
+      const formData = new FormData(addRiskForm);
+      const data = Object.fromEntries(formData);
+      try {
+        const res = await fetch(`${CARS_API}/${id}/legal-risks`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const result = await res.json();
+        if (result.success) {
+          addRiskForm.reset();
+          loadCarDetails(id);
+        } else {
+          alert(result.message || 'Xato');
+        }
+      } catch (err) {
+        alert('Qo‘shishda xato');
+      }
+    });
+
+    window.editRisk = async function(id, riskId) {
+      const newPosition = prompt('Yangi pozitsiya (1-3):');
+      if (!newPosition || ![1,2,3].includes(parseInt(newPosition))) return alert('Noto‘g‘ri pozitsiya');
+      try {
+        const res = await fetch(`${CARS_API}/${id}/legal-risks/${riskId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ position: parseInt(newPosition) })
+        });
+        const data = await res.json();
+        if (data.success) loadCarDetails(id);
+      } catch (err) {
+        alert('Yangilashda xato');
+      }
+    };
+
+    window.deleteRisk = async function(id, riskId) {
+      if (!confirm('O‘chirmoqchimisiz?')) return;
+      try {
+        const res = await fetch(`${CARS_API}/${id}/legal-risks/${riskId}`, { method: 'DELETE' });
+        const data = await res.json();
+        if (data.success) loadCarDetails(id);
+      } catch (err) {
+        alert('O‘chirishda xato');
+      }
+    };
+
+    // ------------------ Features CRUD ------------------
+    async function fetchFeatures() {
+      const tbody = document.querySelector('#features-table tbody');
+      tbody.innerHTML = '<tr><td colspan="4">Yuklanmoqda...</td></tr>';
+
+      try {
+        const res = await fetch(FEATURES_API);
+        const data = await res.json();
+        tbody.innerHTML = '';
+
+        if (data.success && data.data?.length > 0) {
+          // order bo'yicha tartiblash
+          const sortedFeatures = [...data.data].sort((a, b) => (a.order || 0) - (b.order || 0));
+          sortedFeatures.forEach(f => {
+            tbody.innerHTML += `
+              <tr>
+                <td><img src="${f.image || ''}" width="30" style="border-radius:6px; object-fit:cover; height:30px;" onerror="this.src='https://via.placeholder.com/80x50?text=Img'"/></td>
+                <td><strong>${f.title || '—'}</strong></td>
+                <td>${f.order || 0}</td>
+                <td>
+                  <button class="action-btn btn-edit" onclick="editFeatureMain('${f._id}')"><i class="fas fa-edit"></i> Tahrirlash</button>
+                  <button class="action-btn btn-delete" onclick="deleteFeatureMain('${f._id}')"><i class="fas fa-trash-alt"></i> O'chirish</button>
+                </td>
+              </tr>
+            `;
+          });
+        } else {
+          tbody.innerHTML = '<tr><td colspan="4">Xususiyatlar topilmadi</td></tr>';
+        }
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="4" style="color:red">Xato: ${err.message}</td></tr>`;
+      }
+    }
+
+    const featureMainModal = document.getElementById('feature-main-modal');
+    const addFeatureMainBtn = document.getElementById('add-feature-main-btn');
+    const closeFeatureMain = document.getElementById('close-feature-main');
+    const featureMainForm = document.getElementById('feature-main-form');
+    const featureMainTitle = document.getElementById('feature-main-title');
+    const featurePreview = document.getElementById('feature-preview');
+
+    addFeatureMainBtn.addEventListener('click', () => {
+      featureMainTitle.textContent = 'Yangi xususiyat qo‘shish';
+      featureMainForm.reset();
+      featureMainForm.id.value = '';
+      featurePreview.innerHTML = '';
+      featureMainModal.classList.remove('hidden');
+    });
+
+    closeFeatureMain.addEventListener('click', () => featureMainModal.classList.add('hidden'));
+
+    // Rasm preview
+    document.getElementById('feature-image-input').addEventListener('change', e => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = ev => {
+          featurePreview.innerHTML = `<img src="${ev.target.result}" style="max-width:180px; border-radius:6px;">`;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    featureMainForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      const formData = new FormData(featureMainForm);
+      const id = formData.get('id');
+
+      try {
+        let res;
+        if (id) {
+          res = await fetch(`${FEATURES_API}/${id}`, {
+            method: 'PUT',
+            body: formData
+          });
+        } else {
+          res = await fetch(FEATURES_API, {
+            method: 'POST',
+            body: formData
+          });
+        }
+
+        const result = await res.json();
+        if (result.success) {
+          featureMainForm.reset();
+          featureMainModal.classList.add('hidden');
+          featurePreview.innerHTML = '';
+          fetchFeatures();
+          loadFeatures();
+        } else {
+          alert(result.message || 'Xato yuz berdi');
+        }
+      } catch (err) {
+        alert('Server bilan aloqa xatosi');
+      }
+    });
+
+    window.editFeatureMain = async function(id) {
+      try {
+        const res = await fetch(`${FEATURES_API}/${id}`);
+        const data = await res.json();
+        if (data.success) {
+          const f = data.data;
+          featureMainTitle.textContent = 'Xususiyatni tahrirlash';
+          featureMainForm.id.value = f._id;
+          featureMainForm.title.value = f.title || '';
+          featureMainForm.order.value = f.order || 0;
+          featurePreview.innerHTML = f.image ? `<img src="${f.image}" style="max-width:180px;">` : '';
+          featureMainModal.classList.remove('hidden');
+        }
+      } catch (err) {
+        alert('Ma\'lumot yuklashda xato');
+      }
+    };
+
+    window.deleteFeatureMain = async function(id) {
+      if (!confirm('O‘chirishni xohlaysizmi?')) return;
+      try {
+        const res = await fetch(`${FEATURES_API}/${id}`, { method: 'DELETE' });
+        const data = await res.json();
+        if (data.success) {
+          fetchFeatures();
+          loadFeatures();
+        }
+      } catch (err) {
+        alert('O‘chirishda xato');
+      }
+    };
+
+    // ------------------ Legal Risks CRUD ------------------
+    async function fetchLegalRisks() {
+      const tbody = document.querySelector('#risks-table tbody');
+      tbody.innerHTML = '<tr><td colspan="4">Yuklanmoqda...</td></tr>';
+
+      try {
+        const res = await fetch(RISKS_API);
+        const data = await res.json();
+        tbody.innerHTML = '';
+
+        if (data.success && data.data?.length > 0) {
+          data.data.forEach(r => {
+            tbody.innerHTML += `
+              <tr>
+                <td>${r.title || '—'}</td>
+                <td>${r.text?.substring(0, 80) || '—'}...</td>
+                <td>${r.order || 0}</td>
+                <td>
+                  <button class="action-btn btn-edit" onclick="editRiskMain('${r._id}')"><i class="fas fa-edit"></i> Tahrirlash</button>
+                  <button class="action-btn btn-delete" onclick="deleteRiskMain('${r._id}')"><i class="fas fa-trash-alt"></i> O'chirish</button>
+                </td>
+              </tr>
+            `;
+          });
+        } else {
+          tbody.innerHTML = '<tr><td colspan="4">Risklar topilmadi</td></tr>';
+        }
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="4" style="color:red">Xato: ${err.message}</td></tr>`;
+      }
+    }
+
+    const riskMainModal = document.getElementById('risk-main-modal');
+    const addRiskMainBtn = document.getElementById('add-risk-main-btn');
+    const closeRiskMain = document.getElementById('close-risk-main');
+    const riskMainForm = document.getElementById('risk-main-form');
+    const riskMainTitle = document.getElementById('risk-main-title');
+
+    addRiskMainBtn.addEventListener('click', () => {
+      riskMainTitle.textContent = 'Yangi huquqiy risk qo‘shish';
+      riskMainForm.reset();
+      riskMainForm.id.value = '';
+      riskMainModal.classList.remove('hidden');
+    });
+
+    closeRiskMain.addEventListener('click', () => riskMainModal.classList.add('hidden'));
+
+    riskMainForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      const formData = new FormData(riskMainForm);
+      const id = formData.get('id');
+      const data = Object.fromEntries(formData);
+      delete data.id;
+
+      try {
+        let res;
+        if (id) {
+          res = await fetch(`${RISKS_API}/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          });
+        } else {
+          res = await fetch(RISKS_API, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          });
+        }
+
+        const result = await res.json();
+        if (result.success) {
+          riskMainForm.reset();
+          riskMainModal.classList.add('hidden');
+          fetchLegalRisks();
+          loadRisks();
+        } else {
+          alert(result.message || 'Xato yuz berdi');
+        }
+      } catch (err) {
+        alert('Server bilan aloqa xatosi');
+      }
+    });
+
+    window.editRiskMain = async function(id) {
+      try {
+        const res = await fetch(`${RISKS_API}/${id}`);
+        const data = await res.json();
+        if (data.success) {
+          const r = data.data;
+          riskMainTitle.textContent = 'Riskni tahrirlash';
+          riskMainForm.id.value = r._id;
+          riskMainForm.title.value = r.title || '';
+          riskMainForm.text.value = r.text || '';
+          riskMainForm.order.value = r.order || 0;
+          riskMainModal.classList.remove('hidden');
+        }
+      } catch (err) {
+        alert('Ma\'lumot yuklashda xato');
+      }
+    };
+
+    window.deleteRiskMain = async function(id) {
+      if (!confirm('O‘chirishni xohlaysizmi?')) return;
+      try {
+        const res = await fetch(`${RISKS_API}/${id}`, { method: 'DELETE' });
+        const data = await res.json();
+        if (data.success) {
+          fetchLegalRisks();
+          loadRisks();
+        }
+      } catch (err) {
+        alert('O‘chirishda xato');
+      }
+    };
+
+    // Dastlabki yuklashlar
     fetchCarousels();
-  }
-}
-
-// TODO: add editCarousel() va add new modal
-
-// Init
-fetchCarousels();
-
-</script>
+    loadFeatures();
+    loadRisks();
+  </script>
 </body>
 </html>

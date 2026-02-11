@@ -5,7 +5,7 @@
     margin: 0px;
     text-wrap: nowrap;
     transition: 0.5s;
-    user-select: NONE;
+    /* user-select: NONE; */
     color: #383838;
 }
 

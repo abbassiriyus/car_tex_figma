@@ -397,9 +397,96 @@ document.querySelector('#name_user').innerHTML = data.user.name;
 
 
 
-function openCarInfo() {
-    document.body.classList.add("no-scroll");
-    document.querySelector('#modal_2').style = "display:flex"
+async function openCarInfo() {
+document.body.classList.add("no-scroll");
+    const input = document.getElementById("carSearchInput");
+    const query = input.value.trim();
+
+    if (!query) {
+        input.style.border = "1px solid red";
+        return;
+    }
+    input.style.border = "1px solid #ccc";
+
+    try {
+        const response = await fetch(`/api/cars/search?q=${encodeURIComponent(query)}`);
+        const result = await response.json();
+
+        if (!result.success || !result.data || result.data.length === 0) {
+            alert("Avtomobil topilmadi");
+            return;
+        }
+
+        const car = result.data[0];
+
+        // ====== Asosiy ma'lumotlar ======
+        document.getElementById("modalVin").innerText = car.vin ?? "-";
+        document.getElementById("modalCarName").innerText = car.carName ?? "-";
+
+        // ====== Avtomobil rasm ======
+        const carImage = car.images && car.images.length > 0 
+            ? car.images[0] 
+            : "https://img.freepik.com/premium-vector/blue-car-flat-style-illustration-isolated-white-background_108231-795.jpg?semt=ais_user_personalization&w=740&q=80";
+
+        const carImageElem = document.querySelector(".infocar_card img");
+        carImageElem.src = carImage;
+        carImageElem.alt = car.carName || "Car Image";
+
+        // ====== FEATURES ======
+        const info1 = document.querySelector(".infocar_info_1");
+
+        // Avvalgi feature cardlarni tozalaymiz
+        const existingFeatureCards = info1.querySelectorAll(".feature-infocar_card");
+        existingFeatureCards.forEach(el => el.remove());
+
+        if (Array.isArray(car.features) && car.features.length > 0) {
+
+            // position bo‘yicha sort
+            const sortedFeatures = [...car.features].sort((a, b) => (a.position || 0) - (b.position || 0));
+
+            sortedFeatures.forEach(f => {
+                if (!f.featureId || typeof f.featureId !== "object") return;
+
+                const iconUrl = f.featureId.image.startsWith("http") 
+                    ? f.featureId.image 
+                    : `${window.location.origin}${f.featureId.image}`;
+
+                const cardDiv = document.createElement("div");
+                cardDiv.className = "infocar_info_1_card feature-infocar_card";
+
+                cardDiv.innerHTML = `
+                    <p style="display:flex; align-items:center;">
+                        <img src="${iconUrl}" alt="${f.featureId.title}" width="24" style="margin-right:6px;" onerror="this.style.display='none'">
+                        ${f.featureId.title}
+                    </p>
+                    <p>${f.text || ""}</p>
+                `;
+
+                info1.appendChild(cardDiv);
+            });
+        }
+// tugmani olamiz
+const reportBtn = document.getElementById("getReportBtn");
+
+if (reportBtn) {
+    reportBtn.onclick = () => {
+        const gosNumber = encodeURIComponent(car.gosNumber || "");
+        window.location.href = `/otchot.html?gosNumber=${gosNumber}`;
+    };
+}
+
+        // ====== Modal ochish ======
+        document.getElementById("modal_2").style.display = "flex";
+
+    } catch (error) {
+        console.error(error);
+        alert("Server bilan bog‘lanishda xatolik");
+    }
+}
+
+
+function closeCarInfo() {
+    document.getElementById("modal_2").style.display = "none";
 }
 
 function closeCarInfo() {

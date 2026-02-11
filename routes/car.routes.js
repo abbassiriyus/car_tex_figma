@@ -3,7 +3,12 @@ const { body, param, validationResult } = require('express-validator');
 const mongoose = require('mongoose');
 const router = express.Router();
 
+
+const upload = require('../middlewares/upload');
+const { deleteImage, getImageUrl } = require('../controllers/imageController');
 const Car = require('../models/Car');
+
+
 
 // Helper
 const errorResponse = (res, status, message) => {
@@ -47,32 +52,270 @@ router.post('/',
   }
 );
 
+// ➕ CAR IMAGE QO‘SHISH POST /api/cars/:id/images
+router.post(
+  '/:id/images',
+  upload.single('image'),
 
-// ➕ Feature biriktirish POST /api/cars/:id/features
-router.post('/:id/features', async (req, res) => {
+  async (req, res) => {
+    try {
+      if (!req.file) {
+        return errorResponse(res, 400, 'Rasm majburiy');
+      }
+
+      const car = await Car.findById(req.params.id);
+      if (!car) return errorResponse(res, 404, 'Car topilmadi');
+
+      const image = getImageUrl(req, req.file);
+
+      car.images.push(image);
+      await car.save();
+
+      res.status(201).json({
+        success: true,
+        message: 'Rasm qo‘shildi',
+        data: car.images
+      });
+
+    } catch (err) {
+      errorResponse(res, 500, err.message);
+    }
+  }
+);
+
+//❌ BITTA IMAGE O‘CHIRISHDELETE /api/cars/:id/images
+router.delete(
+  '/:id/images',
+
+  async (req, res) => {
+    try {
+      const { image } = req.body;
+
+      const car = await Car.findById(req.params.id);
+      if (!car) return errorResponse(res, 404, 'Car topilmadi');
+
+      if (!car.images.includes(image)) {
+        return errorResponse(res, 404, 'Rasm topilmadi');
+      }
+
+      deleteImage(image);
+
+      car.images = car.images.filter(img => img !== image);
+      await car.save();
+
+      res.json({
+        success: true,
+        message: 'Rasm o‘chirildi',
+        data: car.images
+      });
+
+    } catch (err) {
+      errorResponse(res, 500, err.message);
+    }
+  }
+);
+
+//❌ BARCHA IMAGELARNI O‘CHIRISH DELETE /api/cars/:id/images/all
+
+
+
+router.delete('/:id/images/all', async (req, res) => {
   try {
-    const { featureId, text } = req.body;
-
     const car = await Car.findById(req.params.id);
-    if (!car) return res.status(404).json({ success: false, message: 'Car topilmadi' });
+    if (!car) return errorResponse(res, 404, 'Car topilmadi');
 
-    // Duplicate bo‘lmasin
-    const exist = car.features.find(
-      f => f.featureId.toString() === featureId
-    );
-    if (exist) {
-      return res.status(409).json({
+    car.images.forEach(img => deleteImage(img));
+
+    car.images = [];
+    await car.save();
+
+    res.json({
+      success: true,
+      message: 'Barcha rasmlar o‘chirildi'
+    });
+
+  } catch (err) {
+    errorResponse(res, 500, err.message);
+  }
+});
+
+
+router.get('/search', async (req, res) => {
+  try {
+    const { q } = req.query;
+
+    if (!q) {
+      return res.status(400).json({
         success: false,
-        message: 'Bu xususiyat allaqachon biriktirilgan'
+        message: 'Qidiruv parametri majburiy'
       });
     }
 
-    car.features.push({ featureId, text });
+    const cars = await Car.find({
+      $or: [
+        { vin: { $regex: q, $options: 'i' } },
+        { gosNumber: { $regex: q, $options: 'i' } },
+        { engineNumber: { $regex: q, $options: 'i' } }
+      ]
+    })
+    .populate('features.featureId', 'title image order') // 👈 SHU MUHIM
+    .populate('legalRisks.riskId') // agar risk ham kerak bo‘lsa
+    .sort({ createdAt: -1 })
+    .lean(); // optional, performance uchun
+
+    res.json({
+      success: true,
+      count: cars.length,
+      data: cars
+    });
+
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+
+
+
+
+// ➕ Extra gos nomer qo‘shish  POST /api/cars/:id/gos
+router.post('/:id/gos', async (req, res) => {
+  try {
+    const { number } = req.body;
+
+    const car = await Car.findById(req.params.id);
+    if (!car) {
+      return res.status(404).json({ success: false, message: 'Car topilmadi' });
+    }
+
+    // duplicate bo‘lmasin
+    if (car.extraGosNumber.includes(number)) {
+      return res.status(409).json({
+        success: false,
+        message: 'Bu gos nomer allaqachon mavjud'
+      });
+    }
+
+    car.extraGosNumber.push(number);
     await car.save();
 
     res.status(201).json({
       success: true,
-      message: 'Xususiyat biriktirildi',
+      message: 'Extra gos nomer qo‘shildi',
+      data: car.extraGosNumber
+    });
+
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// ✏️ Extra gos nomer yangilash PUT /api/cars/:id/gos/:number
+router.put('/:id/gos/:number', async (req, res) => {
+  try {
+    const { newNumber } = req.body;
+
+    const car = await Car.findById(req.params.id);
+    if (!car) {
+      return res.status(404).json({ success: false, message: 'Car topilmadi' });
+    }
+
+    const index = car.extraGosNumber.findIndex(
+      n => n === req.params.number
+    );
+
+    if (index === -1) {
+      return res.status(404).json({
+        success: false,
+        message: 'Gos nomer topilmadi'
+      });
+    }
+
+    // duplicate check
+    if (car.extraGosNumber.includes(newNumber)) {
+      return res.status(409).json({
+        success: false,
+        message: 'Bu gos nomer allaqachon mavjud'
+      });
+    }
+
+    car.extraGosNumber[index] = newNumber;
+    await car.save();
+
+    res.json({
+      success: true,
+      message: 'Gos nomer yangilandi',
+      data: car.extraGosNumber
+    });
+
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// ❌ Extra gos nomer o‘chirish DELETE /api/cars/:id/gos/:number
+router.delete('/:id/gos/:number', async (req, res) => {
+  try {
+    const car = await Car.findById(req.params.id);
+    if (!car) {
+      return res.status(404).json({ success: false, message: 'Car topilmadi' });
+    }
+
+    car.extraGosNumber = car.extraGosNumber.filter(
+      n => n !== req.params.number
+    );
+
+    await car.save();
+
+    res.json({
+      success: true,
+      message: 'Gos nomer olib tashlandi',
+      data: car.extraGosNumber
+    });
+
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+
+
+// ➕ Feature biriktirish POST /api/cars/:id/features
+router.post('/:id/features', async (req, res) => {
+  try {
+    const { featureId, text, position } = req.body;
+
+    if (!mongoose.Types.ObjectId.isValid(featureId)) {
+      return res.status(400).json({ success: false, message: 'Noto‘g‘ri featureId' });
+    }
+
+    const car = await Car.findById(req.params.id);
+    if (!car) {
+      return res.status(404).json({ success: false, message: 'Car topilmadi' });
+    }
+
+    const exists = car.features.some(
+      f => f.featureId.toString() === featureId
+    );
+
+    if (exists) {
+      return res.status(409).json({
+        success: false,
+        message: 'Bu feature allaqachon biriktirilgan'
+      });
+    }
+
+    car.features.push({
+      featureId,
+      text,
+      position
+    });
+
+    await car.save();
+
+    res.status(201).json({
+      success: true,
+      message: 'Feature biriktirildi',
       data: car.features
     });
 
@@ -84,24 +327,36 @@ router.post('/:id/features', async (req, res) => {
 // PUT /api/cars/:id/features/:featureId Feature text yangilash
 router.put('/:id/features/:featureId', async (req, res) => {
   try {
+    const { text, position } = req.body;
+
+    if (!mongoose.Types.ObjectId.isValid(req.params.featureId)) {
+      return res.status(400).json({ success: false, message: 'Noto‘g‘ri featureId' });
+    }
+
     const car = await Car.findById(req.params.id);
-    if (!car) return res.status(404).json({ success: false, message: 'Car topilmadi' });
+    if (!car) {
+      return res.status(404).json({ success: false, message: 'Car topilmadi' });
+    }
 
     const feature = car.features.find(
       f => f.featureId.toString() === req.params.featureId
     );
 
     if (!feature) {
-      return res.status(404).json({ success: false, message: 'Xususiyat topilmadi' });
+      return res.status(404).json({
+        success: false,
+        message: 'Feature topilmadi'
+      });
     }
 
-    feature.text = req.body.text ?? feature.text;
+    feature.text = text ?? feature.text;
+    feature.position = position ?? feature.position;
 
     await car.save();
 
     res.json({
       success: true,
-      message: 'Yangilandi',
+      message: 'Feature yangilandi',
       data: car.features
     });
 
@@ -113,24 +368,40 @@ router.put('/:id/features/:featureId', async (req, res) => {
 // ❌ Feature olib tashlash DELETE /api/cars/:id/features/:featureId
 router.delete('/:id/features/:featureId', async (req, res) => {
   try {
+    if (!mongoose.Types.ObjectId.isValid(req.params.featureId)) {
+      return res.status(400).json({ success: false, message: 'Noto‘g‘ri featureId' });
+    }
+
     const car = await Car.findById(req.params.id);
-    if (!car) return res.status(404).json({ success: false, message: 'Car topilmadi' });
+    if (!car) {
+      return res.status(404).json({ success: false, message: 'Car topilmadi' });
+    }
+
+    const before = car.features.length;
 
     car.features = car.features.filter(
       f => f.featureId.toString() !== req.params.featureId
     );
 
+    if (before === car.features.length) {
+      return res.status(404).json({
+        success: false,
+        message: 'Feature topilmadi'
+      });
+    }
+
     await car.save();
 
     res.json({
       success: true,
-      message: 'Xususiyat olib tashlandi'
+      message: 'Feature olib tashlandi'
     });
 
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
 });
+
 
 //  📥 Car + features + iconlar bilan olish
 

@@ -35,7 +35,12 @@ const CarFeatureSchema = new mongoose.Schema({
 const CarSchema = new mongoose.Schema({
   vin: { type: String, required: true, unique: true },
   gosNumber: { type: String, required: true },
-  extraGosNumber: String,
+
+  extraGosNumber: {
+    type: [String],
+    default: []
+  },
+
   engineNumber: { type: String, required: true },
   stsNumber: { type: String, required: true },
   carType: { type: String, required: true },
@@ -44,17 +49,17 @@ const CarSchema = new mongoose.Schema({
   carName: { type: String, required: true },
   images: { type: [String], default: [] },
 
-  // 🔥 XUSUSIYATLAR MASSIVI
   features: {
     type: [CarFeatureSchema],
     default: []
   },
-    // 🔥 Legal Risks
+
   legalRisks: {
     type: [CarLegalRiskSchema],
     default: []
   }
 
 }, { timestamps: true });
+
 
 module.exports = mongoose.model('Car', CarSchema);

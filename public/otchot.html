@@ -37,8 +37,8 @@
 
 <body>
 
-    <nav class="navbar_all">
-        <img src="/img/logo.png" alt="" class="logo">
+   <nav class="navbar_all">
+        <img src="./img/logo.jpg" alt="" class="logo">
         <ul class="nav_items">
             <li style="color: #0A4BA9;" class="nav_item">Проверка авто</li>
             <li class="nav_item">Как это работает</li>
@@ -66,7 +66,7 @@
                                 fill="#0A4BA9" />
                         </svg>
                     </div>
-                    <h3 style="cursor: pointer;">Firdaus</h3>
+                    <h3 id="name_user" style="cursor: pointer;"></h3>
                     <div style="cursor: pointer;" class="navbar_all_user_arow"><svg width="20" height="20"
                             viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -75,7 +75,8 @@
                         </svg>
                     </div>
                 </div>
-                <div class="navbar_all_user_menu"> <img src="./img/location-exit.png" alt="">
+                <div onclick="viteOut_account()" class="navbar_all_user_menu"> <img src="./img/location-exit.png"
+                        alt="">
                     <h4>Выйти из аккаунта</h4>
                 </div>
             </div>
@@ -102,6 +103,19 @@
         <!-- <div></div> -->
     </nav>
     <div class="modal_page" id="modal">
+        <div class="close_medias">
+            <div onclick="closeBtnfn()" class="close_media"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M14.7105 15.88L10.8305 12L14.7105 8.11998C15.1005 7.72998 15.1005 7.09998 14.7105 6.70998C14.3205 6.31998 13.6905 6.31998 13.3005 6.70998L8.71047 11.3C8.32047 11.69 8.32047 12.32 8.71047 12.71L13.3005 17.3C13.6905 17.69 14.3205 17.69 14.7105 17.3C15.0905 16.91 15.1005 16.27 14.7105 15.88Z"
+                        fill="#ABAAAA" />
+                </svg>
+            </div>
+            <div onclick="toggle_menu()" class="close_media"><svg width="18" height="16" viewBox="0 0 18 16" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13 14V16H2V14H13ZM18 7V9H0V7H18ZM16 0V2H5V0H16Z" fill="#383838" />
+                </svg></div>
+        </div>
         <div class="modal_mid">
             <div class="kirish">
                 <div class="modal_sarlavha">
@@ -110,9 +124,10 @@
                 </div>
                 <form>
                     <label for="tl_phone">Номер телефона</label><br>
-                    <input type="text" name="tl_phone" id="tl_phone" placeholder="+998  __ ___ __ __"><br>
-                    <span>Введите существующий номер</span><br>
-                    <button type="button">Войти</button>
+                    <input style="margin-bottom: 2px;" type="text" name="tl_phone" id="tl_phone"
+                        placeholder="+998  __ ___ __ __"><br>
+                    <span style="display: none;padding-top: 1px;">Введите существующий номер</span><br>
+                    <button type="button" onclick="openKirish_1()">Войти</button>
                     <p>Нет аккаунта? <a href="#" onclick="openRegister()">Регистрация</a></p>
                 </form>
             </div>
@@ -126,11 +141,11 @@
                         полному отчёту и истории проверок</p>
                     <label for="tl_phone1">Имя</label><br>
                     <input type="text" name="tl_phone1" id="tl_phone1" placeholder="Введите имя"><br>
-                    <span>Введите корректное имя</span><br>
+                    <span style="display: none;">Введите корректное имя</span><br>
                     <label for="tl_phone2">Номер телефона</label><br>
                     <input type="text" name="tl_phone2" id="tl_phone2" placeholder="+998  __ ___ __ __"><br>
-                    <span>Введите существующий номер</span><br>
-                    <button onclick="openPotverdit()" type="button">Войти</button>
+                    <span style="display: none;">Введите существующий номер</span><br>
+                    <button onclick="registerUser()" type="button">Войти</button>
                     <p>Нет аккаунта? <a href="#" onclick="openKirish()">Войти</a></p>
                 </form>
             </div>
@@ -139,7 +154,7 @@
                     <h2>Подтверждение номера</h2>
                     <div class="close" onclick="closeBtnfn()">✕</div>
                 </div>
-                <p style="text-wrap: wrap;">Код отправлен на ваш номер телефона +9989******76</p>
+                <p id="verify_phone_text" style="text-wrap: wrap;">Код отправлен на ваш номер телефона +9989******76</p>
                 <form>
                     <label for="tl_phones"
                         style="display:flex;justify-content:center;position:relative;top:15px;">Введите код</label><br>
@@ -151,13 +166,14 @@
                         <input type="text" maxlength="1" class="otp-input">
                     </div>
 
-                    <span
+                    <span id="timer_text"
                         style="color: #ABAAAA;text-align: center;margin: auto;margin-top: 10px;width: 100%;display: flex;justify-content: center;">Отправить
-                        код снова через: 00:55</span><br>
+                        код снова через: 04:00</span><br>
                     <button type="button" onclick="uspeshniyFu()">Подтвердить</button>
                     <p>Нет аккаунта? <a href="#" onclick="openKirish()">Войти</a></p>
                 </form>
             </div>
+
         </div>
     </div>
 

@@ -6,6 +6,9 @@ const bodyParser = require('body-parser');
 const connectDB = require('./config/db');
 const homeCarouselRoutes = require('./routes/homeCarousel');
 const usersRoutes=require('./routes/user.routes')
+const carsRoutes=require('./routes/car.routes')
+const FeatureRoutes=require('./routes/feature.routes')
+const RiskRoutes=require('./routes/legalRisks..routes')
 const app = express();
 
 // Body parser
@@ -26,6 +29,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 // API routelar
 app.use('/api/home-carousel', homeCarouselRoutes);
 app.use('/api/users', usersRoutes);
+app.use('/api/cars', carsRoutes);
+app.use('/api/features', FeatureRoutes);
+app.use('/api/legal-risks', RiskRoutes);
+
+
+
 // --- LOGIN ---
 // Hardcoded login (keyin DB bilan almashtirish mumkin)
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'admin';
