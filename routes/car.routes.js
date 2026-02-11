@@ -56,9 +56,10 @@ router.post('/',
 router.post(
   '/:id/images',
   upload.single('image'),
-
   async (req, res) => {
     try {
+      const { label, isDamaged } = req.body;
+
       if (!req.file) {
         return errorResponse(res, 400, 'Rasm majburiy');
       }
@@ -66,9 +67,15 @@ router.post(
       const car = await Car.findById(req.params.id);
       if (!car) return errorResponse(res, 404, 'Car topilmadi');
 
-      const image = getImageUrl(req, req.file);
+      const imageUrl = getImageUrl(req, req.file);
 
-      car.images.push(image);
+      const newImage = {
+        url: imageUrl,
+        label: label || '',
+        isDamaged: isDamaged === 'true' || isDamaged === true
+      };
+
+      car.images.push(newImage);
       await car.save();
 
       res.status(201).json({
@@ -84,39 +91,42 @@ router.post(
 );
 
 //❌ BITTA IMAGE O‘CHIRISHDELETE /api/cars/:id/images
-router.delete(
-  '/:id/images',
+router.delete('/:id/images', async (req, res) => {
+  try {
+    const { url } = req.body;
 
-  async (req, res) => {
-    try {
-      const { image } = req.body;
-
-      const car = await Car.findById(req.params.id);
-      if (!car) return errorResponse(res, 404, 'Car topilmadi');
-
-      if (!car.images.includes(image)) {
-        return errorResponse(res, 404, 'Rasm topilmadi');
-      }
-
-      deleteImage(image);
-
-      car.images = car.images.filter(img => img !== image);
-      await car.save();
-
-      res.json({
-        success: true,
-        message: 'Rasm o‘chirildi',
-        data: car.images
-      });
-
-    } catch (err) {
-      errorResponse(res, 500, err.message);
+    if (!url) {
+      return errorResponse(res, 400, 'Image url majburiy');
     }
+
+    const car = await Car.findById(req.params.id);
+    if (!car) return errorResponse(res, 404, 'Car topilmadi');
+
+    const imageIndex = car.images.findIndex(img => img.url === url);
+
+    if (imageIndex === -1) {
+      return errorResponse(res, 404, 'Rasm topilmadi');
+    }
+
+    // serverdan faylni o‘chirish
+    deleteImage(url);
+
+    car.images.splice(imageIndex, 1);
+    await car.save();
+
+    res.json({
+      success: true,
+      message: 'Rasm o‘chirildi',
+      data: car.images
+    });
+
+  } catch (err) {
+    errorResponse(res, 500, err.message);
   }
-);
+});
+
 
 //❌ BARCHA IMAGELARNI O‘CHIRISH DELETE /api/cars/:id/images/all
-
 
 
 router.delete('/:id/images/all', async (req, res) => {
@@ -124,7 +134,10 @@ router.delete('/:id/images/all', async (req, res) => {
     const car = await Car.findById(req.params.id);
     if (!car) return errorResponse(res, 404, 'Car topilmadi');
 
-    car.images.forEach(img => deleteImage(img));
+    // Har bir rasmni serverdan o‘chirish
+    car.images.forEach(img => {
+      deleteImage(img.url);
+    });
 
     car.images = [];
     await car.save();

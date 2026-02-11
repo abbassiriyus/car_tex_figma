@@ -14,7 +14,11 @@ const CarLegalRiskSchema = new mongoose.Schema({
     required: true
   }
 }, { _id: false });
-
+const CarImageSchema = new mongoose.Schema({
+  url: { type: String, required: true },
+  label: { type: String, default: '' },        // Masalan: "Царапины"
+  isDamaged: { type: Boolean, default: false } // Filter uchun
+}, { _id: false });
 const CarFeatureSchema = new mongoose.Schema({
   featureId: {
     type: mongoose.Schema.Types.ObjectId,
@@ -31,7 +35,6 @@ const CarFeatureSchema = new mongoose.Schema({
     trim: true
   }
 }, { _id: false });
-
 const CarSchema = new mongoose.Schema({
   vin: { type: String, required: true, unique: true },
   gosNumber: { type: String, required: true },
@@ -47,7 +50,11 @@ const CarSchema = new mongoose.Schema({
   color: { type: String, required: true },
   engine: { type: String, required: true },
   carName: { type: String, required: true },
-  images: { type: [String], default: [] },
+
+  images: {
+    type: [CarImageSchema],
+    default: []
+  },
 
   features: {
     type: [CarFeatureSchema],
