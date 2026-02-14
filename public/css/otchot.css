@@ -149,7 +149,7 @@ leading-trim: NONE;
 line-height: 120%;
 letter-spacing: 0%;
 color: #383838;
-
+border: none;
 }
 .car_slider_mid_text_page{
     text-wrap: wrap;
@@ -1332,41 +1332,55 @@ letter-spacing: 0%;
 
 /* ===== FOOTER ===== */
 
-.footer{
-  margin-top:14px;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-size:13px;
-  color:#aaa;
+ .chart .footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #555;
 }
 
-.switch{
-  width:36px;
-  height:20px;
-  background:#eee;
-  border-radius:20px;
-  position:relative;
-  font-family: TT Hoves;
-font-weight: 400;
-font-style: Regular;
-font-size: 18px;
-leading-trim: NONE;
-line-height: 120%;
-letter-spacing: 0%;
-
+.chart .switch {
+  position: relative;
+  width: 42px;
+  height: 22px;
 }
 
-.switch::after{
-  content:"";
-  width:16px;
-  height:16px;
-  background:#fff;
-  border-radius:50%;
-  position:absolute;
-  top:2px;
-  left:2px;
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
+
+ .chart .slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background: #ccc;
+  border-radius: 20px;
+  transition: 0.3s;
+}
+
+.chart  .slider::before {
+  content: "";
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  left: 2px;
+  top: 2px;
+  background: white;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.chart  input:checked + .slider {
+  background: #0A4BA9;
+}
+
+.chart  input:checked + .slider::before {
+  transform: translateX(20px);
+}
+
 
 /* ===== RESPONSIVE ===== */
 
@@ -1952,8 +1966,7 @@ grid-template-columns: 20px auto;
 
 /* Red circle indicator */
 .red_circle {
-    width: 8px;
-    height: 8px;
+
     border-radius: 50%;
     background-color: red;
 }
@@ -2008,4 +2021,79 @@ grid-template-columns: 20px auto;
     .car_image_modal_mid_card {
         min-height: 300px;
     }
+}
+
+
+
+.probeg .chart .years {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  font-size: 14px;
+  color: #666;
+}
+
+.probeg .chart .years span {
+  flex: 1;
+  text-align: center;
+}
+
+.probeg .status {
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+/* Chart point hover effect */
+.chart-point {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.chart-point:hover {
+  filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.3));
+}
+
+/* Tooltip styles */
+.chart-tooltip {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 14px;
+  pointer-events: none;
+  z-index: 1000;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.chart-tooltip::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid rgba(0, 0, 0, 0.9);
+}
+
+.tooltip-year {
+  font-size: 12px;
+  color: #aaa;
+  margin-bottom: 4px;
+}
+
+.tooltip-km {
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.probeg .chart {
+  position: relative;
 }

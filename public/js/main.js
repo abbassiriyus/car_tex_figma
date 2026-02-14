@@ -396,92 +396,86 @@ document.querySelector('#name_user').innerHTML = data.user.name;
 }
 
 
-
 async function openCarInfo() {
-document.body.classList.add("no-scroll");
-    const input = document.getElementById("carSearchInput");
-    const query = input.value.trim();
+  document.body.classList.add("no-scroll");
 
-    if (!query) {
-        input.style.border = "1px solid red";
-        return;
+  const input = document.getElementById("carSearchInput");
+  const query = input.value.trim();
+
+  if (!query) {
+    input.style.border = "1px solid red";
+    return;
+  }
+  input.style.border = "1px solid #ccc";
+
+  try {
+    const response = await fetch(`/api/cars/search?q=${encodeURIComponent(query)}`);
+    const result = await response.json();
+
+    if (!result.success || !result.data || result.data.length === 0) {
+      alert("Avtomobil topilmadi");
+      return;
     }
-    input.style.border = "1px solid #ccc";
 
-    try {
-        const response = await fetch(`/api/cars/search?q=${encodeURIComponent(query)}`);
-        const result = await response.json();
+    const car = result.data[0];
 
-        if (!result.success || !result.data || result.data.length === 0) {
-            alert("Avtomobil topilmadi");
-            return;
-        }
+    // ====== Asosiy ma'lumotlar ======
+    document.getElementById("modalVin").innerText = car.vin || "-";
+    document.getElementById("modalCarName").innerText = car.carName || "-";
 
-        const car = result.data[0];
+    // ====== Avtomobil rasm ======
+    const carImage = car.images?.length
+      ? car.images[0].url
+      : "https://img.freepik.com/premium-vector/blue-car-flat-style-illustration-isolated-white-background_108231-795.jpg";
 
-        // ====== Asosiy ma'lumotlar ======
-        document.getElementById("modalVin").innerText = car.vin ?? "-";
-        document.getElementById("modalCarName").innerText = car.carName ?? "-";
+    const carImageElem = document.querySelector(".infocar_card img");
+    carImageElem.src = carImage;
+    carImageElem.alt = car.carName || "Car";
 
-        // ====== Avtomobil rasm ======
-        const carImage = car.images && car.images.length > 0 
-            ? car.images[0] 
-            : "https://img.freepik.com/premium-vector/blue-car-flat-style-illustration-isolated-white-background_108231-795.jpg?semt=ais_user_personalization&w=740&q=80";
+    // ====== FEATURES (TO‘LIQ FIX) ======
+    const info1 = document.querySelector(".infocar_info_1");
+    info1.querySelectorAll(".feature-infocar_card").forEach(el => el.remove());
 
-        const carImageElem = document.querySelector(".infocar_card img");
-        carImageElem.src = carImage;
-        carImageElem.alt = car.carName || "Car Image";
+    if (Array.isArray(car.features) && car.features.length) {
 
-        // ====== FEATURES ======
-        const info1 = document.querySelector(".infocar_info_1");
+      const sorted = [...car.features].sort((a, b) => (a.order || 0) - (b.order || 0));
 
-        // Avvalgi feature cardlarni tozalaymiz
-        const existingFeatureCards = info1.querySelectorAll(".feature-infocar_card");
-        existingFeatureCards.forEach(el => el.remove());
+      sorted.forEach(f => {
+        const iconUrl = f.image
+          ? (f.image.startsWith("http") ? f.image : `${window.location.origin}${f.image}`)
+          : "";
 
-        if (Array.isArray(car.features) && car.features.length > 0) {
+        const div = document.createElement("div");
+        div.className = "infocar_info_1_card feature-infocar_card";
 
-            // position bo‘yicha sort
-            const sortedFeatures = [...car.features].sort((a, b) => (a.position || 0) - (b.position || 0));
+        div.innerHTML = `
+          <p style="display:flex;align-items:center;gap:6px">
+            ${iconUrl ? `<img src="${iconUrl}" width="22">` : ""}
+            ${f.title || ""}
+          </p>
+          <p>${f.text || ""}</p>
+        `;
 
-            sortedFeatures.forEach(f => {
-                if (!f.featureId || typeof f.featureId !== "object") return;
+        info1.appendChild(div);
+      });
+    }
 
-                const iconUrl = f.featureId.image.startsWith("http") 
-                    ? f.featureId.image 
-                    : `${window.location.origin}${f.featureId.image}`;
-
-                const cardDiv = document.createElement("div");
-                cardDiv.className = "infocar_info_1_card feature-infocar_card";
-
-                cardDiv.innerHTML = `
-                    <p style="display:flex; align-items:center;">
-                        <img src="${iconUrl}" alt="${f.featureId.title}" width="24" style="margin-right:6px;" onerror="this.style.display='none'">
-                        ${f.featureId.title}
-                    </p>
-                    <p>${f.text || ""}</p>
-                `;
-
-                info1.appendChild(cardDiv);
-            });
-        }
-// tugmani olamiz
-const reportBtn = document.getElementById("getReportBtn");
-
-if (reportBtn) {
-    reportBtn.onclick = () => {
+    // ====== REPORT BUTTON ======
+    const reportBtn = document.getElementById("getReportBtn");
+    if (reportBtn) {
+      reportBtn.onclick = () => {
         const gosNumber = encodeURIComponent(car.gosNumber || "");
         window.location.href = `/otchot.html?gosNumber=${gosNumber}`;
-    };
-}
-
-        // ====== Modal ochish ======
-        document.getElementById("modal_2").style.display = "flex";
-
-    } catch (error) {
-        console.error(error);
-        alert("Server bilan bog‘lanishda xatolik");
+      };
     }
+
+    // ====== MODAL OPEN ======
+    document.getElementById("modal_2").style.display = "flex";
+
+  } catch (error) {
+    console.error("Search error:", error);
+    alert("Server bilan bog‘lanishda xatolik");
+  }
 }
 
 
@@ -493,3 +487,128 @@ function closeCarInfo() {
     document.body.classList.remove("no-scroll");
     document.querySelector('#modal_2').style = "display:none"
 }
+
+
+
+
+
+// API dan ma'lumot olish
+async function loadCarData(searchQuery) {
+  try {
+    const response = await fetch(`/api/cars/search?q=${searchQuery}`);
+    const result = await response.json();
+    
+    if (result.success && result.data.length > 0) {
+      const car = result.data[0]; // Birinchi mashinani olamiz
+      renderProbegChart(car.probegHistory);
+    }
+  } catch (error) {
+    console.error('Ma\'lumot yuklashda xatolik:', error);
+  }
+}
+
+// Diagrammani chizish funksiyasi
+function renderProbegChart(probegHistory) {
+  // 1. Year bo'yicha sort qilish (o'sish tartibida)
+  const sortedData = [...probegHistory].sort((a, b) => a.year - b.year);
+  
+  if (sortedData.length === 0) return;
+
+  // 2. Min va max qiymatlarni topish
+  const minKm = Math.min(...sortedData.map(p => p.kilometer));
+  const maxKm = Math.max(...sortedData.map(p => p.kilometer));
+  const kmRange = maxKm - minKm || 1;
+
+  // 3. SVG koordinatalarini hisoblash
+  const svgWidth = 1000;
+  const svgHeight = 200; // 40-200 oralig'i (grid ichida)
+  const padding = 20;
+  
+  // X koordinatasi: yillar bo'yicha teng taqsimlash
+  const xStep = (svgWidth - padding * 2) / (sortedData.length - 1 || 1);
+  
+  // Points va polyline uchun koordinatalar
+  let points = [];
+  let circles = [];
+  let years = [];
+  
+  sortedData.forEach((item, index) => {
+    const x = padding + (index * xStep);
+    // Y koordinatasi: kilometrni teskari tartibda (yuqorida kam, pastda ko'p)
+    const y = 200 - ((item.kilometer - minKm) / kmRange) * 160;
+    
+    points.push(`${x},${y}`);
+    circles.push({ x, y, km: item.kilometer, year: item.year });
+    years.push(item.year);
+  });
+
+  // 4. Anomaliyalarni aniqlash (probeg kamaygan yoki juda ko'p oshgan)
+  let greenEndIndex = 0;
+  for (let i = 1; i < sortedData.length; i++) {
+    const prevKm = sortedData[i - 1].kilometer;
+    const currKm = sortedData[i].kilometer;
+    
+    // Agar probeg kamaygan bo'lsa yoki juda ko'p oshgan bo'lsa - anomaliya
+    if (currKm < prevKm || (currKm - prevKm) > 50000) {
+      greenEndIndex = i - 1;
+      break;
+    }
+  }
+  
+  if (greenEndIndex === 0) greenEndIndex = sortedData.length - 1;
+
+  // 5. HTML ni yangilash
+  const svg = document.querySelector('.probeg .chart svg');
+  const yearsContainer = document.querySelector('.probeg .chart .years');
+  const statusDiv = document.querySelector('.probeg .status');
+  const kmHeader = document.querySelector('.probeg h2');
+
+  // Polyline (qizil chiziq)
+  const redPolyline = svg.querySelector('polyline[stroke="red"]');
+  redPolyline.setAttribute('points', points.join(' '));
+
+  // Polyline (yashil qism)
+  const greenPoints = points.slice(0, greenEndIndex + 1);
+  const greenPolyline = svg.querySelector('polyline[stroke="#00b050"]');
+  greenPolyline.setAttribute('points', greenPoints.join(' '));
+
+  // Circlelarni yangilash
+  const circlesGroup = svg.querySelector('g:last-child');
+  circlesGroup.innerHTML = circles.map((c, i) => {
+    const isGreen = i <= greenEndIndex;
+    const isAnomaly = i > 0 && sortedData[i].kilometer < sortedData[i - 1].kilometer;
+    
+    if (isGreen && i === greenEndIndex) {
+      return `<circle cx="${c.x}" cy="${c.y}" r="6" fill="#fff" stroke="#00b050" stroke-width="2" />`;
+    } else if (isGreen) {
+      return `<circle cx="${c.x}" cy="${c.y}" r="6" fill="#fff" stroke="#00b050" stroke-width="2" />`;
+    } else if (isAnomaly) {
+      return `<circle cx="${c.x}" cy="${c.y}" r="6" fill="red" />`;
+    } else {
+      return `<circle cx="${c.x}" cy="${c.y}" r="6" fill="#fff" stroke="red" stroke-width="2" />`;
+    }
+  }).join('');
+
+  // Yillarni ko'rsatish
+  yearsContainer.innerHTML = years.map(y => `<span>${y}</span>`).join('');
+
+  // Status va km ma'lumotini yangilash
+  const lastKm = sortedData[sortedData.length - 1].kilometer;
+  const hasAnomaly = sortedData.some((item, i) => 
+    i > 0 && item.kilometer < sortedData[i - 1].kilometer
+  );
+
+  if (hasAnomaly) {
+    statusDiv.innerHTML = 'Похоже, скручен <span></span>';
+    statusDiv.style.color = 'red';
+  } else {
+    statusDiv.innerHTML = 'Нормальный <span></span>';
+    statusDiv.style.color = 'green';
+  }
+
+  kmHeader.textContent = `от ${minKm.toLocaleString()} км`;
+}
+
+// Ishga tushirish
+// Masalan, VIN kod bo'yicha qidirish
+loadCarData('WBA3B5C50FP123456');
