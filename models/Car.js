@@ -104,6 +104,81 @@ const CarOtchotSchema = new mongoose.Schema({
   }
 }, { _id: false });
 
+
+// YANGI: Auction Schema
+const AuctionSchema = new mongoose.Schema({
+  image: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  link: {
+    type: String,
+    required: true,
+    trim: true
+  }
+
+}, { _id: true, timestamps: true });
+
+// YANGI: Auction Schema
+const LizingSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  text: {
+    type: String,
+    required: true,
+    trim: true
+  }
+
+}, { _id: true, timestamps: true });
+
+// YANGI: Auction Schema
+const SudSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  text: {
+    type: String,
+    required: true,
+    trim: true
+  }
+
+}, { _id: true, timestamps: true });
+
+const QidiruvSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  text: {
+    type: String,
+    required: true,
+    trim: true
+  }
+
+}, { _id: true, timestamps: true });
+
+const ZalogSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  text: {
+    type: String,
+    required: true,
+    trim: true
+  }
+
+}, { _id: true, timestamps: true });
+
+
 const CarExploitationSchema = new mongoose.Schema({
   
   startDate: {
@@ -158,6 +233,120 @@ const CarFeatureSchema = new mongoose.Schema({
     trim: true
   }
 }, { _id: false });
+// YANGI: Diagnostic Schema
+const DiagnosticSchema = new mongoose.Schema({
+  inspectionDate: {
+    type: Date,
+    required: true,
+    default: Date.now
+  },
+  source: {
+    type: String,
+    required: true,
+    trim: true,
+    default: 'Партнер'
+  },
+  mileage: {
+    type: Number,
+    required: true,
+    default: 0
+  },
+  region: {
+    type: String,
+    required: true,
+    trim: true
+  }
+}, { _id: true, timestamps: true });
+
+// YANGI: Damage History Schema (DTP uchun)
+const DamageHistorySchema = new mongoose.Schema({
+  damageDate: {
+    type: Date,
+    required: true,
+    default: Date.now
+  },
+  damageType: {
+    type: String,
+    required: true,
+    default: 'ДТП'
+  },
+  daraja: {
+    type: String,
+    default: ''
+  },
+  location: {
+    type: String,
+    default: '',
+    trim: true
+  },
+  qatnashchi: {
+    type: String,
+    default: '',
+    trim: true
+  },
+  rasxot_remont: {
+    type: Number,
+    default: 0
+  },
+  rasxot_kuzup: {
+    type: Number,
+    default: 0
+  },
+  damageImage: {
+    type: String,
+    default: '',
+    trim: true
+  },
+
+  
+}, { _id: true, timestamps: true });
+
+
+
+const HistoryEventSchema = new mongoose.Schema({
+  date: {
+    type: Date,
+    required: true
+  },  
+  image: {
+    type: String,
+    trim: true,
+    default: ''
+  },
+  title: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  text: {
+    type: String,
+    required: true,
+    trim: true
+  }
+}, { _id: true, timestamps: true });
+
+
+const ShtrafEventSchema = new mongoose.Schema({
+  date: {
+    type: Date,
+    required: true
+  },  
+  image: {
+    type: String,
+    trim: true,
+    default: ''
+  },
+  title: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  text: {
+    type: String,
+    required: true,
+    trim: true
+  }
+}, { _id: true, timestamps: true });
 const CarSchema = new mongoose.Schema({
   vin: { type: String, required: true, unique: true },
   gosNumber: { type: String, required: true },
@@ -209,10 +398,54 @@ const CarSchema = new mongoose.Schema({
   exploitationHistory: {
   type: [CarExploitationSchema],
   default: []
+},  
+  auctionHistory: {
+    type: [AuctionSchema],
+    default: []
+  },
+  diagnosticHistory: {
+    type: [DiagnosticSchema],
+    default: []
+  }, 
+  damageHistory: {
+    type: [DamageHistorySchema],
+    default: []
+  },
+  LizingHistory:{
+    type: [LizingSchema],
+    default: []
+  },
+    SudHistory:{
+    type: [SudSchema],
+    default: []
+  },
+    QidiruvHistory:{
+    type: [QidiruvSchema],
+    default: []
+  },
+    ZalogHistory:{
+    type: [ZalogSchema],
+    default: []
+  },
+  historyEvents: {
+  type: [HistoryEventSchema],
+  default: []
 },
-
-
+shtrafEvents: {
+  type: [ShtrafEventSchema],
+  default: []
+}
 }, { timestamps: true });
+
+
+
+
+
+
+
+
+
+
 
 
 

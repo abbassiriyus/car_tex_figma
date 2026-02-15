@@ -7,6 +7,8 @@ const connectDB = require('./config/db');
 const homeCarouselRoutes = require('./routes/homeCarousel');
 const usersRoutes=require('./routes/user.routes')
 const carsRoutes=require('./routes/car.routes')
+const cars2Routes=require('./routes/car_2.router')
+
 const FeatureRoutes=require('./routes/feature.routes')
 const RiskRoutes=require('./routes/legalRisks.routes')
 const OtchotsRoutes=require('./routes/otchot')
@@ -31,6 +33,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/home-carousel', homeCarouselRoutes);
 app.use('/api/users', usersRoutes);
 app.use('/api/cars', carsRoutes);
+app.use('/api/cars', cars2Routes);
+
 app.use('/api/features', FeatureRoutes);
 app.use('/api/legal-risks', RiskRoutes);
 app.use('/api/otchots', OtchotsRoutes);

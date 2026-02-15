@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
   <style>
     * {
       box-sizing: border-box;
@@ -352,7 +353,7 @@
     #car-details-modal .modal-content {
       background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
       border-radius: 20px;
-      padding: 2.5rem;
+      padding: 0.5rem;
       box-shadow: 0 25px 70px rgba(0, 0, 0, 0.18);
       border: 1px solid #e2e8f0;
     }
@@ -371,6 +372,7 @@ Don't show
     font-weight: 700;
     /* text-align: center; */
     letter-spacing: -0.5px;
+    padding: 1rem;
     }
 
     #car-details-modal .sub-section {
@@ -939,6 +941,721 @@ Don't show
   border: 1px solid #ccc;
 }
 
+.sub-section_demage {
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+#demageAddBtn {
+  padding: 10px 20px;
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.sub-section_demage_cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.sub-section_demage_card {
+  background: white;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.demage-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.demage-modal-content {
+  background: white;
+  width: 90%;
+  max-width: 600px;
+  border-radius: 12px;
+  padding: 24px;
+  position: relative;
+}
+
+.demage-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 20px;
+  font-size: 32px;
+  cursor: pointer;
+  color: #666;
+}
+
+.demage-form input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.diagnostic-section {
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  margin-bottom: 32px;
+}
+
+.diagnostic-section__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.diagnostic-section__title {
+  margin: 0;
+  font-size: 1.375rem;
+  font-weight: 600;
+  color: #212529;
+}
+
+.diagnostic-section__cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 24px;
+}
+
+.diagnostic-card {
+  background: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.diagnostic-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.14);
+}
+
+.diagnostic-card__date {
+  padding: 16px 20px 0;
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+.diagnostic-card__title {
+  padding: 12px 20px;
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.diagnostic-card__info {
+  padding: 0 20px 16px;
+  font-size: 0.95rem;
+  color: #495057;
+}
+
+.diagnostic-card__actions {
+  padding: 16px 20px;
+  display: flex;
+  gap: 12px;
+  border-top: 1px solid #e9ecef;
+}
+
+.diagnostic-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.diagnostic-btn--add {
+  background: #28a745;
+  color: white;
+}
+
+.diagnostic-btn--add:hover {
+  background: #218838;
+}
+
+.diagnostic-btn--save {
+  background: #007bff;
+  color: white;
+}
+
+.diagnostic-btn--save:hover {
+  background: #0069d9;
+}
+
+.diagnostic-btn--delete {
+  background: #dc3545;
+  color: white;
+}
+
+.diagnostic-btn--delete:hover {
+  background: #c82333;
+}
+
+.diagnostic-btn--cancel {
+  background: #6c757d;
+  color: white;
+}
+
+.diagnostic-btn--cancel:hover {
+  background: #5c636a;
+}
+.diagnostic-modal-close{
+  font-size: 30px;
+  position: absolute;
+  right: 20px;
+}
+.sub-section_diagnostic_card{
+  margin: 10px;
+  padding: 10px;
+ 
+}
+.diagnostic-modal {
+  position: fixed;
+  inset: 0;
+  background: white;
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.diagnostic-modal.show {
+  display: flex;
+}
+
+.diagnostic-modal__overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.diagnostic-modal__content {
+  background: #ffffff;
+  width: 90%;
+  max-width: 720px;
+  border-radius: 12px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+}
+
+.diagnostic-modal__header {
+  padding: 20px 28px;
+  background: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.diagnostic-modal__title {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 600;
+}
+
+.diagnostic-modal__close {
+  font-size: 36px;
+  line-height: 1;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6c757d;
+}
+
+.diagnostic-modal__close:hover {
+  color: #212529;
+}
+
+.diagnostic-modal__body {
+  padding: 28px;
+}
+
+.diagnostic-form__group {
+  margin-bottom: 22px;
+}
+
+.diagnostic-form__label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #495057;
+}
+
+.diagnostic-form__input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.diagnostic-form__input:focus {
+  outline: none;
+  border-color: #86b7fe;
+  box-shadow: 0 0 0 4px rgba(13,110,253,0.15);
+}
+
+.auction-section {
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+}
+
+.auction-section__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.auction-section__title {
+  margin: 0;
+  font-size: 1.375rem;
+  font-weight: 600;
+}
+
+.auction-section__cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(196px, 1fr));
+  gap: 24px;
+}
+
+.auction-card {
+  background: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  transition: transform 0.25s ease;
+}
+
+.auction-card:hover {
+  transform: translateY(-6px);
+}
+
+.auction-card__image img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.auction-card__link {
+  padding: 16px;
+  text-align: center;
+}
+
+.auction-card__link a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.auction-card__actions {
+  padding: 16px;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  border-top: 1px solid #e9ecef;
+}
+/* Modal umumiy (ekran o'rtasida aniq markazlash) */
+.auction-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(6px); /* yumshoq blur fon */
+}
+
+.auction-modal.show {
+  display: flex;
+}
+
+/* Modal content — ekranning aniq o'rtasida */
+.auction-modal__content {
+  background: #ffffff;
+  width: 92%;
+  max-width: 640px;               /* modal kengligi */
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  transform: translateY(30px);    /* boshida pastda turadi */
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+}
+
+/* Ochilganda animatsiya */
+.auction-modal.show .auction-modal__content {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Header */
+.auction-modal__header {
+  padding: 20px 28px;
+  background: linear-gradient(to right, #f8fafc, #f1f5f9);
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.auction-modal__title {
+  margin: 0;
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: -0.025em;
+}
+
+.auction-modal__close {
+  font-size: 42px;
+  font-weight: 300;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #64748b;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.auction-modal__close:hover {
+  color: #1e293b;
+  transform: rotate(90deg);
+}
+
+/* Body (form joylashgan joy) */
+.auction-modal__body {
+  padding: 32px 36px 28px;
+}
+
+/* Form */
+.auction-form__group {
+  margin-bottom: 26px;
+}
+
+.auction-form__label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 500;
+  font-size: 0.98rem;
+  color: #334155;
+}
+
+.auction-form__input {
+  width: 100%;
+  padding: 14px 18px;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  font-size: 1.03rem;
+  background: #f8fafc;
+  transition: all 0.2s ease;
+}
+
+.auction-form__input:focus {
+  outline: none;
+  border-color: #60a5fa;
+  background: white;
+  box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.2);
+}
+
+/* Fayl inputi uchun chiroyli ko'rinish */
+.auction-form__input[type="file"] {
+  padding: 10px;
+  background: #f1f5f9;
+  cursor: pointer;
+}
+
+/* Actions / footer */
+.auction-form__actions,
+.auction-modal__footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: flex-end;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.auction-btn {
+  padding: 12px 32px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 140px;
+  text-align: center;
+}
+
+.auction-btn--save {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: white;
+  border: none;
+}
+
+.auction-btn--save:hover {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+}
+
+.auction-btn--delete {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+  border: none;
+}
+
+.auction-btn--delete:hover {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  transform: translateY(-2px);
+}
+
+.auction-btn--cancel {
+  background: #e2e8f0;
+  color: #475569;
+  border: none;
+}
+
+.auction-btn--cancel:hover {
+  background: #cbd5e1;
+}
+
+/* Rasm preview */
+.auction-form__hint {
+  display: block;
+  margin-top: 10px;
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+.auction-form__hint img {
+  max-width: 100%;
+  border-radius: 10px;
+  margin-top: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.yuridik-section {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.yuridik-section h4 {
+  margin: 0 0 1rem;
+  font-size: 1.3rem;
+  color: #1e293b;
+  border-bottom: 2px solid #6366f1;
+  padding-bottom: 0.5rem;
+  display: inline-block;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.2rem;
+}
+
+.yuridik-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  transition: all 0.2s;
+  border-left: 4px solid #6366f1;
+}
+
+.yuridik-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(99,102,241,0.15);
+}
+
+.yuridik-card h5 {
+  margin: 0 0 0.8rem;
+  font-size: 1.15rem;
+  color: #1e293b;
+}
+
+.yuridik-card p {
+  margin: 0.4rem 0;
+  font-size: 0.95rem;
+  color: #475569;
+}
+
+.yuridik-actions {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.8rem;
+}
+
+.btn-add {
+  background: #10b981;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: 0.2s;
+}
+
+.btn-add:hover {
+  background: #059669;
+}
+
+/* Edit & Delete tugmalari */
+.yuridik-actions button {
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border: none;
+  transition: 0.2s;
+}
+
+.yuridik-edit-btn {
+  background: #f59e0b;
+  color: white;
+}
+
+.yuridik-edit-btn:hover {
+  background: #d97706;
+}
+
+.yuridik-delete-btn {
+  background: #ef4444;
+  color: white;
+}
+
+.yuridik-delete-btn:hover {
+  background: #dc2626;
+}
+/* Responsive (mobil uchun) */
+@media (max-width: 640px) {
+  .auction-modal__content {
+    width: 96%;
+    max-height: 94vh;
+  }
+
+  .auction-modal__body {
+    padding: 20px 24px;
+  }
+
+  .auction-form__actions {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .auction-btn {
+    width: 100%;
+  }
+}
+
+.accordion-container {
+  margin-top: 1rem;
+}
+
+.accordion-group {
+  margin-bottom: 1.2rem;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.accordion-header {
+  background: #f1f5f9;
+  padding: 14px 20px;
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.2s;
+}
+
+.accordion-header:hover {
+  background: #e2e8f0;
+}
+
+.accordion-content {
+  display: none;
+  padding: 1rem 1.2rem;
+  background: white;
+}
+
+.accordion-content.show {
+     display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.btn-save {
+  background: #3b82f6;
+  color: white;
+  padding: 12px 32px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-save:hover {
+  background: #2563eb;
+}
+
+.btn-cancel {
+  background: #e2e8f0;
+  color: #475569;
+  padding: 12px 32px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-cancel:hover {
+  background: #cbd5e1;
+}
+.modal-close{
+ position: absolute;
+    right: 20px;
+    font-size: 23px;
+    top: 20px;
+}
+/* Tugmalar va modal stillari oldingi damage bilan bir xil bo‘lishi mumkin, shuning uchun qisqartirdim */
   </style>
 </head>
 
@@ -1413,7 +2130,7 @@ Don't show
           </form>
         </div>
       </div>
-       <div  >
+       <div class="sub-section" >
   <h4>Narxlar tafovuti</h4>
   <div class="adminNarx">
 <div class="valuation-form-container" style="max-width: 600px; margin: 2rem auto; padding: 2rem; background: #f8fafc; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
@@ -1612,10 +2329,6 @@ Don't show
 </div>
 
   </div>
-
-</div>
-
-
 <!-- ================= POST MODAL ================= -->
 <div class="exploitation__modal exploitation__modal--post" id="exploitationPostModal">
   <div class="exploitation__modal-content">
@@ -1726,6 +2439,178 @@ Don't show
     </form>
   </div>
 </div>
+</div>
+<div class="sub-section sub-section_demage">
+  <h4>Damage bilan ishlash</h4>
+  <button id="demageAddBtn">+ Qo‘shish</button>
+
+  <div class="sub-section_demage_cards" id="demageCardsContainer">
+    <!-- Kartalar shu yerga keladi -->
+  </div>
+
+  <!-- Qo‘shish modal -->
+  <div class="demage-modal" id="demagePostModal" style="display: none;">
+    <div class="demage-modal-content">
+      <span class="demage-modal-close" id="demagePostClose">×</span>
+      <h3>Yangi zarar qo‘shish</h3>
+      <form id="demagePostForm">
+        <input type="date" id="demageDate" name="damageDate" required placeholder="Sana">
+        <input type="text" id="demageType" name="damageType" value="ДТП" required placeholder="Zarar turi">
+        <input type="text" id="demageDaraja" name="daraja" placeholder="Daraja">
+        <input type="text" id="demageLocation" name="location" placeholder="Joylashuv">
+        <input type="text" id="demageQatnashchi" name="qatnashchi" placeholder="Qatnashuvchilar">
+        <input type="number" id="demageRemont" name="rasxot_remont" min="0" value="0" placeholder="Remont xarajati">
+        <input type="number" id="demageKuzup" name="rasxot_kuzup" min="0" value="0" placeholder="Kuzov xarajati">
+        <input type="file" id="demageImage" name="damageImage" accept="image/*">
+        <button type="submit">Saqlash</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Tahrirlash modal -->
+  <div class="demage-modal" id="demagePutModal" style="display: none;">
+    <div class="demage-modal-content">
+      <span class="demage-modal-close" id="demagePutClose">×</span>
+      <h3>Zararni tahrirlash</h3>
+      <form id="demagePutForm">
+        <input type="text" id="demagePutId">
+        <input type="date" id="demagePutDate" name="damageDate" required>
+        <input type="text" id="demagePutType" name="damageType" required>
+        <input type="text" id="demagePutDaraja" name="daraja">
+        <input type="text" id="demagePutLocation" name="location">
+        <input type="text" id="demagePutQatnashchi" name="qatnashchi">
+        <input type="number" id="demagePutRemont" name="rasxot_remont" min="0">
+        <input type="number" id="demagePutKuzup" name="rasxot_kuzup" min="0">
+        <input type="file" id="demagePutImage" name="damageImage" accept="image/*">
+        <button type="submit"  class="editDemageBtn" 
+   >Yangilash</button>
+        <button type="button" id="demageDeleteBtn">O‘chirish</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="sub-section sub-section_diagnostic">
+  <h4>Diagnostika bilan ishlash</h4>
+  <button id="diagnosticAddBtn">+ Qo‘shish</button>
+
+  <div class="sub-section_diagnostic_cards" id="diagnosticCardsContainer">
+    <!-- Kartalar shu yerga keladi -->
+  </div>
+
+  <!-- Qo‘shish modal -->
+  <div class="diagnostic-modal" id="diagnosticPostModal" style="display: none;">
+    <div class="diagnostic-modal-content">
+      <span class="diagnostic-modal-close" id="diagnosticPostClose">×</span>
+      <h3>Yangi diagnostika qo‘shish</h3>
+      <form id="diagnosticPostForm">
+        <label for="">sana</label>
+        <input type="date" id="diagnosticDate" name="inspectionDate" required>
+
+        <label for="">Партнер</label>
+
+        <input type="text" id="diagnosticSource" name="source" value="Партнер" required>
+        <label for="">Kilometr</label>
+        <input type="number" id="diagnosticMileage" name="mileage" required min="0">
+        <label for="manzil">Manzil</label>
+        <input type="text" id="diagnosticRegion" name="region" required>
+        <button type="submit">Saqlash</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Tahrirlash modal -->
+  <div class="diagnostic-modal" id="diagnosticPutModal" style="display: none;">
+    <div class="diagnostic-modal-content">
+      <span class="diagnostic-modal-close" id="diagnosticPutClose">×</span>
+      <h3>Diagnostikani tahrirlash</h3>
+      <form id="diagnosticPutForm">
+        <input type="hidden" id="diagnosticPutId">
+        <input type="date" id="diagnosticPutDate" name="inspectionDate" required>
+        <input type="text" id="diagnosticPutSource" name="source" required>
+        <input type="number" id="diagnosticPutMileage" name="mileage" required min="0">
+        <input type="text" id="diagnosticPutRegion" name="region" required>
+        <button type="submit">Yangilash</button>
+        <button type="button" id="diagnosticDeleteBtn">O‘chirish</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="auction-section">
+  <div class="auction-section__header">
+    <h4 class="auction-section__title">Auction havolalari</h4>
+  
+  </div>
+  <button id="auctionAddBtn" class="auction-btn auction-btn--add">+ Qo‘shish</button>
+  <div class="auction-section__cards" id="auctionCardsContainer">
+    <!-- Kartalar shu yerga keladi -->
+  </div>
+
+  <!-- Qo‘shish modal -->
+  <div class="auction-modal" id="auctionPostModal" style="display: none;">
+    <div class="auction-modal__overlay" id="auctionPostOverlay"></div>
+    <div class="auction-modal__content">
+      <div class="auction-modal__header">
+        <h3 class="auction-modal__title">Yangi auction qo‘shish</h3>
+        <div class="auction-modal__close" id="auctionPostClose">×</div>
+      </div>
+      <div class="auction-modal__body">
+        <form id="auctionPostForm" class="auction-form">
+          <div class="auction-form__group">
+            <label class="auction-form__label">Rasm <span class="required">*</span></label>
+            <input type="file" class="auction-form__input" id="auctionImage" name="image" accept="image/*" required>
+          </div>
+
+          <div class="auction-form__group">
+            <label class="auction-form__label">Havola (link) <span class="required">*</span></label>
+            <input type="url" class="auction-form__input" id="auctionLink" name="link" required placeholder="https://...">
+          </div>
+
+          <div class="auction-form__actions">
+            <button type="submit" class="auction-btn auction-btn--save">Saqlash</button>
+            <button type="button" class="auction-btn auction-btn--cancel" id="auctionPostCancel">Bekor qilish</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tahrirlash modal -->
+  <div class="auction-modal" id="auctionPutModal" style="display: none;">
+    <div class="auction-modal__overlay" id="auctionPutOverlay"></div>
+    <div class="auction-modal__content">
+      <div class="auction-modal__header">
+        <h3 class="auction-modal__title">Auctionni tahrirlash</h3>
+        <div class="auction-modal__close" id="auctionPutClose">×</div>
+      </div>
+      <div class="auction-modal__body">
+        <form id="auctionPutForm" class="auction-form">
+          <input type="hidden" id="auctionPutId">
+
+          <div class="auction-form__group">
+            <label class="auction-form__label">Rasm (yangi yuklash ixtiyoriy)</label>
+            <input type="file" class="auction-form__input" id="auctionPutImage" name="image" accept="image/*">
+            <small id="auctionPutImagePreview" class="auction-form__hint">Hozircha rasm yo‘q</small>
+          </div>
+
+          <div class="auction-form__group">
+            <label class="auction-form__label">Havola (link)</label>
+            <input type="url" class="auction-form__input" id="auctionPutLink" name="link" required>
+          </div>
+
+          <div class="auction-modal__footer">
+            <button type="submit" class="auction-btn auction-btn--save">Yangilash</button>
+            <button type="button" class="auction-btn auction-btn--delete" id="auctionDeleteBtn">O‘chirish</button>
+            <button type="button" class="auction-btn auction-btn--cancel" id="auctionPutCancel">Bekor qilish</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 
 
@@ -1770,6 +2655,120 @@ Don't show
       </form>
     </div>
   </div>
+
+
+
+
+
+
+
+
+
+
+
+<!-- Yuridik ishlar (Lizing, Sud, Qidiruv, Zalog) modal -->
+<div id="yuridik-modal" class="modal hidden" style="display: none;">
+  <div class="modal-content" style="max-width: 900px; width: 95%;">
+    <span class="close" onclick="document.getElementById('yuridik-modal').style.display='none'">×</span>
+    <h3>Yuridik ma'lumotlar</h3>
+    
+    <!-- LizingHistory -->
+    <div class="sub-section yuridik-section">
+      <h4>Lizing tarixi</h4>
+      <button class="btn-add" onclick="openAddYuridik('Lizing')">+ Qo‘shish</button>
+      <div id="lizing-list" class="card-grid"></div>
+    </div>
+
+    <!-- SudHistory -->
+    <div class="sub-section yuridik-section">
+      <h4>Sud ishlari</h4>
+      <button class="btn-add" onclick="openAddYuridik('Sud')">+ Qo‘shish</button>
+      <div id="sud-list" class="card-grid"></div>
+    </div>
+
+    <!-- QidiruvHistory -->
+    <div class="sub-section yuridik-section">
+      <h4>Qidiruv tarixi</h4>
+      <button class="btn-add" onclick="openAddYuridik('Qidiruv')">+ Qo‘shish</button>
+      <div id="qidiruv-list" class="card-grid"></div>
+    </div>
+
+    <!-- ZalogHistory -->
+    <div class="sub-section yuridik-section">
+      <h4>Zalog / hibsga olish</h4>
+      <button class="btn-add" onclick="openAddYuridik('Zalog')">+ Qo‘shish</button>
+      <div id="zalog-list" class="card-grid"></div>
+    </div>
+
+<!-- Voqealar tarixi bo‘limi -->
+<div class="yuridik-section">
+  <h4>Voqealar tarixi</h4>
+  <button class="btn-add" onclick="openEventModal('history', 'add')">+ Yangi voqea qo‘shish</button>
+  <div id="historyEventsAccordion" class="accordion-container"></div>
+</div>
+
+<!-- Jarima / shtraf hodisalari bo‘limi -->
+<div class="yuridik-section">
+  <h4>Jarima / shtraf hodisalari</h4>
+  <button class="btn-add" onclick="openEventModal('shtraf', 'add')">+ Yangi jarima qo‘shish</button>
+  <div id="shtrafEventsAccordion" class="accordion-container"></div>
+</div>
+
+<!-- Umumiy hodisa qo‘shish / tahrirlash modal -->
+<div id="eventModal" class="modal" style="display:none">
+  <div class="modal-content" style="max-width:680px">
+    <div class="modal-header">
+      <h3 id="eventModalTitle">Yangi hodisa qo‘shish</h3>
+      <div class="modal-close" onclick="closeEventModal()">×</div>
+    </div>
+    <div class="modal-body">
+      <form id="eventForm" enctype="multipart/form-data">
+        <input type="hidden" id="eventId">
+        <input type="hidden" id="eventType"> <!-- history yoki shtraf -->
+
+        <div class="form-group">
+          <label>Sana <span class="required">*</span></label>
+          <input type="date" id="eventDate" name="date" required>
+        </div>
+
+        <div class="form-group">
+          <label>Rasm (ixtiyoriy)</label>
+          <input type="file" id="eventImage" name="image" accept="image/*">
+          <div id="eventImagePreview" style="margin-top:12px"></div>
+        </div>
+
+        <div class="form-group">
+          <label>Sarlavha <span class="required">*</span></label>
+          <input type="text" id="eventTitle" name="title" required>
+        </div>
+
+        <div class="form-group">
+          <label>Matn <span class="required">*</span></label>
+          <textarea id="eventText" name="text" rows="4" required></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-save">Saqlash</button>
+          <button type="button" class="btn-cancel" onclick="closeEventModal()">Bekor qilish</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
 
   <script>
     // API manzillari
@@ -2470,6 +3469,9 @@ Don't show
                 <td>
                   <button class="action-btn btn-edit" onclick="editCar('${car._id}')"><i class="fas fa-edit"></i></button>
                   <button class="action-btn btn-view" onclick="showCarDetails('${car._id}')"><i class="fas fa-eye"></i> </button>
+                  <button class="action-btn btn-legal-risk" onclick="openYuridikModal('${car._id}')">
+    <i class="fas fa-gavel"></i> <!-- sud/huquqiy ikonka -->
+  </button>
                   <button class="action-btn btn-delete" onclick="deleteCar('${car._id}')"><i class="fas fa-trash-alt"></i>  </button>
                 </td>
               </tr>
@@ -2593,7 +3595,9 @@ Don't show
         const data = await res.json();
         if (data.success) {
           const car = data.data;
-
+           getDemage(car.damageHistory)
+           renderDiagnosticCards(car.diagnosticHistory)
+           auctionRenderCards(car.auctionHistory)
           // Images
 
           const imagesList = document.getElementById('images-list');
@@ -3738,7 +4742,757 @@ async function deleteExploitation(id) {
     alert('Xatolik');
   }
 }
+function getDemage(data) {
+  const container = document.getElementById('demageCardsContainer');
+  container.innerHTML = '';
 
+  if (!data || data.length === 0) {
+    container.innerHTML = '<p>Hozircha ma\'lumot yo‘q</p>';
+    return;
+  }
+
+  data.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'sub-section_demage_card';
+    card.innerHTML = `
+      <div>${item.damageDate ? new Date(item.damageDate).toLocaleDateString('uz-UZ') : '—'}</div>
+      <h5>${item.damageType || '—'}</h5>
+      <p><strong>Daraja:</strong> ${item.daraja || '—'}</p>
+      <p><strong>Joy:</strong> ${item.location || '—'}</p>
+      <p><strong>Qatnashuvchilar:</strong> ${item.qatnashchi || '—'}</p>
+      <p>Remont: ${Number(item.rasxot_remont || 0).toLocaleString('uz-UZ')} so‘m</p>
+      <p>Kuzov: ${Number(item.rasxot_kuzup || 0).toLocaleString('uz-UZ')} so‘m</p>
+      
+      ${item.damageImage ? `<img src="${item.damageImage}" style="width:250px" alt="rasm" style="max-width:100%;">` : ''}
+      
+      <button class="editDemageBtn" 
+        data-id="${item._id}"
+        data-date="${item.damageDate ? new Date(item.damageDate).toISOString().split('T')[0] : ''}"
+        data-type="${item.damageType || ''}"
+        data-daraja="${item.daraja || ''}"
+        data-location="${item.location || ''}"
+        data-qatnashchi="${item.qatnashchi || ''}"
+        data-remont="${item.rasxot_remont || 0}"
+        data-kuzup="${item.rasxot_kuzup || 0}"
+        data-image="${item.damageImage || ''}">
+        Tahrirlash
+      </button>
+      <button class="deleteDemageBtn" data-id="${item._id}">O‘chirish</button>
+    `;
+    container.appendChild(card);
+  });
+}// Qo‘shish tugmasi
+
+
+// Modal ochish
+function openDemageModal(id) {
+  document.getElementById(id).style.display = 'flex';
+}
+
+// Modal yopish
+function closeDemageModal(id) {
+  document.getElementById(id).style.display = 'none';
+}
+
+// Sahifa yuklanganda
+document.addEventListener('DOMContentLoaded', () => {
+ 
+
+  // Qo‘shish tugmasi
+  document.getElementById('demageAddBtn').onclick = () => {
+    document.getElementById('demagePostForm').reset();
+    openDemageModal('demagePostModal');
+  };
+
+  // Yopish tugmalari
+  document.getElementById('demagePostClose').onclick = () => closeDemageModal('demagePostModal');
+  document.getElementById('demagePutClose').onclick = () => closeDemageModal('demagePutModal');
+
+  // Qo‘shish formasi
+  document.getElementById('demagePostForm').onsubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+
+    try {
+      const res = await fetch(`/api/cars/${selectedCarId}/damage-history`, {
+        method: 'POST',
+        body: formData
+      });
+      const json = await res.json();
+      if (json.success) {
+        closeDemageModal('demagePostModal');
+        loadCarDetails(selectedCarId)
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // Kartalar ichidagi tugmalar
+  document.getElementById('demageCardsContainer').onclick = async (e) => {
+    if (e.target.classList.contains('editDemageBtn')) {
+      const dataset = e.target.dataset;
+    document.getElementById('demagePutId').value       = dataset.id;
+    document.getElementById('demagePutDate').value     = dataset.date;
+    document.getElementById('demagePutType').value     = dataset.type;
+    document.getElementById('demagePutDaraja').value   = dataset.daraja;
+    document.getElementById('demagePutLocation').value = dataset.location;
+    document.getElementById('demagePutQatnashchi').value = dataset.qatnashchi;
+    document.getElementById('demagePutRemont').value   = dataset.remont;
+    document.getElementById('demagePutKuzup').value    = dataset.kuzup;
+
+    // Agar rasm bo‘lsa, preview ko‘rsatish (ixtiyoriy)
+    const previewEl = document.getElementById('demagePutImagePreview');
+    if (previewEl) {
+      previewEl.innerHTML = dataset.image 
+        ? `<img src="${dataset.image}" alt="Old rasm" style="max-width:200px; margin-top:10px;">`
+        : 'Hozircha rasm yo‘q';
+    }
+      openDemageModal('demagePutModal');
+    }
+
+    if (e.target.classList.contains('deleteDemageBtn')) {
+      if (!confirm('O‘chirasizmi?')) return;
+      const id = e.target.dataset.id;
+      try {
+        await fetch(`/api/cars/${selectedCarId}/damage-history/${id}`, { method: 'DELETE' });
+       loadCarDetails(selectedCarId)
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  };
+});
+// PUT formasi submit (yangilash)
+document.getElementById('demagePutForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+ var formData=new FormData(this)
+  const id = document.querySelector('#demagePutId').value
+
+  if (!id) {
+    alert("Xatolik: ID topilmadi!");
+    return;
+  }
+
+  try {
+    const response = await fetch(`/api/cars/${selectedCarId}/damage-history/${id}`, {
+      method: 'PUT',
+      body: formData  // rasm fayli ham shu orqali yuboriladi
+    });
+
+    const json = await response.json();
+
+    if (json.success) {
+      closeDemageModal('demagePutModal');
+      loadCarDetails(selectedCarId) // ro'yxatni yangilash funksiyasi (sizda bor deb hisoblaymiz)
+      alert('Ma\'lumotlar yangilandi!');
+    } else {
+      alert('Yangilashda xato: ' + (json.message || 'Noma\'lum xato'));
+    }
+  } catch (err) {
+    console.error('PUT xatosi:', err);
+    alert('Server bilan aloqa xatosi');
+  }
+});
+
+
+function renderDiagnosticCards(data) {
+  const container = document.getElementById('diagnosticCardsContainer');
+  container.innerHTML = '';
+
+  if (!data.length) {
+    container.innerHTML = '<p>Hozircha diagnostika yo‘q</p>';
+    return;
+  }
+
+  data.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'sub-section_diagnostic_card sub-section_demage_card';
+    card.innerHTML = `
+      <div  >${new Date(item.inspectionDate).toLocaleDateString('uz-UZ')}</div>
+      <p><strong>Manba:</strong> ${item.source}</p>
+      <p><strong>Probeg:</strong> ${item.mileage} km</p>
+      <p><strong>Hudud:</strong> ${item.region}</p>
+      <button class="editDiagnosticBtn" 
+        data-id="${item._id}"
+        data-date="${new Date(item.inspectionDate).toISOString().split('T')[0]}"
+        data-source="${item.source}"
+        data-mileage="${item.mileage}"
+        data-region="${item.region}">
+        Tahrirlash
+      </button>
+      <button class="deleteDiagnosticBtn" data-id="${item._id}">O‘chirish</button>
+    `;
+    container.appendChild(card);
+  });
+}
+
+// Modal ochish/yopish
+function openDiagnosticModal(id) {
+  document.getElementById(id).style.display = 'flex';
+}
+
+function closeDiagnosticModal(id) {
+  document.getElementById(id).style.display = 'none';
+}
+
+// Sahifa yuklanganda
+document.addEventListener('DOMContentLoaded', () => {
+ 
+
+  // Qo‘shish tugmasi
+  document.getElementById('diagnosticAddBtn').onclick = () => {
+    document.getElementById('diagnosticPostForm').reset();
+    openDiagnosticModal('diagnosticPostModal');
+  };
+
+  // Yopish
+  document.getElementById('diagnosticPostClose').onclick = () => closeDiagnosticModal('diagnosticPostModal');
+  document.getElementById('diagnosticPutClose').onclick = () => closeDiagnosticModal('diagnosticPutModal');
+
+  // Qo‘shish formasi
+  document.getElementById('diagnosticPostForm').onsubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+
+    try {
+      const res = await fetch(`/api/cars/${selectedCarId}/diagnostic-history`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      const json = await res.json();
+      if (json.success) {
+        closeDiagnosticModal('diagnosticPostModal');
+        loadCarDetails(selectedCarId);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // Kartalar delegatsiyasi
+  document.getElementById('diagnosticCardsContainer').onclick = async (e) => {
+    const t = e.target;
+
+    if (t.classList.contains('editDiagnosticBtn')) {
+      const d = t.dataset;
+      document.getElementById('diagnosticPutId').value = d.id;
+      document.getElementById('diagnosticPutDate').value = d.date;
+      document.getElementById('diagnosticPutSource').value = d.source;
+      document.getElementById('diagnosticPutMileage').value = d.mileage;
+      document.getElementById('diagnosticPutRegion').value = d.region;
+
+      openDiagnosticModal('diagnosticPutModal');
+    }
+
+    if (t.classList.contains('deleteDiagnosticBtn')) {
+      if (!confirm('O‘chirasizmi?')) return;
+      const id = t.dataset.id;
+      try {
+        await fetch(`/api/cars/${selectedCarId}/diagnostic-history/${id}`, { method: 'DELETE' });
+        loadCarDetails(selectedCarId);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  };
+
+  // PUT formasi
+  document.getElementById('diagnosticPutForm').onsubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const id = document.getElementById('diagnosticPutId').value;
+    const data = Object.fromEntries(formData);
+
+    try {
+      const res = await fetch(`/api/cars/${selectedCarId}/diagnostic-history/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      const json = await res.json();
+      if (json.success) {
+        closeDiagnosticModal('diagnosticPutModal');
+        loadCarDetails(selectedCarId);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+});
+
+
+
+// Kartalarni chiqarish
+function auctionRenderCards(data) {
+  const container = document.getElementById('auctionCardsContainer');
+  container.innerHTML = '';
+
+  if (!data.length) {
+    container.innerHTML = '<p>Hozircha auction yo‘q</p>';
+    return;
+  }
+
+  data.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'auction-card';
+    card.innerHTML = `
+      <div class="auction-card__image">
+        <img src="${item.image}" alt="Auction rasmi">
+      </div>
+      <div class="auction-card__link">
+        <a href="${item.link}" target="_blank">Havolaga o‘tish</a>
+      </div>
+      <div class="auction-card__actions">
+        <button class="auction-btn auction-btn--edit" 
+          data-id="${item._id}"
+          data-image="${item.image}"
+          data-link="${item.link}">
+          Tahrirlash
+        </button>
+        <button class="auction-btn auction-btn--delete" data-id="${item._id}">O‘chirish</button>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+// Modal ochish/yopish
+function auctionOpenModal(id) {
+  document.getElementById(id).style.display = 'flex';
+}
+
+function auctionCloseModal(id) {
+  document.getElementById(id).style.display = 'none';
+}
+
+// Sahifa yuklanganda
+document.addEventListener('DOMContentLoaded', () => {
+ 
+
+  document.getElementById('auctionAddBtn').onclick = () => {
+    document.getElementById('auctionPostForm').reset();
+    auctionOpenModal('auctionPostModal');
+  };
+
+  document.getElementById('auctionPostClose').onclick = () => auctionCloseModal('auctionPostModal');
+  document.getElementById('auctionPutClose').onclick = () => auctionCloseModal('auctionPutModal');
+
+  // Qo‘shish
+  document.getElementById('auctionPostForm').onsubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+
+    try {
+      const res = await fetch(`/api/cars/${selectedCarId}/auction-history`, {
+        method: 'POST',
+        body: formData
+      });
+      const json = await res.json();
+      if (json.success) {
+        auctionCloseModal('auctionPostModal');
+        loadCarDetails(selectedCarId);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // Kartalar delegatsiyasi
+  document.getElementById('auctionCardsContainer').onclick = async (e) => {
+    const t = e.target;
+
+    if (t.classList.contains('auction-btn--edit')) {
+      const d = t.dataset;
+      document.getElementById('auctionPutId').value = d.id;
+      document.getElementById('auctionPutLink').value = d.link;
+
+      // Oldingi rasm preview
+      const preview = document.getElementById('auctionPutImagePreview');
+      if (preview) {
+        preview.innerHTML = d.image ? `<img src="${d.image}" style="max-width:200px;">` : 'Hozircha rasm yo‘q';
+      }
+
+      auctionOpenModal('auctionPutModal');
+    }
+
+    if (t.classList.contains('auction-btn--delete')) {
+      if (!confirm('O‘chirasizmi?')) return;
+      const id = t.dataset.id;
+      try {
+        await fetch(`/api/cars/${selectedCarId}/auction-history/${id}`, { method: 'DELETE' });
+        loadCarDetails(selectedCarId);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  };
+
+  // PUT formasi
+  document.getElementById('auctionPutForm').onsubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const id = document.getElementById('auctionPutId').value;
+
+    try {
+      const res = await fetch(`/api/cars/${selectedCarId}/auction-history/${id}`, {
+        method: 'PUT',
+        body: formData
+      });
+      const json = await res.json();
+      if (json.success) {
+        auctionCloseModal('auctionPutModal');
+        loadCarDetails(selectedCarId);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+});
+
+
+
+
+
+
+var selectedCarId2
+
+// Yuridik modalni ochish va ma'lumotlarni yuklash
+function openYuridikModal(carId) {
+  // Modalni ochish
+  selectedCarId2=carId
+  loadYuridikEvents2(carId)
+  document.getElementById('yuridik-modal').style.display = 'flex';
+  
+  // Mashina ma'lumotlarini olish va render qilish
+  fetch(`/api/cars/${carId}`)
+    .then(res => res.json())
+    .then(result => {
+      if (result.success) {
+        const car = result.data;
+        
+        // Har bir array uchun render qilish
+        renderYuridikList('lizing-list', car.LizingHistory || [], 'Lizing', carId);
+        renderYuridikList('sud-list',     car.SudHistory     || [], 'Sud',    carId);
+        renderYuridikList('qidiruv-list', car.QidiruvHistory || [], 'Qidiruv', carId);
+        renderYuridikList('zalog-list',   car.ZalogHistory   || [], 'Zalog',  carId);
+      } else {
+        alert('Mashina ma\'lumotlari topilmadi');
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      alert('Ma\'lumot yuklashda xato');
+    });
+}
+
+// Har bir bo‘lim uchun kartalarni chiqarish
+function renderYuridikList(containerId, items, type, carId) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = '';
+
+  if (items.length === 0) {
+    container.innerHTML = '<p style="text-align:center; color:#64748b;">Hozircha ma\'lumot yo‘q</p>';
+    return;
+  }
+
+  items.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'yuridik-card';
+    card.innerHTML = `
+      <h5>${item.title || 'Sarlavha kiritilmagan'}</h5>
+      <p>${item.text || 'Matn kiritilmagan'}</p>
+      <div class="yuridik-actions">
+        <button class="yuridik-edit-btn" onclick="editYuridikItem('${selectedCarId2}', '${type}', '${item._id}')">
+          Tahrirlash
+        </button>
+        <button class="yuridik-delete-btn" onclick="deleteYuridikItem('${selectedCarId2}', '${type}', '${item._id}')">
+          O‘chirish
+        </button>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+// Qo‘shish modalini ochish (har bir tur uchun)
+function openAddYuridik(type) {
+  // Bu yerda yangi modal ochilishi mumkin (hozircha prompt bilan misol)
+  const title = prompt(`${type} uchun sarlavha:`);
+  const text = prompt(`${type} uchun matn:`);
+  
+  if (!title || !text) return;
+
+  const payload = { title, text };
+
+  fetch(`/api/cars/${selectedCarId2}/${type.toLowerCase()}-history`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+  .then(res => res.json())
+  .then(result => {
+    if (result.success) {
+      openYuridikModal(selectedCarId2); // modalni yangilash
+      alert('Muvaffaqiyatli qo‘shildi!');
+    }
+  })
+  .catch(err => console.error(err));
+}
+
+// Tahrirlash (prompt bilan misol)
+function editYuridikItem(carId, type, id) {
+  const title = prompt(`Yangi sarlavha (${type}):`);
+  const text = prompt(`Yangi matn (${type}):`);
+
+  if (!title || !text) return;
+
+  fetch(`/api/cars/${selectedCarId2}/${type.toLowerCase()}-history/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ title, text })
+  })
+  .then(res => res.json())
+  .then(result => {
+    if (result.success) {
+      openYuridikModal(selectedCarId2);
+      alert('Yangilandi!');
+    }
+  });
+}
+
+// O‘chirish
+function deleteYuridikItem(carId, type, id) {
+  if (!confirm(`O‘chirishni tasdiqlaysizmi? (${type})`)) return;
+
+  fetch(`/api/cars/${selectedCarId2}/${type.toLowerCase()}-history/${id}`, {
+    method: 'DELETE'
+  })
+  .then(res => res.json())
+  .then(result => {
+    if (result.success) {
+      openYuridikModal(selectedCarId2);
+      alert('O‘chirildi!');
+    }
+  });
+}
+// Modal ochish
+function openEventModal(type, mode, eventData = null) {
+    console.log(eventData);
+  const modal = document.getElementById('eventModal');
+  const form = document.getElementById('eventForm');
+  const titleEl = document.getElementById('eventModalTitle');
+  const typeInput = document.getElementById('eventType');
+
+  typeInput.value = type; // history yoki shtraf
+
+  if (mode === 'add') {
+    titleEl.textContent = type === 'history' ? 'Yangi voqea qo‘shish' : 'Yangi jarima qo‘shish';
+    form.reset();
+    document.getElementById('eventId').value = '';
+    document.getElementById('eventImagePreview').innerHTML = '';
+  } else if (mode === 'edit' && eventData) {
+    titleEl.textContent = type === 'history' ? 'Voqeani tahrirlash' : 'Jarimani tahrirlash';
+  
+    
+    document.getElementById('eventId').value = eventData.events[0]._id;
+    document.getElementById('eventDate').value = new Date(eventData.date).toISOString().split('T')[0];
+    document.getElementById('eventTitle').value = eventData.events[0].title || '';
+    document.getElementById('eventText').value = eventData.events[0].text || '';
+    
+    // Oldingi rasm preview
+    const preview = document.getElementById('eventImagePreview');
+    preview.innerHTML = eventData.events[0].image 
+      ? `<img src="${eventData.events[0].image}" style="max-width:220px; border-radius:8px; margin-top:10px;">`
+      : '<small>Hozircha rasm yo‘q</small>';
+  }
+
+  modal.style.display = 'flex';
+}
+
+// Modal yopish
+function closeEventModal() {
+  document.getElementById('eventModal').style.display = 'none';
+  document.getElementById('eventForm').reset();
+}
+
+// Forma yuborish (qo‘shish yoki yangilash)
+document.getElementById('eventForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(e.target);
+  const type = document.getElementById('eventType').value;
+  const id = document.getElementById('eventId').value;
+  const url = id 
+    ? `/api/cars/${selectedCarId2}/${type}-events/${id}`
+    : `/api/cars/${selectedCarId2}/${type}-events`;
+
+  try {
+    const res = await fetch(url, {
+      method: id ? 'PUT' : 'POST',
+      body: formData
+    });
+
+    const json = await res.json();
+
+    if (json.success) {
+      closeEventModal();
+      loadYuridikEvents2(selectedCarId2); // yuridik modalni yangilash
+      alert(id ? 'Yangilandi!' : 'Qo‘shildi!');
+    } else {
+      alert(json.message || 'Xato yuz berdi');
+    }
+  } catch (err) {
+    alert('Server xatosi');
+  }
+});
+
+function editEvent(id, type, eventJsonStr) {
+  try {
+    const event = JSON.parse(decodeURIComponent(eventJsonStr));
+    console.log("Qayta tiklangan event:", event);
+    openEventModal(type, 'edit', event);
+  } catch (e) {
+    console.error("JSON parse xatosi:", e);
+    alert("Ma'lumotni qayta tiklashda xato");
+  }
+}
+function loadYuridikEvents2(carId) {
+  fetch(`/api/cars/${carId}`)
+    .then(res => res.json())
+    .then(result => {
+      if (result.success) {
+        const car = result.data;
+
+        // History Events (Voqealar tarixi) — guruhlangan holda
+        renderGuruhlanganEvents(
+          'historyEventsAccordion',
+          car.historyEvents || [],
+          'history',
+          'Voqealar tarixi'
+        );
+
+        // Shtraf Events (Jarima hodisalari) — guruhlangan holda
+        renderGuruhlanganEvents(
+          'shtrafEventsAccordion',
+          car.shtrafEvents || [],
+          'shtraf',
+          'Jarima / shtraf hodisalari'
+        );
+      } else {
+        console.warn("Mashina ma'lumotlari yuklanmadi");
+      }
+    })
+    .catch(err => {
+      console.error("Yuridik events yuklash xatosi:", err);
+    });
+}
+
+// Guruhlangan hodisalarni chiqarish funksiyasi (accordion uslubida)
+function renderGuruhlanganEvents(containerId, items, type, sectionTitle) {
+  const container = document.getElementById(containerId);
+  if (!container) {
+    console.error(`Container topilmadi: #${containerId}`);
+    return;
+  }
+
+  // Debugging: kelgan ma'lumotni konsolga chiqarish
+  console.log(`renderGuruhlanganEvents chaqirildi → containerId: ${containerId}, type: ${type}`);
+  console.log("Kelgan items:", items);
+
+  container.innerHTML = '';
+
+  // Agar items massiv emas yoki bo‘sh bo‘lsa
+  if (!Array.isArray(items) || items.length === 0) {
+    container.innerHTML = `<p style="text-align:center; color:#64748b; padding:20px;">
+      Hozircha ${sectionTitle.toLowerCase()} yo‘q
+    </p>`;
+    return;
+  }
+
+
+
+  // Agar hech qanday guruh hosil bo‘lmasa
+  if (Object.keys(items).length === 0) {
+    container.innerHTML = '<p style="text-align:center; color:#dc2626;">Ma\'lumotlar noto‘g‘ri formatda</p>';
+    return;
+  }
+
+  // Eng yangi sanadan boshlab chiqarish
+  Object.keys(items)
+    .sort((a, b) => new Date(b) - new Date(a))
+    .forEach(dateKey => {
+      const item = items[dateKey];
+
+      const groupDiv = document.createElement('div');
+      groupDiv.className = 'accordion-group';
+
+      // Header
+      groupDiv.innerHTML = `
+        <div class="accordion-header" onclick="this.nextElementSibling.classList.toggle('show')">
+          <span>${formatDate(item.date)}</span>
+          <span style="font-size:1.1rem;">▼</span>
+        </div>
+        <div class="accordion-content">
+          ${item.events.map(event1 => `
+            <div class="yuridik-card" data-event-id="${event1._id || ''}">
+              ${event1.image ? `
+                <img  src="${event1.image}" 
+                     alt="rasm" 
+                     style="max-width:250px; border-radius:8px; margin:10px 0; display:block;"
+                     onerror="this.src='https://via.placeholder.com/300x180?text=Rasm+yo‘q';">
+              ` : ''}
+              <h5 onclick="console.log(JSON.stringify(${event1}})" >${event1.title || 'Sarlavha kiritilmagan'}</h5>
+              <p>${event1.text || 'Matn kiritilmagan'}</p>
+              <small style="color:#6b7280;">
+                ${event1.createdAt ? new Date(event1.createdAt).toLocaleString('uz-UZ') : 'Sana yo‘q'}
+              </small>
+              <div class="yuridik-actions">
+                <button onclick="editEvent('${event1._id || ''}', '${type}','${encodeURIComponent(JSON.stringify(item))}')">Tahrirlash</button>
+                <button onclick="deleteEvent('${event1._id || ''}', '${type}')">O‘chirish</button>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+
+      container.appendChild(groupDiv);
+    });
+}
+
+// Sana formatlash funksiyasi (agar yo‘q bo‘lsa qo‘shing)
+function formatDate(dateStr) {
+  if (!dateStr) return "Sana kiritilmagan";
+  try {
+    return new Date(dateStr).toLocaleDateString('uz-UZ', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric'
+    });
+  } catch (e) {
+    return "Noto‘g‘ri sana";
+  }
+}
+// O‘chirish
+function deleteEvent(id, type) {
+  if (!confirm('Rostan o‘chirasizmi?')) return;
+
+  fetch(`/api/cars/${selectedCarId2}/${type}-events/${id}`, {
+    method: 'DELETE'
+  })
+  .then(res => res.json())
+  .then(json => {
+    if (json.success) {
+      loadYuridikEvents2(selectedCarId2);
+      alert('O‘chirildi!');
+    } else {
+      alert(json.message || 'Xato');
+    }
+  });
+}
     // Dastlabki yuklashlar
     fetchCarousels();
     loadFeatures();

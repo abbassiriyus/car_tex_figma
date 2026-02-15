@@ -34,7 +34,7 @@ function populateSlider(car) {
   const sliderContainer = document.querySelector('.car_slider_mid_image_smalls');
   const bigImage = document.querySelector('.car_slider_mid_image_big');
   sliderContainer.innerHTML = '';
-  console.log(car.data);
+  
 
   // Agar images bo'lmasa, default rasm
   const slider = car.images.length ? car.images : ['https://img.freepik.com/premium-vector/blue-car-flat-style-illustration-isolated-white-background_108231-795.jpg?semt=ais_user_personalization&w=740&q=80'];
@@ -44,8 +44,7 @@ function populateSlider(car) {
   bigImage.style.backgroundSize = 'cover';
   bigImage.style.backgroundPosition = 'center';
 
-  // Smalls
-  console.log(slider);
+ 
 
   slider.forEach((img, i) => {
     if (i == 2 && slider.length >= 2) {
@@ -106,13 +105,8 @@ function getImage(img) {
   const car = await fetchCarData(gosNumber);
   if (!car) return;
 
-  populateSlider(car);
-  populateCarImageModal(car);
-  populateOtchots(car);
-  renderPrice(car);
-  populateLegalRisks(car);
-  populateTechnicalData(car);
-  renderCars(car)
+
+
   // Text info
   document.querySelector('.car_slider_mid_text h1').innerText = `${car.carName}`;
   document.querySelectorAll('.car_slider_mid_text_p')[0].innerHTML = `<b>VIN</b>: ${car.vin} <svg onclick="navigator.clipboard.writeText('${car.vin}');alert('saqlandi')" width="19" height="22" viewBox="0 0 19 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17 20H6V6H17V20ZM17 4H6C5.46957 4 4.96086 4.21071 4.58579 4.58579C4.21071 4.96086 4 5.46957 4 6V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H17C17.5304 22 18.0391 21.7893 18.4142 21.4142C18.7893 21.0391 19 20.5304 19 20V6C19 5.46957 18.7893 4.96086 18.4142 4.58579C18.0391 4.21071 17.5304 4 17 4ZM14 0H2C1.46957 0 0.960859 0.210714 0.585786 0.585786C0.210714 0.960859 0 1.46957 0 2V16H2V2H14V0Z" fill="#383838"/></svg>`;
@@ -430,218 +424,893 @@ function openCarImgFilter() {
   }
 }
 
+const mainTimeline   = document.getElementById("timeline");
+const fullTimeline   = document.getElementById("full-timeline");
+const counter        = document.getElementById("events-counter");
+const modal          = document.getElementById("historyModal");
+const showButtons    = document.querySelectorAll(".show-more-trigger");
+const closeBtn       = document.querySelector(".modal-close");
+function renderHistoryItems(container, items) {
+    container.innerHTML = "";
 
-async function loadCarData(searchQuery) {
-  try {
-    const response = await fetch(`/api/cars/search?q=${searchQuery}`);
-    const result = await response.json();
+    items.forEach(item => {
+        const km = item.endKilometer != null
+            ? `${item.startKilometer.toLocaleString("ru-RU")} → ${item.endKilometer.toLocaleString("ru-RU")} км`
+            : `${item.startKilometer.toLocaleString("ru-RU")} км`;
 
-    console.log("Backend result:", result);
+        const dates = item.endDate
+            ? `${new Date(item.startDate).toLocaleDateString("ru-RU")} — ${new Date(item.endDate).toLocaleDateString("ru-RU")}`
+            : new Date(item.startDate).toLocaleDateString("ru-RU");
 
-    if (result.success && result.data.length > 0) {
-      const car = result.data[0];
+        const div = document.createElement("div");
+        div.className = "istoriya_item";
 
-      if (!car.probegHistory || car.probegHistory.length === 0) {
-        console.log("Probeg ma'lumot yo'q");
-        return;
-      }
+        div.innerHTML = `
+            <div class="istoriya_date">
+                <span>${dates}</span><br>
+                <div class="istoriya_km">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 0C9.06087 0 10.0783 0.421427 10.8284 1.17157 11.5786 1.92172 12 2.93913 12 4c0 1.06087-.4214 2.07828-1.1716 2.82843C10.0783 7.57857 9.06087 8 8 8 6.93913 8 5.92172 7.57857 5.17157 6.82843 4.42143 6.07828 4 5.06087 4 4c0-1.06087.42143-2.07828 1.17157-2.82843C5.92172 0.421427 6.93913 0 8 0zM8 10c4.42 0 8 1.79 8 4v2H0v-2c0-2.21 3.58-4 8-4z" fill="white"/>
+                    </svg>
+                    ${km}
+                </div>
+            </div>
 
-      renderProbegChart(car.probegHistory);
-    }
+            <div class="istoriya_line">
+                <span class="istoriya_circle"></span>
+            </div>
 
-  } catch (error) {
-    console.error("Xatolik:", error);
-  }
-}
+            <div class="istoriya_content">
+                <h3>${item.title || "—"}</h3>
+                <p class="istoriya_subtitle">${item.description || ""}</p>
+                <p class="istoriya_location">${item.location || "—"}</p>
+            </div>
+        `;
 
-function renderProbegChart(probegHistory) {
-
-  const svg = document.querySelector('.probeg .chart svg');
-  if (!svg) return;
-
-  // SORT
-  const sortedData = [...probegHistory].sort((a, b) => a.year - b.year);
-
-  const minKm = Math.min(...sortedData.map(p => p.kilometer));
-  const maxKm = Math.max(...sortedData.map(p => p.kilometer));
-  const kmRange = maxKm - minKm || 1;
-
-  const svgWidth = 1000;
-  const svgTop = 40;
-  const svgBottom = 200;
-  const svgHeight = svgBottom - svgTop;
-  const padding = 20;
-  const xStep = (svgWidth - padding * 2) / (sortedData.length - 1 || 1);
-
-  let points = [];
-  let circlesData = [];
-
-  sortedData.forEach((item, index) => {
-    const x = padding + index * xStep;
-    const y = svgBottom - ((item.kilometer - minKm) / kmRange) * svgHeight;
-
-    points.push(`${x},${y}`);
-    circlesData.push({ x, y, km: item.kilometer, year: item.year });
-  });
-
-  // ANOMALY CHECK
-  let greenEndIndex = sortedData.length - 1;
-  for (let i = 1; i < sortedData.length; i++) {
-    if (sortedData[i].kilometer < sortedData[i - 1].kilometer) {
-      greenEndIndex = i - 1;
-      break;
-    }
-  }
-
-  // POLYLINES
-  const polylines = svg.querySelectorAll('polyline');
-  const redLine = polylines[0];
-  const greenLine = polylines[1];
-
-  redLine.setAttribute('points', points.join(' '));
-  greenLine.setAttribute('points', points.slice(0, greenEndIndex + 1).join(' '));
-
-  // 🔥 ENG MUHIM FIX — oxirgi <g> ni aniq olish
-  const pointsGroup = svg.querySelector('g:last-of-type');
-  pointsGroup.innerHTML = '';
-
-  circlesData.forEach((c, i) => {
-
-    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-
-    circle.setAttribute('cx', c.x);
-    circle.setAttribute('cy', c.y);
-    circle.setAttribute('r', '6');
-
-    // 🔥 class muammosini 100% hal qilamiz
-    circle.setAttribute('class', 'chart-point');
-
-    circle.setAttribute('data-km', c.km);
-    circle.setAttribute('data-year', c.year);
-
-    const isAnomaly = i > 0 && sortedData[i].kilometer < sortedData[i - 1].kilometer;
-
-    if (isAnomaly) {
-      circle.setAttribute('fill', 'red');
-    } else if (i <= greenEndIndex) {
-      circle.setAttribute('fill', '#fff');
-      circle.setAttribute('stroke', '#00b050');
-      circle.setAttribute('stroke-width', '2');
-    } else {
-      circle.setAttribute('fill', '#fff');
-      circle.setAttribute('stroke', 'red');
-      circle.setAttribute('stroke-width', '2');
-    }
-
-    pointsGroup.appendChild(circle);
-  });
-
-  updateYears(sortedData);
-  updateStatus(sortedData);
-  updateLastKm(sortedData);
-  setupTooltip();
-}
-
-function updateYears(sortedData) {
-  const yearsDiv = document.querySelector('.probeg .years');
-  yearsDiv.innerHTML = sortedData.map(y => `<span>${y.year}</span>`).join('');
-}
-
-function updateStatus(sortedData) {
-  const statusDiv = document.querySelector('.probeg .status');
-
-  const hasAnomaly = sortedData.some((item, i) =>
-    i > 0 && item.kilometer < sortedData[i - 1].kilometer
-  );
-
-  if (hasAnomaly) {
-    statusDiv.innerHTML = 'Похоже, скручен <span></span>';
-    statusDiv.style.color = 'red';
-  } else {
-    statusDiv.innerHTML = 'Нормальный <span></span>';
-    statusDiv.style.color = 'green';
-  }
-}
-
-function updateLastKm(sortedData) {
-  const lastKm = sortedData[sortedData.length - 1].kilometer;
-  document.querySelector('.probeg h2').textContent =
-    `от ${lastKm.toLocaleString()} км`;
-}
-
-function setupTooltip() {
-
-  const chartDiv = document.querySelector('.probeg .chart');
-  const svg = chartDiv.querySelector('svg');
-
-  let tooltip = chartDiv.querySelector('.chart-tooltip');
-
-  if (!tooltip) {
-    tooltip = document.createElement('div');
-    tooltip.className = 'chart-tooltip';
-    tooltip.style.position = 'absolute';
-    tooltip.style.background = '#fff';
-    tooltip.style.padding = '8px 12px';
-    tooltip.style.borderRadius = '6px';
-    tooltip.style.boxShadow = '0 2px 10px rgba(0,0,0,0.15)';
-    tooltip.style.fontSize = '14px';
-    tooltip.style.display = 'none';
-    tooltip.style.pointerEvents = 'none';
-    chartDiv.appendChild(tooltip);
-  }
-
-  const circles = svg.querySelectorAll('circle');
-
-  circles.forEach(circle => {
-
-    circle.addEventListener('mouseenter', function (e) {
-
-      const km = this.dataset.km;
-      const year = this.dataset.year;
-
-      tooltip.innerHTML = `
-        <div style="font-size:12px;color:#999">${year} год</div>
-        <div style="font-weight:600">${parseInt(km).toLocaleString()} км</div>
-      `;
-
-      const rect = svg.getBoundingClientRect();
-
-      tooltip.style.left = (e.clientX - rect.left) + 'px';
-      tooltip.style.top = (e.clientY - rect.top - 50) + 'px';
-      tooltip.style.display = 'block';
-
-      this.setAttribute('r', '8');
+        container.appendChild(div);
     });
-
-    circle.addEventListener('mouseleave', function () {
-      tooltip.style.display = 'none';
-      this.setAttribute('r', '6');
-    });
-  });
 }
 
+// sahifani yangilash
+function updateHistoryDisplay(historyArray) {
+    if (!Array.isArray(historyArray)) return;
+document.querySelector('.istoriya_card_top p').innerHTML=`Найдено ${historyArray.length} событий и 1 владелец`
+    const SHOW_ON_MAIN = 4; // asosiy sahifada nechta ko‘rsatiladi
 
-// TOGGLE
-document.getElementById('anomalyToggle')?.addEventListener('change', function () {
-  const anomalies = document.querySelectorAll('.probeg circle[fill="red"]');
+    renderHistoryItems(mainTimeline, historyArray.slice(0, SHOW_ON_MAIN));
+    renderHistoryItems(fullTimeline, historyArray);
 
-  anomalies.forEach(c => {
-    c.style.display = this.checked ? 'block' : 'none';
-  });
+    if (counter) {
+        counter.textContent = `Найдено ${historyArray.length} событий и 1 владелец`;
+    }
+}
+
+// modal ochish/yopish
+function openModal() {
+    if (modal) modal.style.display = "flex";
+}
+
+function closeModal() {
+    if (modal) modal.style.display = "none";
+}
+
+// ==================== EVENTLAR ====================
+
+document.addEventListener("DOMContentLoaded", () => {
+    // Bu yerda real ma'lumotlaringiz keladi
+    // misol uchun:
+    // fetch("/api/history").then(r => r.json()).then(updateHistoryDisplay);
+
+    // test uchun vaqtincha
+    // updateHistoryDisplay(yourHistoryArrayHere);
+
+    // tugmalar
+    showButtons.forEach(btn => btn.addEventListener("click", openModal));
+
+    if (closeBtn) closeBtn.addEventListener("click", closeModal);
+
+    if (modal) {
+        modal.addEventListener("click", e => {
+            if (e.target === modal) closeModal();
+        });
+    }
 });
 
 
-document.addEventListener('DOMContentLoaded', function () {
+
+
+// Damage points tooltip
+document.addEventListener('DOMContentLoaded', function() {
+    const damagePoints = document.querySelectorAll('.damage-point');
+    
+    damagePoints.forEach(point => {
+        point.addEventListener('mouseenter', function() {
+            const info = this.getAttribute('data-info');
+            showTooltip(this, info);
+        });
+        
+        point.addEventListener('mouseleave', function() {
+            hideTooltip();
+        });
+    });
+});
+
+function showTooltip(element, text) {
+    const tooltip = document.createElement('div');
+    tooltip.className = 'damage-tooltip';
+    tooltip.textContent = text;
+    tooltip.style.cssText = `
+        position: absolute;
+        background: rgba(0, 0, 0, 0.9);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 13px;
+        white-space: nowrap;
+        z-index: 1000;
+        pointer-events: none;
+    `;
+    
+    document.body.appendChild(tooltip);
+    
+    const rect = element.getBoundingClientRect();
+    tooltip.style.left = rect.left + rect.width / 2 - tooltip.offsetWidth / 2 + 'px';
+    tooltip.style.top = rect.top - tooltip.offsetHeight - 8 + 'px';
+    
+    element._tooltip = tooltip;
+}
+
+function hideTooltip() {
+    const tooltips = document.querySelectorAll('.damage-tooltip');
+    tooltips.forEach(tooltip => tooltip.remove());
+}
+
+// Damage tags filter
+const damageTags = document.querySelectorAll('.damage-tag');
+damageTags.forEach(tag => {
+    tag.addEventListener('click', function() {
+        this.classList.toggle('active');
+      
+    });
+});
+
+// Auction button
+const auctionBtn = document.querySelector('.auction-btn');
+if (auctionBtn) {
+    auctionBtn.addEventListener('click', function() {
+        alert('Открытие подробной информации об аукционе...');
+    });
+}
+
+// Info items click
+const infoItems = document.querySelectorAll('.damage-info-item');
+infoItems.forEach(item => {
+    item.addEventListener('click', function() {
+        
+        // Modal ochish yoki boshqa harakatlar
+    });
+});
+
+// Load car image (placeholder)
+const carImage = document.getElementById('carImage');
+if (carImage) {
+    // Agar rasm bo'lmasa, placeholder ko'rsatish
+    carImage.onerror = function() {
+        this.style.width = '300px';
+        this.style.height = '400px';
+        this.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+        this.style.borderRadius = '12px';
+    };
+}
+
+// Load auction image (placeholder)
+const auctionImage = document.getElementById('auctionImage');
+if (auctionImage) {
+    auctionImage.onerror = function() {
+        this.style.background = '#e0e0e0';
+    };
+}
+
+
+
+
+
+// 3 ta o'zgaruvchi
+let hasDamage = true;        // true = повреждения найдены, false = не найдено
+let hasAuction = true;       // true = был на аукционе, false = не было
+let hasDiagnostic = true;    // true = есть диагностика, false = нет
+
+// Ma'lumotlar (agar topilgan bo'lsa)
+const damageData = {
+    count: 6,
+    tags: [
+        '04.12.2024 · ДТП · сильный',
+        '10.09.2023 · ДТП · средний',
+        '18.06.2022 · ДТП · лёгкий',
+        '05.11.2021 · страховой случай',
+        '27.03.2020 · кузовной ремонт',
+        '14.05.2017 · ДТП · лёгкий'
+    ],
+    incidents: [
+        {
+            title: 'ДТП есть повреждения',
+            description: 'Ташкент, Мирабадский район, 1 участник'
+        },
+        {
+            title: 'Расчет стоимости ремонта',
+            description: '4 677 000 сум'
+        },
+        {
+            title: 'Кузовный ремонт',
+            description: '4 677 000 сум'
+        }
+    ],
+
+};
+
+const diagnosticData = {
+    date: '28 дек 2021',
+    source: 'Партнер',
+    mileage: '20 000 км',
+    region: 'Ташкент'
+};
+
+
+
+// API dan ma'lumot olish va flaglarni yangilash
+async function loadCarAndUpdateFlags(carId) {
+  if (!carId) {
+    console.warn("carId yo‘q, flaglar o‘zgartirilmaydi");
+    return;
+  }
+
+  try {
+    const res = await fetch(`/api/cars/${carId}`);
+    const result = await res.json();
+
+    if (!result.success || !result.data) {
+      console.error("Mashina ma'lumotlari yuklanmadi");
+      return;
+    }
+
+    const car = result.data;
+
+    // Flaglarni aniqlash
+    hasDamage    = Array.isArray(car.damageHistory)    && car.damageHistory.length > 0;
+    hasAuction   = Array.isArray(car.auctionHistory)   && car.auctionHistory.length > 0;
+    hasDiagnostic = Array.isArray(car.diagnosticHistory) && car.diagnosticHistory.length > 0;
+
+  
+    // UI ni yangilash
+    updateDamageSection(hasDamage, hasAuction, hasDiagnostic);
+
+  } catch (err) {
+    console.error("API xatosi:", err);
+  }
+}
+
+// UI ni flaglarga qarab yangilash (sizning render funksiyalaringizni chaqiradi)
+function updateDamageSection(damageFound, auctionFound, diagnosticFound) {
+  hasDamage = damageFound;
+  hasAuction = auctionFound;
+  hasDiagnostic = diagnosticFound;
+
+  // Sizning render funksiyalaringizni chaqiramiz
+
+
+
+  // Qo‘shimcha: bo‘limlarni ko‘rsatish/yashirish (ixtiyoriy)
+  const damageSection = document.querySelector('.sub-section_demage');
+  if (damageSection) damageSection.style.display = hasDamage ? 'block' : 'none';
+
+  const auctionSection = document.querySelector('.auction-section');
+  if (auctionSection) auctionSection.style.display = hasAuction ? 'block' : 'none';
+
+  const diagnosticSection = document.querySelector('.sub-section_diagnostic');
+  if (diagnosticSection) diagnosticSection.style.display = hasDiagnostic ? 'block' : 'none';
+}
+
+// Sahifa yuklanganda ishga tushirish
+document.addEventListener('DOMContentLoaded', function() {
+  // URL dan gosNumber olish (sizning kodda bor)
   const urlParams = new URLSearchParams(window.location.search);
   const gosNumber = urlParams.get('gosNumber');
 
   if (gosNumber) {
-    loadCarData(gosNumber);
+    // gosNumber orqali mashina ID sini topish (sizning search API orqali)
+    fetch(`/api/cars/search?q=${gosNumber}`)
+      .then(res => res.json())
+      .then(result => {
+        if (result.success && result.data?.length > 0) {
+          const car = result.data[0];
+          const carId = car._id;
+
+          // Endi carId bilan to‘liq ma'lumotni yuklaymiz
+          loadCarAndUpdateFlags(carId);
+
+          // Qo‘shimcha: boshqa funksiyalarni chaqirish
+          populateSlider(car);
+          populateCarImageModal(car);
+          populateOtchots(car);
+          updateHistoryDisplay(car.exploitationHistory);
+          renderPrice(car);
+          populateLegalRisks(car);
+          populateTechnicalData(car);
+          renderCars(car);
+          renderNashModalRestrictions(car)
+          renderNashModalRestrictions1(car)
+          renderDamageCard(car)
+        } else {
+          console.warn("Mashina topilmadi");
+        }
+      })
+      .catch(err => console.error(err));
+  } else {
+    console.warn("gosNumber URL da yo‘q");
   }
 });
+// Render damage card (dinamik, API dan kelgan car ob'ektidan ishlaydi)
+function renderDamageCard(car) {
+  renderAuctionCard(car)
+  renderDiagnosticCard(car)
+  const card = document.getElementById('damageCard');
+  if (!card) {
+    console.error("damageCard elementi topilmadi");
+    return;
+  }
+
+  card.innerHTML = ''; // avval tozalaymiz
+
+  // Agar zarar yo‘q bo‘lsa
+  if (!car || !Array.isArray(car.damageHistory) || car.damageHistory.length === 0) {
+    card.innerHTML = `
+      <div class="step_pt_card_title">
+        <h2>Происшествий не найдено</h2>
+        <div class="green_circle"></div>
+      </div>
+      <p>Мы проверили базы данных госсервисов, страховых компаний, независимых оценщиков, дилеров и СТО.</p>
+      <hr>
+      <p>
+        ДТП не найден<br>
+        Расчёт стоимости ремонта не найден<br>
+        Страховая выплата не найдена<br>
+        Кузовной ремонт не найден
+      </p>
+    `;
+    return;
+  }
+
+  const damages = car.damageHistory;
+
+  // Tabs yaratish
+  let tabsHTML = '<div class="damage-tabs">';
+  let contentsHTML = '<div class="damage-contents">';
+
+  damages.forEach((damage, index) => {
+    const date = damage.damageDate 
+      ? new Date(damage.damageDate).toLocaleDateString('ru-RU') 
+      : '—';
+
+    const type = damage.damageType || '—';
+    const level = damage.daraja || '—';
+    const tag = `${date} · ${type} · ${level}`;
+
+    const isActive = index === 0 ? 'active' : '';
+
+    tabsHTML += `
+      <button class="damage-tab ${isActive}" 
+              data-index="${index}"
+              onclick="switchDamageTab(this, ${index})">
+        ${tag}
+      </button>
+    `;
+
+    contentsHTML += `
+      <div class="damage-content ${isActive ? 'active' : ''}" data-index="${index}">
+        <div class="damage-visual">
+          <div class="car-diagram">
+            <img src="${damage.damageImage || 'https://via.placeholder.com/400x300?text=Rasm+yo‘q'}" 
+                 alt="Car diagram"
+                 onerror="this.src='https://via.placeholder.com/400x300?text=Rasm+yo‘q';">
+          </div>
+          
+          <div class="damage-info">
+            <div class="damage-info-item">
+              <div class="info-icon"></div>
+              <div class="info-content">
+                <h3>ДТП есть повреждения ›</h3>
+                <p>${damage.location || '—'}</p>
+              </div>
+            </div>
+            <div class="damage-info-item">
+              <div class="info-icon"></div>
+              <div class="info-content">
+                <h3>Расчет стоимости ремонта ›</h3>
+                <p>${damage.rasxot_remont ? damage.rasxot_remont.toLocaleString('ru-RU') + ' сум' : '—'}</p>
+              </div>
+            </div>
+            <div class="damage-info-item">
+              <div class="info-icon"></div>
+              <div class="info-content">
+                <h3>Кузовный ремонт ›</h3>
+                <p>${damage.rasxot_kuzup ? damage.rasxot_kuzup.toLocaleString('ru-RU') + ' сум' : '—'}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+
+  tabsHTML += '</div>';
+  contentsHTML += '</div>';
+
+  card.innerHTML = tabsHTML + contentsHTML;
+
+  // Birinchi tab active bo‘lishi uchun
+  switchDamageTab(document.querySelector('.damage-tab'), 0);
+
+  // Tooltiplarni faollashtirish (agar kerak bo‘lsa)
+  setupDamagePointsTooltip();
+}
+
+// Tabni o‘zgartirish funksiyasi
+function switchDamageTab(button, index) {
+  // Barcha tablar active classini olib tashlaymiz
+  document.querySelectorAll('.damage-tab').forEach(tab => tab.classList.remove('active'));
+  document.querySelectorAll('.damage-content').forEach(content => content.classList.remove('active'));
+
+  // Bosilgan tabni active qilamiz
+  button.classList.add('active');
+  document.querySelector(`.damage-content[data-index="${index}"]`).classList.add('active');
+}
+function renderAuctionCard(car) {
+  const card = document.getElementById('auctionCard');
+  if (!card) {
+    console.error("auctionCard elementi topilmadi");
+    return;
+  }
+
+  card.innerHTML = ''; // tozalash
+
+  // Agar auctionHistory yo‘q yoki bo‘sh bo‘lsa
+  if (!car || !Array.isArray(car.auctionHistory) || car.auctionHistory.length === 0) {
+    card.innerHTML = `
+      <div class="step_pt_card_title">
+        <h2>Нет сведений о продаже на аукционах аварийных автомобилей</h2>
+        <div class="green_circle"></div>
+      </div>
+      <p>Мы проверили базы данных наших партнёров.</p>
+      <hr>
+      <p><b>Что такое аукцион аварийных автомобилей?</b></p>
+      <p>Это место, куда попадают автомобили с сильными повреждениями, например после аварии, пожара или стихийного бедствия.</p>
+    `;
+    return;
+  }
+
+  // Auction topilgan holat
+  const auctions = car.auctionHistory;
+
+  // Agar bir nechta auction bo‘lsa — ularni ro‘yxat qilamiz
+  let content = `
+    <div class="step_pt_card_title">
+      <h2>Оценивался на аукционе ${auctions.length} раз</h2>
+      <div class="red_circle"></div>
+    </div>
+    <div class="auction-box-list">
+  `;
+
+  auctions.forEach((auction, index) => {
+    const date = auction.date ? new Date(auction.date).toLocaleDateString('ru-RU') : '—';
+    const link = auction.link || '#';
+
+    content += `
+      <div class="auction-item">
+        <div class="auction-image">
+          <img src="${auction.image || './img/Frame 2087330637.png'}" 
+               alt="Auction rasm" 
+               onerror="this.src='./img/Frame 2087330637.png';">
+        </div>
+        <div class="auction-info">
+         
+          ${auction.description ? `<p>${auction.description}</p>` : ''}
+        </div>
+        <button class="auction-btn" onclick="showAuctionDetails(${index})">
+          Подробнее
+        </button>
+      </div>
+    `;
+  });
+
+  content += '</div>';
+
+  card.innerHTML = content;
+}
+function renderDiagnosticCard(car) {
+  const card = document.getElementById('diagnosticCard');
+  if (!card) {
+    console.error("diagnosticCard elementi topilmadi");
+    return;
+  }
+
+  card.innerHTML = ''; // tozalash
+
+  // Agar diagnostika yo‘q bo‘lsa
+  if (!car || !Array.isArray(car.diagnosticHistory) || car.diagnosticHistory.length === 0) {
+    card.innerHTML = `
+      <div class="step_pt_card_title">
+        <h2>Не найдены сведения о диагностике</h2>
+        <div class="grey_circle"></div>
+      </div>
+      <p>Наши партнёры не осматривали автомобиль.</p>
+    `;
+    return;
+  }
+
+  // Diagnostika topilgan holat
+  // Eng yangi diagnostikani olamiz (oxirgi element, agar sort bo‘lmasa)
+  const diagnostic = car.diagnosticHistory[car.diagnosticHistory.length - 1];
+
+  // Sana formatlash
+  const inspectionDate = diagnostic.inspectionDate 
+    ? new Date(diagnostic.inspectionDate).toLocaleDateString('ru-RU', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      }) 
+    : '—';
+
+  card.innerHTML = `
+    <div class="step_pt_card_title">
+      <h2>Результат диагностики</h2>
+      <div class="green_circle"></div>
+    </div>
+    <p>Сведения из таможенной декларации</p>
+    <h3 style="font-size: 18px; font-weight: 500; margin: 16px 0;">Осмотр от ${inspectionDate}</h3>
+    
+    <div class="diagnostic-info">
+      <div class="diagnostic-row">
+        <span class="diagnostic-label">Источник</span>
+        <span class="diagnostic-value">${diagnostic.source || '—'}</span>
+      </div>
+      <div class="diagnostic-row">
+        <span class="diagnostic-label">Пробег</span>
+        <span class="diagnostic-value">${diagnostic.mileage ? diagnostic.mileage.toLocaleString('ru-RU') + ' км' : '—'}</span>
+      </div>
+      <div class="diagnostic-row">
+        <span class="diagnostic-label">Регион</span>
+        <span class="diagnostic-value">${diagnostic.region || '—'}</span>
+      </div>
+    </div>
+  `;
+}
+
+// Damage points tooltip
+function setupDamagePointsTooltip() {
+    const points = document.querySelectorAll('.damage-point');
+    
+    points.forEach(point => {
+        point.addEventListener('mouseenter', function() {
+            const info = this.getAttribute('data-info');
+            const tooltip = document.createElement('div');
+            tooltip.className = 'damage-tooltip';
+            tooltip.textContent = info;
+            tooltip.style.cssText = `
+                position: absolute;
+                background: rgba(0, 0, 0, 0.9);
+                color: white;
+                padding: 8px 12px;
+                border-radius: 6px;
+                font-size: 13px;
+                white-space: nowrap;
+                z-index: 1000;
+                pointer-events: none;
+            `;
+            
+            document.body.appendChild(tooltip);
+            
+            const rect = this.getBoundingClientRect();
+            tooltip.style.left = rect.left + rect.width / 2 - tooltip.offsetWidth / 2 + 'px';
+            tooltip.style.top = rect.top - tooltip.offsetHeight - 8 + 'px';
+            
+            this._tooltip = tooltip;
+        });
+        
+        point.addEventListener('mouseleave', function() {
+            if (this._tooltip) {
+                this._tooltip.remove();
+            }
+        });
+    });
+}
+
+// Auction details
+function showAuctionDetails() {
+    alert('Открытие подробной информации об аукционе...');
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+   
+ 
+});
+
+// API dan ma'lumot kelganda yangilash
+function updateDamageSection(damageFound, auctionFound, diagnosticFound) {
+    hasDamage = damageFound;
+    hasAuction = auctionFound;
+    hasDiagnostic = diagnosticFound;
+  
+ 
+}
+
+// Test uchun: o'zgaruvchilarni o'zgartirish
+// setTimeout(() => {
+//     updateDamageSection(true, true, true); // Hammasi topilgan
+// }, 2000);
+
+
+
+function renderNashModalRestrictions(car) {
+  const container = document.querySelector('.nash_modal_mid_action'); // modal ichidagi asosiy container
+  if (!container) {
+    console.error(".nash_modal_mid_action topilmadi");
+    return;
+  }
+
+  container.innerHTML = ''; // tozalash
+
+  // Ma'lumotlar arrayini olish (sizning array nomingizga moslashtiring)
+  const restrictionGroups = car.historyEvents
+
+  if (!Array.isArray(restrictionGroups) || restrictionGroups.length === 0) {
+    container.innerHTML = `
+      <p style="text-align:center; color:#64748b; padding:20px;">
+        Ограничений или запретов не найдено
+      </p>
+    `;
+    return;
+  }
+
+  // Har bir guruh (sana + events) uchun kartochka yaratish
+  restrictionGroups.forEach(group => {
+    // Sana formatlash
+    const date = group.date 
+      ? new Date(group.date).toLocaleDateString('ru-RU', {
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric'
+        }) 
+      : '—';
+
+    // Events ro‘yxati
+    const eventsHTML = (group.events || []).map(event => `
+      <div class="nash_modal_mid_action_card_grid">
+        <div class="nash_modal_mid_action_card_grid_p">
+    <img src="${event.image}">
+          ${event.title}
+        </div> 
+        <span>${event.text || '—'}</span>
+      </div>
+    `).join('');
+
+    const cardHTML = `
+      <div class="nash_modal_mid_action_card">
+        <div class="nash_modal_mid_action_card_title">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14 14H7V16H14V14ZM19 19H5V8H19V19ZM19 3H18V1H16V3H8V1H6V3H5C3.89 3 3 3.9 3 5V19C3 19.5304 3.21071 20.0391 3.58579 20.4142C3.96086 20.7893 4.46957 21 5 21H19C19.5304 21 20.0391 20.7893 20.4142 20.4142C20.7893 20.0391 21 19.5304 21 19V5C21 4.46957 20.7893 3.96086 20.4142 3.58579C20.0391 3.21071 19.5304 3 19 3ZM17 10H7V12H17V10Z" fill="#0A4BA9" />
+          </svg>
+          ${date}
+        </div>
+        ${eventsHTML}
+      </div>
+    `;
+
+    container.insertAdjacentHTML('beforeend', cardHTML);
+  });
+}
+
+
+function renderNashModalRestrictions1(car) {
+  vZaloge(car);
+  QidiruvHistory(car);
+  SudHistory(car);
+  LizingHistory(car);
+  const container = document.querySelectorAll('.nash_modal_mid_action')[1]; // modal ichidagi asosiy container
+  if (!container) {
+    console.error(".nash_modal_mid_action topilmadi");
+    return;
+  }
+
+  container.innerHTML = ''; // tozalash
+
+  // Ma'lumotlar arrayini olish (sizning array nomingizga moslashtiring)
+  const restrictionGroups = car.shtrafEvents
+
+  if (!Array.isArray(restrictionGroups) || restrictionGroups.length === 0) {
+    container.innerHTML = `
+      <p style="text-align:center; color:#64748b; padding:20px;">
+        Ограничений или запретов не найдено
+      </p>
+    `;
+    return;
+  }
+
+  // Har bir guruh (sana + events) uchun kartochka yaratish
+  restrictionGroups.forEach(group => {
+    // Sana formatlash
+    const date = group.date 
+      ? new Date(group.date).toLocaleDateString('ru-RU', {
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric'
+        }) 
+      : '—';
+
+    // Events ro‘yxati
+    const eventsHTML = (group.events || []).map(event => `
+      <div class="nash_modal_mid_action_card_grid">
+        <div class="nash_modal_mid_action_card_grid_p">
+    
+          ${event.title}
+        </div> 
+        <span><img style="width:24px" src="${event.image}"> ${event.text || '—'}</span>
+      </div>
+    `).join('');
+
+    const cardHTML = `
+      <div class="nash_modal_mid_action_card">
+        <div class="nash_modal_mid_action_card_title nash_modal_mid_action_card_title_red">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14 14H7V16H14V14ZM19 19H5V8H19V19ZM19 3H18V1H16V3H8V1H6V3H5C3.89 3 3 3.9 3 5V19C3 19.5304 3.21071 20.0391 3.58579 20.4142C3.96086 20.7893 4.46957 21 5 21H19C19.5304 21 20.0391 20.7893 20.4142 20.4142C20.7893 20.0391 21 19.5304 21 19V5C21 4.46957 20.7893 3.96086 20.4142 3.58579C20.0391 3.21071 19.5304 3 19 3ZM17 10H7V12H17V10Z" fill="#0A4BA9" />
+          </svg>
+          Штраф: ${date} на 30 000 сум
+        </div>
+        ${eventsHTML}
+      </div>
+    `;
+
+    container.insertAdjacentHTML('beforeend', cardHTML);
+  });
+}
+
+
+function vZaloge(car) {
+  const container = document.querySelector('#nash_modal_mid_action_card'); // modal ichidagi asosiy container
+  if (!container) {
+    console.error(".nash_modal_mid_action_card topilmadi");
+    return;
+  }
+
+  container.innerHTML = ''; // tozalash
+
+  // Ma'lumotlar arrayini olish (sizning array nomingizga moslashtiring)
+  const restrictionGroups = car.ZalogHistory
+
+  if (!Array.isArray(restrictionGroups) || restrictionGroups.length === 0) {
+    container.innerHTML = `
+      <p style="text-align:center; color:#64748b; padding:20px;">
+        Ограничений или запретов не найдено
+      </p>
+    `;
+    return;
+  }
+for (let i = 0; i < restrictionGroups.length; i++) {
+  
+  
+ container.innerHTML +=`<div class="nash_modal_mid_action_card_grid">
+                        <div class="nash_modal_mid_action_card_grid_p">${restrictionGroups[i].title}</div>
+                        <span>
+${restrictionGroups[i].text}</span>
+                    </div>`
+  
+}
+
+
+}
 
 
 
 
+function QidiruvHistory(car) {
+  const container = document.querySelector('#nash_modal_mid_action_card2'); // modal ichidagi asosiy container
+  if (!container) {
+    console.error(".nash_modal_mid_action_card2 topilmadi");
+    return;
+  }
+
+  container.innerHTML = ''; // tozalash
+
+  // Ma'lumotlar arrayini olish (sizning array nomingizga moslashtiring)
+  const restrictionGroups = car.QidiruvHistory
+
+  if (!Array.isArray(restrictionGroups) || restrictionGroups.length === 0) {
+    container.innerHTML = `
+      <p style="text-align:center; color:#64748b; padding:20px;">
+        Ограничений или запретов не найдено
+      </p>
+    `;
+    return;
+  }
+for (let i = 0; i < restrictionGroups.length; i++) {
+  
+  
+ container.innerHTML +=`<div class="nash_modal_mid_action_card_grid">
+
+                        <span>
+                            ${restrictionGroups[i].title} <b>${restrictionGroups[i].text}</b>
+                        </span>
+                    </div>`
+  
+}
 
 
+}
+
+function SudHistory(car) {
+  const container = document.querySelector('#nash_modal_mid_action_card3'); // modal ichidagi asosiy container
+  if (!container) {
+    console.error(".nash_modal_mid_action_card3 topilmadi");
+    return;
+  }
+
+  container.innerHTML = ''; // tozalash
+
+  // Ma'lumotlar arrayini olish (sizning array nomingizga moslashtiring)
+  const restrictionGroups = car.SudHistory
+
+  if (!Array.isArray(restrictionGroups) || restrictionGroups.length === 0) {
+    container.innerHTML = `
+      <p style="text-align:center; color:#64748b; padding:20px;">
+        Ограничений или запретов не найдено
+      </p>
+    `;
+    return;
+  }
+for (let i = 0; i < restrictionGroups.length; i++) {
+
+  
+ container.innerHTML +=`<div class="nash_modal_mid_action_card_grid">
+                        <div class="nash_modal_mid_action_card_grid_p">${restrictionGroups[i].title}</div>
+                        <span>
+${restrictionGroups[i].text}</span>
+                    </div>`
+  
+}
+
+
+}
+
+function LizingHistory(car) {
+  const container = document.querySelector('#nash_modal_mid_action_card4'); // modal ichidagi asosiy container
+  if (!container) {
+    console.error(".nash_modal_mid_action_card4 topilmadi");
+    return;
+  }
+
+  container.innerHTML = ''; // tozalash
+
+  // Ma'lumotlar arrayini olish (sizning array nomingizga moslashtiring)
+  const restrictionGroups = car.LizingHistory
+
+  if (!Array.isArray(restrictionGroups) || restrictionGroups.length === 0) {
+    container.innerHTML = `
+      <p style="text-align:center; color:#64748b; padding:20px;">
+        Ограничений или запретов не найдено
+      </p>
+    `;
+    return;
+  }
+for (let i = 0; i < restrictionGroups.length; i++) {
+  
+  
+ container.innerHTML +=`<div class="nash_modal_mid_action_card_grid">
+                        <div class="nash_modal_mid_action_card_grid_p">${restrictionGroups[i].title}</div>
+                        <span>
+${restrictionGroups[i].text}</span>
+                    </div>`
+  
+}
+
+
+}
