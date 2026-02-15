@@ -11,6 +11,7 @@ if (user) {
 }
 function viteOut_account() {
     user=null
+    localStorage.removeItem("user")
     if (user) {
     document.querySelector('.navbar_all_user_kirish').style = "display: none;"
     document.querySelector('.navbar_all_user_name').style = "display: flex;"
@@ -464,9 +465,17 @@ async function openCarInfo() {
     const reportBtn = document.getElementById("getReportBtn");
     if (reportBtn) {
       reportBtn.onclick = () => {
+if(localStorage.getItem('user')){
+ 
         const gosNumber = encodeURIComponent(car.gosNumber || "");
         window.location.href = `/otchot.html?gosNumber=${gosNumber}`;
-      };
+         
+}else{
+ modal.classList.add("active");
+    document.body.classList.add("no-scroll");
+     document.getElementById("modal_2").style.display = "none";
+}
+    };
     }
 
     // ====== MODAL OPEN ======

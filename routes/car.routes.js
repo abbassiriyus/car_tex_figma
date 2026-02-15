@@ -161,10 +161,10 @@ router.delete('/:id/images/all', async (req, res) => {
 // GET /api/cars/search
 router.get('/search', async (req, res) => {
   try {
-    const { 
-      q, 
-      page = '1', 
-      limit = '10' 
+    const {
+      q,
+      page = '1',
+      limit = '10'
     } = req.query;
 
     // Validatsiya
@@ -185,13 +185,13 @@ router.get('/search', async (req, res) => {
     // Qidiruv shartlari (eng ko‘p ishlatiladigan maydonlar qo‘shildi)
     const query = {
       $or: [
-        { vin:               { $regex: searchTerm, $options: 'i' } },
-        { gosNumber:         { $regex: searchTerm, $options: 'i' } },
-        { engineNumber:      { $regex: searchTerm, $options: 'i' } },
-        { stsNumber:         { $regex: searchTerm, $options: 'i' } },
-        { carName:           { $regex: searchTerm, $options: 'i' } },
-        { color:             { $regex: searchTerm, $options: 'i' } },
-        { 'extraGosNumber':    { $in: [searchTerm] } }, // array ichida exact match
+        { vin: { $regex: searchTerm, $options: 'i' } },
+        { gosNumber: { $regex: searchTerm, $options: 'i' } },
+        { engineNumber: { $regex: searchTerm, $options: 'i' } },
+        { stsNumber: { $regex: searchTerm, $options: 'i' } },
+        { carName: { $regex: searchTerm, $options: 'i' } },
+        { color: { $regex: searchTerm, $options: 'i' } },
+        { 'extraGosNumber': { $in: [searchTerm] } }, // array ichida exact match
         // Agar partial match kerak bo‘lsa quyidagini qo‘shing:
         // { 'extraGosNumber':  { $regex: searchTerm, $options: 'i' } }
       ]
@@ -203,8 +203,8 @@ router.get('/search', async (req, res) => {
     // Ma'lumotlarni olish (populate qilingan maydonlar bilan)
     const cars = await Car.find(query)
       .populate({ path: 'features.featureId', select: 'title image order' })
-      .populate({ path: 'legalRisks.riskId',   select: 'title text' })
-      .populate({ path: 'otchots.otchotId',    select: 'title icon order' })
+      .populate({ path: 'legalRisks.riskId', select: 'title text' })
+      .populate({ path: 'otchots.otchotId', select: 'title icon order' })
       .sort({ createdAt: -1 })
       .skip((pageNum - 1) * limitNum)
       .limit(limitNum)
@@ -239,6 +239,7 @@ router.get('/search', async (req, res) => {
         return Object.values(grouped).sort((a, b) => new Date(b.date) - new Date(a.date));
       };
 
+
       return {
         _id: car._id.toString(),
         vin: car.vin || '',
@@ -251,14 +252,21 @@ router.get('/search', async (req, res) => {
         color: car.color || '',
         engine: car.engine || '',
 
-        images: car.images || [],
+        images: (car.images || []).map(img => ({
+          _id: img._id?.toString(),
+          url: img.url || '',
+          label: img.label || '',
+          isDamaged: img.isDamaged || false
+        })),
 
         features: (car.features || []).map(f => ({
           featureId: f.featureId?._id?.toString() || null,
           title: f.featureId?.title || "Noma'lum xususiyat",
           text: f.text || '',
           image: f.featureId?.image || '',
-          position: f.position || 0
+          position: f.position || 0,
+          order: f.featureId?.order || 0
+
         })),
 
         legalRisks: (car.legalRisks || []).map(lr => ({
@@ -289,17 +297,79 @@ router.get('/search', async (req, res) => {
         },
 
         // Yangi qo‘shilgan barcha tarixiy bo‘limlar (oddiy array sifatida)
-        auctionHistory:     car.auctionHistory     || [],
-        diagnosticHistory:  car.diagnosticHistory  || [],
-        damageHistory:      car.damageHistory      || [],
-        LizingHistory:      car.LizingHistory      || [],
-        SudHistory:         car.SudHistory         || [],
-        QidiruvHistory:     car.QidiruvHistory     || [],
-        ZalogHistory:       car.ZalogHistory       || [],
+        // Auction
+        auctionHistory: (car.auctionHistory || []).map(a => ({
+          _id: a._id?.toString(),
+          image: a.image || '',
+          link: a.link || '',
+          createdAt: a.createdAt?.toISOString() || null,
+          updatedAt: a.updatedAt?.toISOString() || null
+        })),
+
+        // Diagnostic
+        diagnosticHistory: (car.diagnosticHistory || []).map(d => ({
+          _id: d._id?.toString(),
+          inspectionDate: d.inspectionDate?.toISOString() || null,
+          source: d.source || '',
+          mileage: d.mileage || 0,
+          region: d.region || '',
+          createdAt: d.createdAt?.toISOString() || null,
+          updatedAt: d.updatedAt?.toISOString() || null
+        })),
+
+        // Damage
+        damageHistory: (car.damageHistory || []).map(d => ({
+          _id: d._id?.toString(),
+          damageDate: d.damageDate?.toISOString() || null,
+          damageType: d.damageType || '',
+          daraja: d.daraja || '',
+          location: d.location || '',
+          qatnashchi: d.qatnashchi || '',
+          rasxot_remont: d.rasxot_remont || 0,
+          rasxot_kuzup: d.rasxot_kuzup || 0,
+          damageImage: d.damageImage || '',
+          createdAt: d.createdAt?.toISOString() || null,
+          updatedAt: d.updatedAt?.toISOString() || null
+        })),
+        // Lizing
+        LizingHistory: (car.LizingHistory || []).map(l => ({
+          _id: l._id?.toString(),
+          title: l.title || '',
+          text: l.text || '',
+          createdAt: l.createdAt?.toISOString() || null,
+          updatedAt: l.updatedAt?.toISOString() || null
+        })),
+
+        // Sud
+        SudHistory: (car.SudHistory || []).map(s => ({
+          _id: s._id?.toString(),
+          title: s.title || '',
+          text: s.text || '',
+          createdAt: s.createdAt?.toISOString() || null,
+          updatedAt: s.updatedAt?.toISOString() || null
+        })),
+
+        // Qidiruv
+        QidiruvHistory: (car.QidiruvHistory || []).map(q => ({
+          _id: q._id?.toString(),
+          title: q.title || '',
+          text: q.text || '',
+          createdAt: q.createdAt?.toISOString() || null,
+          updatedAt: q.updatedAt?.toISOString() || null
+        })),
+
+        // Zalog
+        ZalogHistory: (car.ZalogHistory || []).map(z => ({
+          _id: z._id?.toString(),
+          title: z.title || '',
+          text: z.text || '',
+          createdAt: z.createdAt?.toISOString() || null,
+          updatedAt: z.updatedAt?.toISOString() || null
+        })),
 
         // Sana bo‘yicha guruhlangan historyEvents va shtrafEvents
         historyEvents: groupByDate(car.historyEvents || []),
-        shtrafEvents:  groupByDate(car.shtrafEvents  || []),
+        shtrafEvents: groupByDate(car.shtrafEvents || []),
 
         createdAt: car.createdAt ? car.createdAt.toISOString() : null,
         updatedAt: car.updatedAt ? car.updatedAt.toISOString() : null
@@ -570,7 +640,7 @@ router.post('/:id/legal-risks', async (req, res) => {
     const { riskId } = req.body;
     const position = Number(req.body.position); // 🔥 numberga o'tkazamiz
 
-    if (!Number.isInteger(position) || ![1,2,3].includes(position)) {
+    if (!Number.isInteger(position) || ![1, 2, 3].includes(position)) {
       return res.status(400).json({
         success: false,
         message: 'Position 1, 2 yoki 3 bo‘lishi kerak'
@@ -699,11 +769,14 @@ router.get('/:id', async (req, res) => {
     }
 
     // Sana bo‘yicha guruhlash funksiyasi (historyEvents va shtrafEvents uchun)
-    const groupByDate = (eventsArray) => {
+    const groupByDate = (events) => {
       const grouped = {};
 
-      (eventsArray || []).forEach(item => {
-        const dateKey = new Date(item.date).toISOString().split('T')[0];
+      (events || []).forEach(item => {
+        if (!item.date) return;
+
+        const dateObj = new Date(item.date);
+        const dateKey = dateObj.toISOString().split('T')[0]; // YYYY-MM-DD
 
         if (!grouped[dateKey]) {
           grouped[dateKey] = {
@@ -713,7 +786,8 @@ router.get('/:id', async (req, res) => {
         }
 
         grouped[dateKey].events.push({
-          _id: item._id.toString(),
+          _id: item._id?.toString() || null,
+          date: item.date ? new Date(item.date).toISOString() : null,
           image: item.image || '',
           title: item.title || '',
           text: item.text || '',
@@ -722,12 +796,13 @@ router.get('/:id', async (req, res) => {
         });
       });
 
-      // Eng yangi sanadan boshlab tartiblash
-      return Object.values(grouped).sort((a, b) => 
-        new Date(b.date) - new Date(a.date)
-      );
+      return Object.values(grouped)
+        .sort((a, b) => new Date(b.date) - new Date(a.date)) // sana bo‘yicha sort
+        .map(group => ({
+          ...group,
+          events: group.events.sort((a, b) => new Date(b.date) - new Date(a.date))
+        }));
     };
-
     // Javob strukturasini to‘liq tayyorlash
     const response = {
       _id: car._id.toString(),
@@ -740,9 +815,12 @@ router.get('/:id', async (req, res) => {
       carType: car.carType || '',
       color: car.color || '',
       engine: car.engine || '',
-
-      images: car.images || [],
-
+      images: (car.images || []).map(img => ({
+        _id: img._id?.toString() || null,
+        url: img.url || '',
+        label: img.label || '',
+        isDamaged: img.isDamaged || false
+      })),
       features: (car.features || []).map(f => ({
         featureId: f.featureId?._id?.toString() || null,
         title: f.featureId?.title || "Noma'lum",
@@ -815,18 +893,79 @@ router.get('/:id', async (req, res) => {
         currency: car.valuation?.currency || 'UZS'
       },
 
-      // Oddiy array sifatida qaytariladigan bo‘limlar
-      auctionHistory:     car.auctionHistory     || [],
-      diagnosticHistory:  car.diagnosticHistory  || [],
-      damageHistory:      car.damageHistory      || [],
-      LizingHistory:      car.LizingHistory      || [],
-      SudHistory:         car.SudHistory         || [],
-      QidiruvHistory:     car.QidiruvHistory     || [],
-      ZalogHistory:       car.ZalogHistory       || [],
+      // Auction
+      auctionHistory: (car.auctionHistory || []).map(a => ({
+        _id: a._id?.toString(),
+        image: a.image || '',
+        link: a.link || '',
+        createdAt: a.createdAt?.toISOString() || null,
+        updatedAt: a.updatedAt?.toISOString() || null
+      })),
+
+      // Diagnostic
+      diagnosticHistory: (car.diagnosticHistory || []).map(d => ({
+        _id: d._id?.toString(),
+        inspectionDate: d.inspectionDate?.toISOString() || null,
+        source: d.source || '',
+        mileage: d.mileage || 0,
+        region: d.region || '',
+        createdAt: d.createdAt?.toISOString() || null,
+        updatedAt: d.updatedAt?.toISOString() || null
+      })),
+
+      // Damage
+      damageHistory: (car.damageHistory || []).map(d => ({
+        _id: d._id?.toString(),
+        damageDate: d.damageDate?.toISOString() || null,
+        damageType: d.damageType || '',
+        daraja: d.daraja || '',
+        location: d.location || '',
+        qatnashchi: d.qatnashchi || '',
+        rasxot_remont: d.rasxot_remont || 0,
+        rasxot_kuzup: d.rasxot_kuzup || 0,
+        damageImage: d.damageImage || '',
+        createdAt: d.createdAt?.toISOString() || null,
+        updatedAt: d.updatedAt?.toISOString() || null
+      })),
+      // Lizing
+      LizingHistory: (car.LizingHistory || []).map(l => ({
+        _id: l._id?.toString(),
+        title: l.title || '',
+        text: l.text || '',
+        createdAt: l.createdAt?.toISOString() || null,
+        updatedAt: l.updatedAt?.toISOString() || null
+      })),
+
+      // Sud
+      SudHistory: (car.SudHistory || []).map(s => ({
+        _id: s._id?.toString(),
+        title: s.title || '',
+        text: s.text || '',
+        createdAt: s.createdAt?.toISOString() || null,
+        updatedAt: s.updatedAt?.toISOString() || null
+      })),
+
+      // Qidiruv
+      QidiruvHistory: (car.QidiruvHistory || []).map(q => ({
+        _id: q._id?.toString(),
+        title: q.title || '',
+        text: q.text || '',
+        createdAt: q.createdAt?.toISOString() || null,
+        updatedAt: q.updatedAt?.toISOString() || null
+      })),
+
+      // Zalog
+      ZalogHistory: (car.ZalogHistory || []).map(z => ({
+        _id: z._id?.toString(),
+        title: z.title || '',
+        text: z.text || '',
+        createdAt: z.createdAt?.toISOString() || null,
+        updatedAt: z.updatedAt?.toISOString() || null
+      })),
 
       // Sana bo‘yicha guruhlangan bo‘limlar
       historyEvents: groupByDate(car.historyEvents || []),
-      shtrafEvents:  groupByDate(car.shtrafEvents  || []),
+      shtrafEvents: groupByDate(car.shtrafEvents || []),
 
       createdAt: car.createdAt?.toISOString() || null,
       updatedAt: car.updatedAt?.toISOString() || null
@@ -949,7 +1088,7 @@ router.put('/:carId/otchots/:otchotId', async (req, res) => {
     if (!otchot) return errorResponse(res, 404, 'Otchot topilmadi');
 
     if (position) {
-      if (![1,2,3,4].includes(Number(position)))
+      if (![1, 2, 3, 4].includes(Number(position)))
         return errorResponse(res, 400, 'Position 1-4 oralig‘ida bo‘lishi kerak');
 
       // boshqa position bandmi?
@@ -1786,4 +1925,8 @@ router.get('/:carId/exploitation-history', async (req, res) => {
     res.status(500).json({ success: false, message: err.message });
   }
 });
+
+
+
+
 module.exports = router;

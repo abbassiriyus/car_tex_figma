@@ -41,13 +41,13 @@
 <body class="Home_page">
 
 
-    <nav class="navbar_all">
-        <img src="./img/logo.jpg" alt="" class="logo">
+    <nav id="navbar_all" class="navbar_all">
+       <a href="/" style="list-style: none;text-decoration: none;"> <img src="./img/logo.jpg" alt="" class="logo"></a>
         <ul class="nav_items">
-            <li style="color: #0A4BA9;" class="nav_item">Проверка авто</li>
-            <li class="nav_item">Как это работает</li>
-            <li class="nav_item">Тарифы</li>
-            <li class="nav_item">Пример отчета</li>
+           <a style="list-style: none;text-decoration: none;" href="/#navbar_all"> <li style="color: #0A4BA9;" class="nav_item">Проверка авто</li></a>
+           <a  style="list-style: none;text-decoration: none;"  href="https://www.youtube.com/"> <li class="nav_item">Как это работает</li></a>
+           <a style="list-style: none;text-decoration: none;"  href="/#section_3"> <li class="nav_item">Тарифы</li></a>
+             <a style="list-style: none;text-decoration: none;"  href="/#section_2_buttons11"> <li class="nav_item">Пример отчета</li></a>
         </ul>
         <!-- <div></div> -->
 
@@ -92,10 +92,10 @@
                 <img onclick="toggle_menu()" src="./img/menu-4-line.png" id="togle" alt="">
                 <div class="navbar_all_menu">
                     <ul>
-                        <li>Проверка авто</li>
-                        <li>Как это работает</li>
-                        <li>Тарифы</li>
-                        <li>Пример отчета</li>
+                        <a style="list-style: none;text-decoration: none;" href="/#navbar_all">  <li>Проверка авто</li></a>
+                         <a  style="list-style: none;text-decoration: none;"  href="https://www.youtube.com/">  <li>Как это работает</li></a>
+                       <a style="list-style: none;text-decoration: none;"  href="/#section_3">   <li>Тарифы</li></a>
+                      <a style="list-style: none;text-decoration: none;"  href="/#section_2_buttons11">    <li>Пример отчета</li></a>
 
                     </ul>
                     <h5 style="color: #ABAAAA;">
@@ -132,7 +132,7 @@
                         placeholder="+998  __ ___ __ __"><br>
                     <span style="display: none;padding-top: 1px;">Введите существующий номер</span><br>
                     <button type="button" onclick="openKirish_1()">Войти</button>
-                    <p>Нет аккаунта? <a href="#" onclick="openRegister()">Регистрация</a></p>
+                    <p>Нет аккаунта? <a href="#" onclick="openRegister()" style="color: #0A4BA9;">Регистрация</a></p>
                 </form>
             </div>
             <div class="register">
@@ -150,7 +150,7 @@
                     <input type="text" name="tl_phone2" id="tl_phone2" placeholder="+998  __ ___ __ __"><br>
                     <span style="display: none;">Введите существующий номер</span><br>
                     <button onclick="registerUser()" type="button">Войти</button>
-                    <p>Нет аккаунта? <a href="#" onclick="openKirish()">Войти</a></p>
+                    <p>Нет аккаунта? <a href="#" onclick="openKirish()" style="color: #0A4BA9;">Войти</a></p>
                 </form>
             </div>
             <div class="Potverdit">
@@ -174,7 +174,7 @@
                         style="color: #ABAAAA;text-align: center;margin: auto;margin-top: 10px;width: 100%;display: flex;justify-content: center;">Отправить
                         код снова через: 04:00</span><br>
                     <button type="button" onclick="uspeshniyFu()">Подтвердить</button>
-                    <p>Нет аккаунта? <a href="#" onclick="openKirish()">Войти</a></p>
+                    <p>Нет аккаунта? <a href="#" onclick="openKirish()" style="color: #0A4BA9;">Войти</a></p>
                 </form>
             </div>
 
@@ -231,6 +231,8 @@
 
         <p>Регистрация прошла успешно!</p>
     </div>
+
+    
     <header class="Home_header">
         <div class="Home_header_mid">
             <h1>Проверь авто перед покупкой!</h1>
@@ -361,7 +363,7 @@
                 }
             }
         </style>
-        <h1>Что вы узнаете из отчета?</h1>
+        <h1 id="section_2_buttons11" >Что вы узнаете из отчета?</h1>
         <p>Получите обширную информацию с помощью отчета об истории авто</p>
         <div class="section_2_buttons">
 
@@ -479,7 +481,7 @@
             fetchCarousels();
         </script>
     </section>
-    <section class="section_3">
+    <section id="section_3" class="section_3">
         <p class="section_3_p1">Более <b>1 000 000</b> проверок по стране</p>
         <h2>Проверьте авто сейчас!</h2>
         <div class="section_3_cards">

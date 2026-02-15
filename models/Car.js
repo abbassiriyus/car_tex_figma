@@ -76,7 +76,7 @@ const CarImageSchema = new mongoose.Schema({
   url: { type: String, required: true },
   label: { type: String, default: '' },        // Masalan: "Царапины"
   isDamaged: { type: Boolean, default: false } // Filter uchun
-}, { _id: false });
+}, { _id: true });
 const CarProbegSchema = new mongoose.Schema({
   year: {
     type: Number,

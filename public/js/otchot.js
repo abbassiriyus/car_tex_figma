@@ -171,6 +171,17 @@ const istoriyaGrid = document.getElementById('istoriyaGrid');
 // Funksiya: cars massivini HTML kartalarga map qiladi
 function renderCars(cars) {
   istoriyaGrid.innerHTML = ''; // eski kartalarni tozalash
+  const sales = cars?.salesHistory || [];
+
+  // 🔴 Agar bo‘sh bo‘lsa
+  if (sales.length === 0) {
+    istoriyaGrid.innerHTML = `
+      <div class="istoriya-empty">
+        <p>История продаж не найдена</p>
+      </div>
+    `;
+    return;
+  }
 
   cars.salesHistory
     .sort((a, b) => new Date(b.saleDate) - new Date(a.saleDate))// eng eski → eng yangi
@@ -284,6 +295,19 @@ function populateOtchots(car) {
 
   const container = document.getElementById('main-otchots');
   container.innerHTML = '<h1>Основное из отчёта</h1>';
+
+
+  const otchots = car?.otchots || [];
+
+  // 🔴 Agar ma’lumot yo‘q bo‘lsa
+  if (!Array.isArray(otchots) || otchots.length === 0) {
+    container.innerHTML += `
+      <div class="otchot-empty">
+        <p>Данные не найдены</p>
+      </div>
+    `;
+    return;
+  }
 
   car.otchots
     .sort((a, b) => (a.order || 0) - (b.order || 0))
@@ -427,12 +451,20 @@ function openCarImgFilter() {
 const mainTimeline   = document.getElementById("timeline");
 const fullTimeline   = document.getElementById("full-timeline");
 const counter        = document.getElementById("events-counter");
-const modal          = document.getElementById("historyModal");
+const modal1          = document.getElementById("historyModal");
 const showButtons    = document.querySelectorAll(".show-more-trigger");
-const closeBtn       = document.querySelector(".modal-close");
+const closeBtn1       = document.querySelector(".modal-close");
 function renderHistoryItems(container, items) {
     container.innerHTML = "";
-
+   // 🔴 Agar ma’lumot bo‘sh bo‘lsa
+    if (!Array.isArray(items) || items.length === 0) {
+        container.innerHTML = `
+            <div class="istoriya-empty">
+                <p>История эксплуатации не найдена</p>
+            </div>
+        `;
+        return;
+    }
     items.forEach(item => {
         const km = item.endKilometer != null
             ? `${item.startKilometer.toLocaleString("ru-RU")} → ${item.endKilometer.toLocaleString("ru-RU")} км`
@@ -487,11 +519,11 @@ document.querySelector('.istoriya_card_top p').innerHTML=`Найдено ${histo
 
 // modal ochish/yopish
 function openModal() {
-    if (modal) modal.style.display = "flex";
+    if (modal1) modal1.style.display = "flex";
 }
 
 function closeModal() {
-    if (modal) modal.style.display = "none";
+    if (modal1) modal1.style.display = "none";
 }
 
 // ==================== EVENTLAR ====================
@@ -507,11 +539,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // tugmalar
     showButtons.forEach(btn => btn.addEventListener("click", openModal));
 
-    if (closeBtn) closeBtn.addEventListener("click", closeModal);
+    if (closeBtn1) closeBtn1.addEventListener("click", closeModal);
 
-    if (modal) {
-        modal.addEventListener("click", e => {
-            if (e.target === modal) closeModal();
+    if (modal1) {
+        modal1.addEventListener("click", e => {
+            if (e.target === modal1) closeModal();
         });
     }
 });
@@ -809,9 +841,9 @@ function renderDamageCard(car) {
       <div class="damage-content ${isActive ? 'active' : ''}" data-index="${index}">
         <div class="damage-visual">
           <div class="car-diagram">
-            <img src="${damage.damageImage || 'https://via.placeholder.com/400x300?text=Rasm+yo‘q'}" 
+            <img src="${damage.damageImage || '/uploads/images.webp'}" 
                  alt="Car diagram"
-                 onerror="this.src='https://via.placeholder.com/400x300?text=Rasm+yo‘q';">
+                 onerror="this.src='/uploads/images.webp';">
           </div>
           
           <div class="damage-info">

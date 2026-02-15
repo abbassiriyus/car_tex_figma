@@ -2814,8 +2814,8 @@ Don't show
           data.data.forEach(item => {
             tbody.innerHTML += `
               <tr>
-                <td><img src="${item.image || ''}" width="80" onerror="this.src='https://via.placeholder.com/80?text=Image'"/></td>
-                <td><img src="${item.icon || ''}" width="40" onerror="this.src='https://via.placeholder.com/40?text=Icon'"/></td>
+                <td><img src="${item.image || ''}" width="80" onerror="this.src='/uploads/images.webp'"/></td>
+                <td><img src="${item.icon || ''}" width="40" onerror="this.src='/uploads/images.webp'"/></td>
                 <td>${item.title || '—'}</td>
                 <td>${item.text || '—'}</td>
                 <td>
@@ -2879,9 +2879,9 @@ Don't show
 
           container.innerHTML += `
         <div class="card">
-          <img src="${o.icon || 'https://via.placeholder.com/160?text=Otchot'}" 
+          <img width="160" src="${o.icon || '/uploads/images.webp'}" 
                alt="${o.title || 'Otchot'}" 
-               onerror="this.src='https://via.placeholder.com/160?text=?';">
+               onerror="this.src='/uploads/images.webp';">
           <div class="card-body">
             <div class="card-title">${o.title || 'Nomsiz otchot'}</div>
             <div class="card-subtitle">
@@ -3035,7 +3035,7 @@ Don't show
             sorted.forEach(f => {
               tbody.innerHTML += `
             <tr>
-              <td><img src="${f.icon || ''}" width="40" onerror="this.src='https://via.placeholder.com/40?text=?';"/></td>
+              <td><img src="${f.icon || ''}" width="40" onerror="this.src='/uploads/images.webp';"/></td>
               <td>${f.title || '—'}</td>
               <td>${f.order || 0}</td>           <!-- ← yangi -->
               <td>
@@ -3187,7 +3187,7 @@ Don't show
           tbody.innerHTML += `
         <tr>
           <td>${otchot.title || '—'}</td>
-          <td><img src="${otchot.icon || ''}" width="40" onerror="this.src='https://via.placeholder.com/40'"/></td>
+          <td><img src="${otchot.icon || ''}" width="40" onerror="this.src='/uploads/images.webp'"/></td>
           <td>${o.position}</td>
           <td>${o.text || '—'}</td>
           <td>
@@ -3458,10 +3458,10 @@ Don't show
 
         if (data.success && data.data?.length > 0) {
           data.data.forEach(car => {
-            const firstImage = car.images[0] && car.images.length > 0 ? car.images[0].url : 'https://via.placeholder.com/90x60?text=No+Image';
+            const firstImage = car.images[0] && car.images.length > 0 ? car.images[0].url : '/uploads/images.webp';
             tbody.innerHTML += `
               <tr>
-                <td><img class="car-preview" src="${firstImage}" alt="${car.carName || 'Mashina'}" onerror="this.src='https://via.placeholder.com/90x60?text=Image'"/></td>
+                <td><img class="car-preview" width="90" src="${firstImage}" alt="${car.carName || 'Mashina'}" onerror="this.src='/uploads/images.webp'"/></td>
                 <td>${car.carName || '—'}</td>
                 <td>${car.vin || '—'}</td>
                 <td>${car.gosNumber || '—'}</td>
@@ -3609,11 +3609,11 @@ Don't show
 
             imagesList.innerHTML += `
         <div class="car-image-card">
-          <img style='100%' src="${img.url || ''}" alt="Rasm ${index + 1}" onerror="this.src='https://via.placeholder.com/180?text=Rasm+yo‘q'">
+          <img style='100%' src="${img.url || ''}" alt="Rasm ${index + 1}" onerror="this.src='/uploads/images.webp'">
           ${labelText}
           ${damagedText}
           <div class="actions">
-            <button class="action-btn btn-delete" onclick="deleteImage('${id}', ${index})">
+            <button class="action-btn btn-delete" onclick="deleteImage('${id}',  '${img.url}')">
               <i class="fas fa-trash-alt"></i>  
             </button>
           </div>
@@ -3692,16 +3692,32 @@ Don't show
       }
     });
 
-    window.deleteImage = async function (id, index) {
-      if (!confirm('Rasmni o‘chirmoqchimisiz?')) return;
-      try {
-        const res = await fetch(`${CARS_API}/${id}/images/${index}`, { method: 'DELETE' });
-        const data = await res.json();
-        if (data.success) loadCarDetails(id);
-      } catch (err) {
-        alert('O‘chirishda xato');
-      }
-    };
+window.deleteImage = async function (carId, imageUrl) {
+  if (!confirm('Rasmni o‘chirmoqchimisiz?')) return;
+
+  try {
+    const res = await fetch(`${CARS_API}/${carId}/images`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ url: imageUrl })
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      loadCarDetails(carId);
+    } else {
+      alert(data.message || 'O‘chirishda xato');
+    }
+
+  } catch (err) {
+    console.error(err);
+    alert('Server bilan bog‘lanishda xato');
+  }
+};
+
 
     // Extra Gos
     const addExtraGosForm = document.getElementById('add-extra-gos-form');
@@ -3907,7 +3923,7 @@ Don't show
           sortedFeatures.forEach(f => {
             tbody.innerHTML += `
               <tr>
-                <td><img src="${f.image || ''}" width="30" style="border-radius:6px; object-fit:cover; height:30px;" onerror="this.src='https://via.placeholder.com/80x50?text=Img'"/></td>
+                <td><img src="${f.image || ''}" width="30" style="border-radius:6px; object-fit:cover; height:30px;" onerror="this.src='/uploads/images.webp'"/></td>
                 <td><strong>${f.title || '—'}</strong></td>
                 <td>${f.order || 0}</td>
                 <td>
@@ -5443,7 +5459,7 @@ function renderGuruhlanganEvents(containerId, items, type, sectionTitle) {
                 <img  src="${event1.image}" 
                      alt="rasm" 
                      style="max-width:250px; border-radius:8px; margin:10px 0; display:block;"
-                     onerror="this.src='https://via.placeholder.com/300x180?text=Rasm+yo‘q';">
+                     onerror="this.src='/uploads/images.webp';">
               ` : ''}
               <h5 onclick="console.log(JSON.stringify(${event1}})" >${event1.title || 'Sarlavha kiritilmagan'}</h5>
               <p>${event1.text || 'Matn kiritilmagan'}</p>
