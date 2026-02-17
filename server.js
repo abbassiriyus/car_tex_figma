@@ -38,7 +38,7 @@ app.use('/api/cars', cars2Routes);
 app.use('/api/features', FeatureRoutes);
 app.use('/api/legal-risks', RiskRoutes);
 app.use('/api/otchots', OtchotsRoutes);
-
+app.use('/api', require('./routes/reportRoutes.js'));
 
 
 // --- LOGIN ---

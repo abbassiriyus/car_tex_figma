@@ -11,6 +11,39 @@ function getGosNumberFromURL() {
   const params = new URLSearchParams(window.location.search);
   return params.get('gosNumber') || '';
 }
+async function getPDF() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const vin = urlParams.get('vin');
+
+  if (!vin) {
+    alert('VIN topilmadi.');
+    return;
+  }
+
+  try {
+    const response = await fetch(`/api/report/pdf/${vin.toUpperCase()}`);
+
+    if (!response.ok) {
+      throw new Error('PDF yuklanmadi');
+    }
+
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `car_report_${vin.toUpperCase()}.pdf`;
+    document.body.appendChild(a);
+    a.click();
+
+    a.remove();
+    window.URL.revokeObjectURL(url);
+
+  } catch (error) {
+    console.error('PDF yuklashda xato:', error);
+    alert("PDF yuklab bo'lmadi. Server bilan bog'lanishni tekshiring.");
+  }
+}
 
 // API dan ma'lumot olish
 async function fetchCarData(gosNumber) {

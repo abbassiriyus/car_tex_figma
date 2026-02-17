@@ -468,7 +468,9 @@ async function openCarInfo() {
 if(localStorage.getItem('user')){
  
         const gosNumber = encodeURIComponent(car.gosNumber || "");
-        window.location.href = `/otchot.html?gosNumber=${gosNumber}`;
+        const vin = encodeURIComponent(car.vin || "");
+
+        window.location.href = `/otchot.html?gosNumber=${gosNumber}&vin=${vin}`;
          
 }else{
  modal.classList.add("active");
